@@ -1,6 +1,6 @@
 # Read data
 
-```{r, echo = FALSE}
+```{r}
 df <-
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by day, no consents or completions 5.19.17.xlsx" %>% 
   read_excel() %>% 
