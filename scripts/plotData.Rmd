@@ -1,15 +1,78 @@
 # Plot data
 
+
+## Total clicks
+
 Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksTotal.svg)
 
 ![clicksTotal.png](../figures/clicksTotal.png)
 
-```{r, fig.show = "hide"}
-f <- "rocPSCompare"
-G <- 
-  theme(legend.position = "bottom",
-        plot.title = element_text(hjust = 0.5))
-ggsave(paste0("../figures/", f, ".png"), dpi = 300)
-ggsave(paste0("../figures/", f, ".svg"), dpi = 300)
-file.info(paste0("../figures/", grep(f, list.files("../figures/"), value = TRUE)))[c("size", "mtime")]
+```{r clicksTotal, fig.show = "hide"}
+G <- plotRates("clicksTotal", "Number of ad clicks")
+```
+
+
+## Unique clicks
+
+Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicksUnique.svg)
+
+![clicksUnique.png](../figures/clicksUnique.png)
+
+```{r clicksUnique, fig.show = "hide"}
+G <- plotRates("clicksUnique", "Number of unique ad clicks")
+```
+
+
+## Total link clicks
+
+Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/linkClicksTotal.svg)
+
+![linkClicksTotal.png](../figures/linkClicksTotal.png)
+
+```{r linkClicksTotal, fig.show = "hide"}
+G <- plotRates("linkClicksTotal", "Number of total link clicks")
+```
+
+
+## Unique link clicks
+
+Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/linkClicksUnique.svg)
+
+![linkClicksUnique.png](../figures/linkClicksUnique.png)
+
+```{r linkClicksUnique, fig.show = "hide"}
+G <- plotRates("linkClicksUnique", "Number of unique link clicks")
+```
+
+
+## Reactions
+
+Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions.svg)
+
+![reactions.png](../figures/reactions.png)
+
+```{r reactions, fig.show = "hide"}
+G <- plotRates("reactions", "Number of reactions")
+```
+
+
+## Comments
+
+Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.svg)
+
+![comments.png](../figures/comments.png)
+
+```{r comments, fig.show = "hide"}
+G <- plotRates("comments", "Number of comments")
+```
+
+
+## Shares
+
+Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
+
+![shares.png](../figures/shares.png)
+
+```{r shares, fig.show = "hide"}
+G <- plotRates("shares", "Number of shares")
 ```
