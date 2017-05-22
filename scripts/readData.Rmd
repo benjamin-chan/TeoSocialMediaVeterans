@@ -1,0 +1,31 @@
+# Read data
+
+```{r}
+df <-
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by day, no consents or completions 5.19.17.xlsx" %>% 
+  read_excel() %>% 
+  filter(row_number() > 1)
+names(df) <- c("date",
+               "ad",
+               "clicksTotal",
+               "clicksUnique",
+               "linkClicksTotal",
+               "linkClicksUnique",
+               "reactions",
+               "comments",
+               "shares")
+df <-
+  df %>% 
+  mutate(date = as.Date(as.integer(date), origin = as.Date("1900-01-01"))) %>% 
+  mutate(adImage = factor(gsub("\\s-.*", "", ad)),
+         adText = factor(gsub(".*-\\s", "", ad))) %>% 
+  select(-c(ad))
+str(df)
+```
+
+```{r}
+df %>% 
+  group_by(adImage, adText) %>% 
+  summarize(nDays = length(date), minDate = min(date), maxDate = max(date)) %>% 
+  kable
+```

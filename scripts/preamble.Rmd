@@ -1,0 +1,40 @@
+# Preamble
+
+Set working directory.
+
+```{r}
+setwd("~/Projects/TeoSocialMediaVeterans/scripts")
+```
+
+Load libraries.
+
+```{r}
+library(readxl)
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+theme_set(theme_bw())
+library(svglite)
+library(knitr)
+library(broom)
+```
+
+Reproducibility steps.
+
+```{r}
+sessionInfo() %>% print(locale = FALSE)
+set.seed(as.integer(as.Date("2017-05-22")))
+```
+
+Source user-defined functions.
+
+```{r, eval = TRUE}
+sapply(list.files("../lib", full.names = TRUE), source)
+```
+
+
+## References
+
+```{r}
+citation()
+```
