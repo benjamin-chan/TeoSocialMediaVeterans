@@ -3,7 +3,7 @@
 Set working directory.
 
 ```{r}
-setwd("~/Projects/NewProject/scripts")
+setwd("~/Projects/TeoSocialMediaVeterans/scripts")
 ```
 
 Load libraries.
@@ -22,7 +22,7 @@ Reproducibility steps.
 
 ```{r}
 sessionInfo() %>% print(locale = FALSE)
-set.seed(as.integer(as.Date("2016-12-27")))
+set.seed(as.integer(as.Date("2017-05-22")))
 ```
 
 Source user-defined functions.

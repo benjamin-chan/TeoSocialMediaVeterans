@@ -1,13 +1,14 @@
-setwd("~/Projects/NewProject/scripts")
+setwd("~/Projects/TeoSocialMediaVeterans/scripts")
 
 library(checkpoint)
-checkpoint("2017-01-01", use.knitr = TRUE)
+checkpoint("2017-04-01", use.knitr = TRUE)
 
 Sys.time0 <- Sys.time()
 
 sink("script.log")
 files <- c("header.yaml",
-           "preamble.Rmd")
+           "preamble.Rmd",
+           "readData.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])
