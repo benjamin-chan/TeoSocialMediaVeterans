@@ -20,6 +20,7 @@ df <-
   mutate(adImage = factor(gsub("\\s-.*", "", ad)),
          adText = factor(gsub(".*-\\s", "", ad))) %>% 
   select(-c(ad))
+str(df)
 ```
 
 ```{r}
