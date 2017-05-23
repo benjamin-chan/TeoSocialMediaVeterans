@@ -1,5 +1,10 @@
 # Model counts
 
+Use negative binomial model.
+
+
+## Total clicks
+
 ```{r}
 M <-
   df %>% 
