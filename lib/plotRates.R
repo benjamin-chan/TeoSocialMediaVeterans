@@ -7,7 +7,7 @@ plotRates <- function (y, title) {
     ggplot +
     aes(x = date, y = get(y)) +
     facet_grid(adText ~ adImage) +
-    geom_point() +
+    geom_point(alpha = 1/2) +
     geom_smooth() +
     scale_x_date("Date") +
     scale_y_continuous("Count") +
