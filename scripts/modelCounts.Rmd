@@ -27,5 +27,11 @@ df %>%
   kable(digits = c(0, 0, 1, 1, 2, 2))
 ```
 
+Image files saved as [PNG](../figures/residClicksTotal.png), [SVG](../figures/residClicksTotal.svg)
+
+![residClicksTotal.png](../figures/residClicksTotal.png)
+
+```{r residClicksTotal, fig.show = "hide"}
+G <- plotResid("resid", "Number of ad clicks")
 ```
 
