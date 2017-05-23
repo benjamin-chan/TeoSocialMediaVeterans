@@ -1,0 +1,11 @@
+# Model counts
+
+```{r}
+M <-
+  df %>% 
+  glm.nb(clicksTotal ~ adImage + adText + adImage * adText + offset(log(impressions)), 
+         data = .)
+tidy(M) %>% kable(digits = 3)
+summary(M)
+anova(M)
+```

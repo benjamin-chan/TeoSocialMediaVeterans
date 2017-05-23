@@ -1,0 +1,20 @@
+# Correlate Facebook metrics data
+
+```{r}
+matCorr <-
+  df %>% 
+  select(clicksTotal,
+         linkClicksTotal,
+         impressions,
+         clicksUnique,
+         linkClicksUnique,
+         reach,
+         reactions,
+         comments,
+         shares) %>% 
+  as.matrix %>% 
+  cor
+matCorr[lower.tri(matCorr)] <- NA
+matCorr %>% 
+  kable(digits = 2)
+```
