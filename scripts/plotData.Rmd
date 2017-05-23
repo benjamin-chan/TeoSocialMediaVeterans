@@ -1,6 +1,32 @@
 # Plot data
 
 
+## Impressions
+
+This should be constant over time.
+
+Image files saved as [PNG](../figures/impressions.png), [SVG](../figures/impressions.svg)
+
+![impressions.png](../figures/impressions.png)
+
+```{r impressions, fig.show = "hide"}
+G <- plotRates("impressions", "Ad impressions")
+```
+
+
+## Reach
+
+This should be constant over time.
+
+Image files saved as [PNG](../figures/reach.png), [SVG](../figures/reach.svg)
+
+![reach.png](../figures/reach.png)
+
+```{r reach, fig.show = "hide"}
+G <- plotRates("reach", "Ad reach")
+```
+
+
 ## Total clicks
 
 Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksTotal.svg)
