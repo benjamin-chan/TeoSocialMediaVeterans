@@ -13,4 +13,19 @@ M <-
 tidy(M) %>% kable(digits = 3)
 summary(M)
 anova(M)
+df <- 
+  df %>% 
+  mutate(pred = predict(M, type = "response"),
+         resid = resid(M, type = "response"))
+df %>% 
+  group_by(adImage, adText) %>% 
+  summarize(predMean = mean(pred),
+            predSD = sd(pred),
+            residMean = mean(resid),
+            residSD = sd(resid)) %>% 
+  arrange(-predMean) %>% 
+  kable(digits = c(0, 0, 1, 1, 2, 2))
 ```
+
+```
+
