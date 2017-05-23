@@ -1,8 +1,8 @@
 $completionDateTime
-[1] "2017-05-22 14:46:07 PDT"
+[1] "2017-05-23 11:17:24 PDT"
 
 $executionTime
-Time difference of 24.73147 secs
+Time difference of 28.66146 secs
 
 $sessionInfo
 R version 3.3.3 (2017-03-06)
@@ -21,8 +21,8 @@ attached base packages:
 
 other attached packages:
  [1] gdtools_0.1.4    broom_0.4.2      svglite_1.2.0    ggplot2_2.2.1   
- [5] dplyr_0.5.0      magrittr_1.5     readxl_0.1.1     rmarkdown_1.4   
- [9] knitr_1.15.1     checkpoint_0.4.0
+ [5] dplyr_0.5.0      magrittr_1.5     readxl_0.1.1     MASS_7.3-45     
+ [9] rmarkdown_1.4    knitr_1.15.1     checkpoint_0.4.0
 
 loaded via a namespace (and not attached):
  [1] Rcpp_0.12.10     mnormt_1.5-5     munsell_0.4.3    lattice_0.20-35 

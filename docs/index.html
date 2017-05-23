@@ -750,8 +750,8 @@ MathJax.Hub.Config({
 </script>
 <title>index</title></head><body><article class="markdown-body"><hr>
 <h2>
-<a id="user-content-title-using-social-media-to-engage-veterans-in-health-caredate-2017-05-22-144543author-benjamin-chan-chanbohsueduoutputhtml_documenttoc-truetheme-simplex" class="anchor" href="#title-using-social-media-to-engage-veterans-in-health-caredate-2017-05-22-144543author-benjamin-chan-chanbohsueduoutputhtml_documenttoc-truetheme-simplex" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-05-22 14:45:43"
+<a id="user-content-title-using-social-media-to-engage-veterans-in-health-caredate-2017-05-23-111656author-benjamin-chan-chanbohsueduoutputhtml_documenttoc-truetheme-simplex" class="anchor" href="#title-using-social-media-to-engage-veterans-in-health-caredate-2017-05-23-111656author-benjamin-chan-chanbohsueduoutputhtml_documenttoc-truetheme-simplex" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>title: "Using Social Media to Engage Veterans in Health Care"
+date: "2017-05-23 11:16:56"
 author: Benjamin Chan (<a href="mailto:chanb@ohsu.edu">chanb@ohsu.edu</a>)
 output:
 html_document:
@@ -763,6 +763,10 @@ theme: simplex</h2>
 <p>Load libraries.</p>
 <pre><code>## 
 ## Attaching package: 'dplyr'
+</code></pre>
+<pre><code>## The following object is masked from 'package:MASS':
+## 
+##     select
 </code></pre>
 <pre><code>## The following objects are masked from 'package:stats':
 ## 
@@ -781,9 +785,9 @@ theme: simplex</h2>
 ## [1] stats     graphics  grDevices utils     datasets  base     
 ## 
 ## other attached packages:
-## [1] broom_0.4.2      svglite_1.2.0    ggplot2_2.2.1    dplyr_0.5.0     
-## [5] magrittr_1.5     readxl_0.1.1     rmarkdown_1.4    knitr_1.15.1    
-## [9] checkpoint_0.4.0
+##  [1] broom_0.4.2      svglite_1.2.0    ggplot2_2.2.1    dplyr_0.5.0     
+##  [5] magrittr_1.5     readxl_0.1.1     MASS_7.3-45      rmarkdown_1.4   
+##  [9] knitr_1.15.1     checkpoint_0.4.0
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_0.12.10     mnormt_1.5-5     munsell_0.4.3    lattice_0.20-35 
@@ -792,7 +796,7 @@ theme: simplex</h2>
 ## [13] gtable_0.2.0     psych_1.7.3.21   DBI_0.6          htmltools_0.3.5 
 ## [17] lazyeval_0.2.0   assertthat_0.1   rprojroot_1.2    digest_0.6.12   
 ## [21] tibble_1.2       tidyr_0.6.1      reshape2_1.4.2   evaluate_0.10   
-## [25] stringi_1.1.3    methods_3.3.3    gdtools_0.1.4    scales_0.4.1    
+## [25] stringi_1.1.3    gdtools_0.1.4    methods_3.3.3    scales_0.4.1    
 ## [29] backports_1.0.5  foreign_0.8-67
 </code></pre>
 <p>Source user-defined functions.</p>
@@ -826,12 +830,14 @@ theme: simplex</h2>
 </code></pre>
 <h1>
 <a id="user-content-read-data" class="anchor" href="#read-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Read data</h1>
-<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':	676 obs. of  10 variables:
+<pre><code>## Classes 'tbl_df', 'tbl' and 'data.frame':	676 obs. of  12 variables:
 ##  $ date            : Date, format: "2017-01-15" "2017-01-16" ...
 ##  $ clicksTotal     : num  7 12 19 13 15 6 9 5 5 1 ...
-##  $ clicksUnique    : num  7 12 17 12 14 6 9 4 5 1 ...
 ##  $ linkClicksTotal : num  5 5 8 6 8 2 4 1 4 0 ...
+##  $ impressions     : num  737 1086 1487 1998 1862 ...
+##  $ clicksUnique    : num  7 12 17 12 14 6 9 4 5 1 ...
 ##  $ linkClicksUnique: num  5 5 8 6 8 2 4 1 4 0 ...
+##  $ reach           : num  736 1084 1480 1981 1853 ...
 ##  $ reactions       : num  1 5 7 4 2 0 0 3 0 0 ...
 ##  $ comments        : num  0 0 2 0 0 0 2 0 0 0 ...
 ##  $ shares          : num  0 2 4 3 3 2 3 1 1 0 ...
@@ -959,6 +965,32 @@ theme: simplex</h2>
 <h1>
 <a id="user-content-plot-data" class="anchor" href="#plot-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plot data</h1>
 <h2>
+<a id="user-content-impressions" class="anchor" href="#impressions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Impressions</h2>
+<p>This should be constant over time.</p>
+<p>Image files saved as <a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/impressions.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/impressions.svg">SVG</a></p>
+<p><a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/impressions.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/impressions.png" alt="impressions.png" style="max-width:100%;"></a></p>
+<pre><code>## Saving 7 x 7 in image
+</code></pre>
+<pre><code>## `geom_smooth()` using method = 'loess'
+</code></pre>
+<pre><code>## Saving 7 x 7 in image
+</code></pre>
+<pre><code>## `geom_smooth()` using method = 'loess'
+</code></pre>
+<h2>
+<a id="user-content-reach" class="anchor" href="#reach" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reach</h2>
+<p>This should be constant over time.</p>
+<p>Image files saved as <a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/reach.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/reach.svg">SVG</a></p>
+<p><a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/reach.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/reach.png" alt="reach.png" style="max-width:100%;"></a></p>
+<pre><code>## Saving 7 x 7 in image
+</code></pre>
+<pre><code>## `geom_smooth()` using method = 'loess'
+</code></pre>
+<pre><code>## Saving 7 x 7 in image
+</code></pre>
+<pre><code>## `geom_smooth()` using method = 'loess'
+</code></pre>
+<h2>
 <a id="user-content-total-clicks" class="anchor" href="#total-clicks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Total clicks</h2>
 <p>Image files saved as <a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/clicksTotal.png">PNG</a>, <a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/clicksTotal.svg">SVG</a></p>
 <p><a href="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/clicksTotal.png" target="_blank"><img src="///C://Users/chanb/Documents/Projects/TeoSocialMediaVeterans/figures/clicksTotal.png" alt="clicksTotal.png" style="max-width:100%;"></a></p>
@@ -1041,5 +1073,332 @@ theme: simplex</h2>
 <pre><code>## Saving 7 x 7 in image
 </code></pre>
 <pre><code>## `geom_smooth()` using method = 'loess'
+</code></pre>
+<h1>
+<a id="user-content-correlate-facebook-metrics-data" class="anchor" href="#correlate-facebook-metrics-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Correlate Facebook metrics data</h1>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="right">clicksTotal</th>
+<th align="right">linkClicksTotal</th>
+<th align="right">impressions</th>
+<th align="right">clicksUnique</th>
+<th align="right">linkClicksUnique</th>
+<th align="right">reach</th>
+<th align="right">reactions</th>
+<th align="right">comments</th>
+<th align="right">shares</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">clicksTotal</td>
+<td align="right">1</td>
+<td align="right">0.83</td>
+<td align="right">0.71</td>
+<td align="right">0.99</td>
+<td align="right">0.83</td>
+<td align="right">0.71</td>
+<td align="right">0.49</td>
+<td align="right">0.44</td>
+<td align="right">0.66</td>
+</tr>
+<tr>
+<td align="left">linkClicksTotal</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.65</td>
+<td align="right">0.83</td>
+<td align="right">1.00</td>
+<td align="right">0.65</td>
+<td align="right">0.09</td>
+<td align="right">0.24</td>
+<td align="right">0.32</td>
+</tr>
+<tr>
+<td align="left">impressions</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.72</td>
+<td align="right">0.65</td>
+<td align="right">1.00</td>
+<td align="right">0.30</td>
+<td align="right">0.31</td>
+<td align="right">0.40</td>
+</tr>
+<tr>
+<td align="left">clicksUnique</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.83</td>
+<td align="right">0.72</td>
+<td align="right">0.50</td>
+<td align="right">0.41</td>
+<td align="right">0.65</td>
+</tr>
+<tr>
+<td align="left">linkClicksUnique</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.65</td>
+<td align="right">0.09</td>
+<td align="right">0.24</td>
+<td align="right">0.32</td>
+</tr>
+<tr>
+<td align="left">reach</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.30</td>
+<td align="right">0.31</td>
+<td align="right">0.40</td>
+</tr>
+<tr>
+<td align="left">reactions</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.31</td>
+<td align="right">0.33</td>
+</tr>
+<tr>
+<td align="left">comments</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+<td align="right">0.25</td>
+</tr>
+<tr>
+<td align="left">shares</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">1.00</td>
+</tr>
+</tbody>
+</table>
+<h1>
+<a id="user-content-model-counts" class="anchor" href="#model-counts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Model counts</h1>
+<table>
+<thead>
+<tr>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">(Intercept)</td>
+<td align="right">-4.798</td>
+<td align="right">0.056</td>
+<td align="right">-85.037</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">adImageFamily</td>
+<td align="right">0.310</td>
+<td align="right">0.075</td>
+<td align="right">4.131</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">adImageVeteran</td>
+<td align="right">0.553</td>
+<td align="right">0.071</td>
+<td align="right">7.777</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">adTextEmpowerment</td>
+<td align="right">0.046</td>
+<td align="right">0.081</td>
+<td align="right">0.573</td>
+<td align="right">0.566</td>
+</tr>
+<tr>
+<td align="left">adTextIncentive</td>
+<td align="right">-0.118</td>
+<td align="right">0.082</td>
+<td align="right">-1.427</td>
+<td align="right">0.154</td>
+</tr>
+<tr>
+<td align="left">adTextSharing</td>
+<td align="right">0.163</td>
+<td align="right">0.076</td>
+<td align="right">2.151</td>
+<td align="right">0.032</td>
+</tr>
+<tr>
+<td align="left">adTextSocial norms</td>
+<td align="right">0.296</td>
+<td align="right">0.076</td>
+<td align="right">3.910</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">adImageFamily:adTextEmpowerment</td>
+<td align="right">-0.143</td>
+<td align="right">0.108</td>
+<td align="right">-1.326</td>
+<td align="right">0.185</td>
+</tr>
+<tr>
+<td align="left">adImageVeteran:adTextEmpowerment</td>
+<td align="right">-0.286</td>
+<td align="right">0.103</td>
+<td align="right">-2.767</td>
+<td align="right">0.006</td>
+</tr>
+<tr>
+<td align="left">adImageFamily:adTextIncentive</td>
+<td align="right">-0.161</td>
+<td align="right">0.111</td>
+<td align="right">-1.446</td>
+<td align="right">0.148</td>
+</tr>
+<tr>
+<td align="left">adImageVeteran:adTextIncentive</td>
+<td align="right">-0.007</td>
+<td align="right">0.102</td>
+<td align="right">-0.068</td>
+<td align="right">0.946</td>
+</tr>
+<tr>
+<td align="left">adImageFamily:adTextSharing</td>
+<td align="right">-0.215</td>
+<td align="right">0.103</td>
+<td align="right">-2.081</td>
+<td align="right">0.037</td>
+</tr>
+<tr>
+<td align="left">adImageVeteran:adTextSharing</td>
+<td align="right">-0.012</td>
+<td align="right">0.095</td>
+<td align="right">-0.124</td>
+<td align="right">0.901</td>
+</tr>
+<tr>
+<td align="left">adImageFamily:adTextSocial norms</td>
+<td align="right">-0.428</td>
+<td align="right">0.105</td>
+<td align="right">-4.089</td>
+<td align="right">0.000</td>
+</tr>
+<tr>
+<td align="left">adImageVeteran:adTextSocial norms</td>
+<td align="right">-0.060</td>
+<td align="right">0.096</td>
+<td align="right">-0.629</td>
+<td align="right">0.530</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## 
+## Call:
+## glm.nb(formula = clicksTotal ~ adImage + adText + adImage * adText + 
+##     offset(log(impressions)), data = ., init.theta = 33.93522219, 
+##     link = log)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.2316  -0.7114  -0.0379   0.6036   2.7668  
+## 
+## Coefficients:
+##                                    Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)                       -4.797671   0.056419 -85.037  &lt; 2e-16
+## adImageFamily                      0.310288   0.075119   4.131 3.62e-05
+## adImageVeteran                     0.552909   0.071094   7.777 7.42e-15
+## adTextEmpowerment                  0.046318   0.080788   0.573  0.56642
+## adTextIncentive                   -0.117563   0.082369  -1.427  0.15350
+## adTextSharing                      0.162739   0.075675   2.151  0.03152
+## adTextSocial norms                 0.295610   0.075608   3.910 9.24e-05
+## adImageFamily:adTextEmpowerment   -0.142974   0.107839  -1.326  0.18490
+## adImageVeteran:adTextEmpowerment  -0.285680   0.103227  -2.767  0.00565
+## adImageFamily:adTextIncentive     -0.160905   0.111301  -1.446  0.14827
+## adImageVeteran:adTextIncentive    -0.006924   0.102365  -0.068  0.94607
+## adImageFamily:adTextSharing       -0.214610   0.103150  -2.081  0.03747
+## adImageVeteran:adTextSharing      -0.011815   0.095198  -0.124  0.90123
+## adImageFamily:adTextSocial norms  -0.428042   0.104689  -4.089 4.34e-05
+## adImageVeteran:adTextSocial norms -0.060496   0.096224  -0.629  0.52955
+##                                      
+## (Intercept)                       ***
+## adImageFamily                     ***
+## adImageVeteran                    ***
+## adTextEmpowerment                    
+## adTextIncentive                      
+## adTextSharing                     *  
+## adTextSocial norms                ***
+## adImageFamily:adTextEmpowerment      
+## adImageVeteran:adTextEmpowerment  ** 
+## adImageFamily:adTextIncentive        
+## adImageVeteran:adTextIncentive       
+## adImageFamily:adTextSharing       *  
+## adImageVeteran:adTextSharing         
+## adImageFamily:adTextSocial norms  ***
+## adImageVeteran:adTextSocial norms    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for Negative Binomial(33.9352) family taken to be 1)
+## 
+##     Null deviance: 1111.83  on 675  degrees of freedom
+## Residual deviance:  686.74  on 661  degrees of freedom
+## AIC: 3850.7
+## 
+## Number of Fisher Scoring iterations: 1
+## 
+## 
+##               Theta:  33.94 
+##           Std. Err.:  6.11 
+## 
+##  2 x log-likelihood:  -3818.726
+</code></pre>
+<pre><code>## Warning in anova.negbin(M): tests made without re-estimating 'theta'
+</code></pre>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: Negative Binomial(33.9352), link: log
+## 
+## Response: clicksTotal
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##                Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+## NULL                             675    1111.83              
+## adImage         2  294.443       673     817.39 &lt; 2.2e-16 ***
+## adText          4   89.168       669     728.22 &lt; 2.2e-16 ***
+## adImage:adText  8   41.482       661     686.74 1.694e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 </code></pre>
 </article></body></html>
