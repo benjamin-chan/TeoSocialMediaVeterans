@@ -1,31 +1,11 @@
 # Model counts
 
-```{r, eval = FALSE}
-library(magrittr)
-library(dplyr)
-library(MASS)
-
-f <- "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Facebook ad metrics export.csv"
-df <- 
-  f %>% 
-  read.csv(header = TRUE, na.strings = c("NA", "")) %>% 
-  filter(!is.na(Campaign.Name)) %>% 
-  mutate(image = 
-           gsub("VA Study - ", "", Campaign.Name) %>% 
-           substr(1, 1) %>% 
-           factor(labels = c("Computer", "Family", "Veteran")),
-         text = 
-           gsub("VA Study - ", "", Campaign.Name) %>% 
-           substr(2, 4) %>% 
-           factor(labels = c("Altruism", "Empowerment", "Incentive", "Sharing", "Social"))) %>% 
-  rename(denom = Impressions,
-         clicks = Link.Clicks)
-```
-
-```{r, eval = FALSE}
+```{r}
 M <-
   df %>% 
-  glm.nb(clicks ~ adImage + adText + offset(log(denom)), data = .)
+  glm.nb(clicksTotal ~ adImage + adText + adImage * adText + offset(log(impressions)), 
+         data = .)
+tidy(M) %>% kable(digits = 3)
 summary(M)
 anova(M)
 ```
