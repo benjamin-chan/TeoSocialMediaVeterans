@@ -13,10 +13,6 @@ M <-
 tidy(M) %>% kable(digits = 3)
 summary(M)
 anova(M)
-df <- 
-  df %>% 
-  mutate(pred = predict(M, type = "response"),
-         resid = resid(M, type = "response"))
 df %>% 
   group_by(adImage, adText) %>% 
   summarize(predMean = mean(pred),
@@ -32,6 +28,10 @@ Image files saved as [PNG](../figures/residClicksTotal.png), [SVG](../figures/re
 ![residClicksTotal.png](../figures/residClicksTotal.png)
 
 ```{r residClicksTotal, fig.show = "hide"}
+df <-
+  df %>% 
+  mutate(pred = predict(M, type = "response"),
+         resid = resid(M, type = "response"))
 G <- plotResid("resid", "Number of ad clicks")
 ```
 
