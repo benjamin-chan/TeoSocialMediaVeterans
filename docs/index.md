@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-05-23 11:16:56"
+date: "2017-05-24 15:46:15"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -70,9 +70,9 @@ Source user-defined functions.
 
 
 ```
-##         ../lib/plotRates.R
-## value   ?                 
-## visible FALSE
+##         ../lib/plotRates.R ../lib/plotResid.R
+## value   ?                  ?                 
+## visible FALSE              FALSE
 ```
 
 
@@ -101,6 +101,27 @@ Source user-defined functions.
 ## We have invested a lot of time and effort in creating R, please
 ## cite it when using it for data analysis. See also
 ## 'citation("pkgname")' for citing R packages.
+```
+
+```
+## 
+## To cite the MASS package in publications use:
+## 
+##   Venables, W. N. & Ripley, B. D. (2002) Modern Applied Statistics
+##   with S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Book{,
+##     title = {Modern Applied Statistics with S},
+##     author = {W. N. Venables and B. D. Ripley},
+##     publisher = {Springer},
+##     edition = {Fourth},
+##     address = {New York},
+##     year = {2002},
+##     note = {ISBN 0-387-95457-0},
+##     url = {http://www.stats.ox.ac.uk/pub/MASS4},
+##   }
 ```
 # Read data
 
@@ -376,6 +397,11 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 |shares           |          NA|              NA|          NA|           NA|               NA|    NA|        NA|       NA|   1.00|
 # Model counts
 
+Use negative binomial model.
+
+
+## Total clicks
+
 
 |term                              | estimate| std.error| statistic| p.value|
 |:---------------------------------|--------:|---------:|---------:|-------:|
@@ -479,3 +505,45 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
+
+Image files saved as [PNG](../figures/residClicksTotal.png), [SVG](../figures/residClicksTotal.svg)
+
+![residClicksTotal.png](../figures/residClicksTotal.png)
+
+
+```
+## Saving 7 x 7 in image
+```
+
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+```
+## Saving 7 x 7 in image
+```
+
+```
+## `geom_smooth()` using method = 'loess'
+```
+
+Predicted values for 1,000 impressions
+
+
+|adImage  |adText       | impressions| pred| predLower| predUpper|
+|:--------|:------------|-----------:|----:|---------:|---------:|
+|Veteran  |Social norms |        1000| 18.1|      16.7|      19.7|
+|Veteran  |Sharing      |        1000| 16.7|      15.5|      18.0|
+|Veteran  |Altruism     |        1000| 14.3|      13.2|      15.6|
+|Veteran  |Incentive    |        1000| 12.7|      11.6|      13.8|
+|Veteran  |Empowerment  |        1000| 11.3|      10.3|      12.4|
+|Family   |Altruism     |        1000| 11.3|      10.2|      12.4|
+|Computer |Social norms |        1000| 11.1|      10.0|      12.2|
+|Family   |Sharing      |        1000| 10.7|       9.7|      11.8|
+|Family   |Empowerment  |        1000| 10.2|       9.2|      11.3|
+|Family   |Social norms |        1000|  9.9|       8.9|      10.9|
+|Computer |Sharing      |        1000|  9.7|       8.8|      10.7|
+|Computer |Empowerment  |        1000|  8.6|       7.7|       9.7|
+|Family   |Incentive    |        1000|  8.5|       7.6|       9.5|
+|Computer |Altruism     |        1000|  8.2|       7.4|       9.2|
+|Computer |Incentive    |        1000|  7.3|       6.5|       8.2|
