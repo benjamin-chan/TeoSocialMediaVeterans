@@ -13,14 +13,6 @@ M <-
 tidy(M) %>% kable(digits = 3)
 summary(M)
 anova(M)
-df %>% 
-  group_by(adImage, adText) %>% 
-  summarize(predMean = mean(pred),
-            predSD = sd(pred),
-            residMean = mean(resid),
-            residSD = sd(resid)) %>% 
-  arrange(-predMean) %>% 
-  kable(digits = c(0, 0, 1, 1, 2, 2))
 ```
 
 Image files saved as [PNG](../figures/residClicksTotal.png), [SVG](../figures/residClicksTotal.svg)
@@ -35,3 +27,18 @@ df <-
 G <- plotResid("resid", "Number of ad clicks")
 ```
 
+Predicted values for 1,000 impressions
+
+```{r}
+expand.grid(adImage = levels(df$adImage), 
+              adText = levels(df$adText), 
+              impressions = 1000) %>% 
+  mutate(pred = predict(M, newdata = ., type = "response"),
+         linPred = predict(M, newdata = ., type = "link", se.fit = TRUE)[["fit"]],
+         seLinPred = predict(M, newdata = ., type = "link", se.fit = TRUE)[["se.fit"]]) %>% 
+  mutate(predLower = exp(linPred + qnorm(0.025) * seLinPred),
+         predUpper = exp(linPred + qnorm(0.975) * seLinPred)) %>% 
+  select(-c(linPred, seLinPred)) %>% 
+  arrange(-pred) %>% 
+  kable(digits = 1)
+```
