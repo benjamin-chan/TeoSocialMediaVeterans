@@ -8,7 +8,7 @@ Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksT
 ![clicksTotal.png](../figures/clicksTotal.png)
 
 ```{r clicksTotal, fig.show = "hide"}
-G <- plotRates("clicksTotal", "impressions", "clicksTotal", "Number of ad clicks")
+plotRates("clicksTotal", "impressions", "clicksTotal", "Number of ad clicks")
 ```
 
 
@@ -19,7 +19,7 @@ Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicks
 ![clicksUnique.png](../figures/clicksUnique.png)
 
 ```{r clicksUnique, fig.show = "hide"}
-G <- plotRates("clicksUnique", "reach", "clicksUnique", "Number of unique ad clicks")
+plotRates("clicksUnique", "reach", "clicksUnique", "Number of unique ad clicks")
 ```
 
 
@@ -30,7 +30,7 @@ Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/lin
 ![linkClicksTotal.png](../figures/linkClicksTotal.png)
 
 ```{r linkClicksTotal, fig.show = "hide"}
-G <- plotRates("linkClicksTotal", "impressions", "linkClicksTotal", "Number of total link clicks")
+plotRates("linkClicksTotal", "impressions", "linkClicksTotal", "Number of total link clicks")
 ```
 
 
@@ -41,7 +41,7 @@ Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/li
 ![linkClicksUnique.png](../figures/linkClicksUnique.png)
 
 ```{r linkClicksUnique, fig.show = "hide"}
-G <- plotRates("linkClicksUnique", "reach", "linkClicksUnique", "Number of unique link clicks")
+plotRates("linkClicksUnique", "reach", "linkClicksUnique", "Number of unique link clicks")
 ```
 
 
@@ -52,7 +52,7 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 ![reactions.png](../figures/reactions.png)
 
 ```{r reactions, fig.show = "hide"}
-G <- plotRates("reactions", "impressions", "reactions", "Number of reactions")
+plotRates("reactions", "impressions", "reactions", "Number of reactions")
 ```
 
 
@@ -63,7 +63,7 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 ![comments.png](../figures/comments.png)
 
 ```{r comments, fig.show = "hide"}
-G <- plotRates("comments", "impressions", "comments", "Number of comments")
+plotRates("comments", "impressions", "comments", "Number of comments")
 ```
 
 
@@ -74,5 +74,5 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 ![shares.png](../figures/shares.png)
 
 ```{r shares, fig.show = "hide"}
-G <- plotRates("shares", "impressions", "shares", "Number of shares")
+plotRates("shares", "impressions", "shares", "Number of shares")
 ```
