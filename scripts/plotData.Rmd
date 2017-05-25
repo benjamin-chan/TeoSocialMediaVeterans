@@ -1,32 +1,6 @@
 # Plot data
 
 
-## Impressions
-
-This should be constant over time.
-
-Image files saved as [PNG](../figures/impressions.png), [SVG](../figures/impressions.svg)
-
-![impressions.png](../figures/impressions.png)
-
-```{r impressions, fig.show = "hide"}
-G <- plotRates("impressions", "Ad impressions")
-```
-
-
-## Reach
-
-This should be constant over time.
-
-Image files saved as [PNG](../figures/reach.png), [SVG](../figures/reach.svg)
-
-![reach.png](../figures/reach.png)
-
-```{r reach, fig.show = "hide"}
-G <- plotRates("reach", "Ad reach")
-```
-
-
 ## Total clicks
 
 Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksTotal.svg)
@@ -34,7 +8,7 @@ Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksT
 ![clicksTotal.png](../figures/clicksTotal.png)
 
 ```{r clicksTotal, fig.show = "hide"}
-G <- plotRates("clicksTotal", "Number of ad clicks")
+G <- plotRates("clicksTotal", "impressions", "clicksTotal", "Number of ad clicks")
 ```
 
 
@@ -45,7 +19,7 @@ Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicks
 ![clicksUnique.png](../figures/clicksUnique.png)
 
 ```{r clicksUnique, fig.show = "hide"}
-G <- plotRates("clicksUnique", "Number of unique ad clicks")
+G <- plotRates("clicksUnique", "reach", "clicksUnique", "Number of unique ad clicks")
 ```
 
 
@@ -56,7 +30,7 @@ Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/lin
 ![linkClicksTotal.png](../figures/linkClicksTotal.png)
 
 ```{r linkClicksTotal, fig.show = "hide"}
-G <- plotRates("linkClicksTotal", "Number of total link clicks")
+G <- plotRates("linkClicksTotal", "impressions", "linkClicksTotal", "Number of total link clicks")
 ```
 
 
@@ -67,7 +41,7 @@ Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/li
 ![linkClicksUnique.png](../figures/linkClicksUnique.png)
 
 ```{r linkClicksUnique, fig.show = "hide"}
-G <- plotRates("linkClicksUnique", "Number of unique link clicks")
+G <- plotRates("linkClicksUnique", "reach", "linkClicksUnique", "Number of unique link clicks")
 ```
 
 
@@ -78,7 +52,7 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 ![reactions.png](../figures/reactions.png)
 
 ```{r reactions, fig.show = "hide"}
-G <- plotRates("reactions", "Number of reactions")
+G <- plotRates("reactions", "impressions", "reactions", "Number of reactions")
 ```
 
 
@@ -89,7 +63,7 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 ![comments.png](../figures/comments.png)
 
 ```{r comments, fig.show = "hide"}
-G <- plotRates("comments", "Number of comments")
+G <- plotRates("comments", "impressions", "comments", "Number of comments")
 ```
 
 
@@ -100,5 +74,5 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 ![shares.png](../figures/shares.png)
 
 ```{r shares, fig.show = "hide"}
-G <- plotRates("shares", "Number of shares")
+G <- plotRates("shares", "impressions", "shares", "Number of shares")
 ```
