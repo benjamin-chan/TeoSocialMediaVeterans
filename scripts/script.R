@@ -9,7 +9,6 @@ sink("script.log")
 files <- c("header.yaml",
            "preamble.Rmd",
            "readData.Rmd",
-           "plotData.Rmd",
            "corrData.Rmd",
            "modelCounts.Rmd")
 f <- file("master.Rmd", open = "w")

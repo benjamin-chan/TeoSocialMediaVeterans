@@ -1,44 +1,150 @@
 # Model counts
 
-Use negative binomial model.
+* Use negative binomial model
+* Factors
+  * Ad image
+  * Ad text
+* Include full factorial interaction
+* Use $\log(\text{impressions})$ or $\log(\text{reach})$ as an offset variable
+* Calculate predicted counts per 1,000 impressions/reach
 
 
 ## Total clicks
 
-```{r}
-M <-
-  df %>% 
-  glm.nb(clicksTotal ~ adImage + adText + adImage * adText + offset(log(impressions)), 
-         data = .)
-tidy(M) %>% kable(digits = 3)
-summary(M)
-anova(M)
+Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksTotal.svg)
+
+![clicksTotal.png](../figures/clicksTotal.png)
+
+```{r clicksTotal, fig.show = "hide"}
+y <- "clicksTotal"
+offset <- "impressions"
+title <- "Number of ad clicks"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
-Image files saved as [PNG](../figures/residClicksTotal.png), [SVG](../figures/residClicksTotal.svg)
+Image files saved as [PNG](../figures/clicksTotalResid.png), [SVG](../figures/clicksTotalResid.svg)
 
-![residClicksTotal.png](../figures/residClicksTotal.png)
 
-```{r residClicksTotal, fig.show = "hide"}
-df <-
-  df %>% 
-  mutate(pred = predict(M, type = "response"),
-         resid = resid(M, type = "response"))
-G <- plotResid("resid", "Number of ad clicks")
+## Unique clicks
+
+Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicksUnique.svg)
+
+![clicksUnique.png](../figures/clicksUnique.png)
+
+```{r clicksUnique, fig.show = "hide"}
+y <- "clicksUnique"
+offset <- "reach"
+title <- "Number of unique ad clicks"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
-Predicted values for 1,000 impressions
+Image files saved as [PNG](../figures/clicksUniqueResid.png), [SVG](../figures/clicksUniqueResid.svg)
 
-```{r}
-expand.grid(adImage = levels(df$adImage), 
-              adText = levels(df$adText), 
-              impressions = 1000) %>% 
-  mutate(pred = predict(M, newdata = ., type = "response"),
-         linPred = predict(M, newdata = ., type = "link", se.fit = TRUE)[["fit"]],
-         seLinPred = predict(M, newdata = ., type = "link", se.fit = TRUE)[["se.fit"]]) %>% 
-  mutate(predLower = exp(linPred + qnorm(0.025) * seLinPred),
-         predUpper = exp(linPred + qnorm(0.975) * seLinPred)) %>% 
-  select(-c(linPred, seLinPred)) %>% 
-  arrange(-pred) %>% 
-  kable(digits = 1)
+
+## Total link clicks
+
+Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/linkClicksTotal.svg)
+
+![linkClicksTotal.png](../figures/linkClicksTotal.png)
+
+```{r linkClicksTotal, fig.show = "hide"}
+y <- "linkClicksTotal"
+offset <- "impressions"
+title <- "Number of total link clicks"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
+
+Image files saved as [PNG](../figures/linkClicksTotalResid.png), [SVG](../figures/linkClicksTotalResid.svg)
+
+
+## Unique link clicks
+
+Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/linkClicksUnique.svg)
+
+![linkClicksUnique.png](../figures/linkClicksUnique.png)
+
+```{r linkClicksUnique, fig.show = "hide"}
+y <- "linkClicksUnique"
+offset <- "reach"
+title <- "Number of unique link clicks"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
+```
+
+Image files saved as [PNG](../figures/linkClicksUniqueResid.png), [SVG](../figures/linkClicksUniqueResid.svg)
+
+
+## Reactions
+
+Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions.svg)
+
+![reactions.png](../figures/reactions.png)
+
+```{r reactions, fig.show = "hide"}
+y <- "reactions"
+offset <- "impressions"
+title <- "Number of reactions"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
+```
+
+Image files saved as [PNG](../figures/reactionsResid.png), [SVG](../figures/reactionsResid.svg)
+
+
+
+## Comments
+
+Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.svg)
+
+![comments.png](../figures/comments.png)
+
+```{r comments, fig.show = "hide"}
+y <- "comments"
+offset <- "impressions"
+title <- "Number of comments"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
+```
+
+Image files saved as [PNG](../figures/commentsResid.png), [SVG](../figures/commentsResid.svg)
+
+
+## Shares
+
+Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
+
+![shares.png](../figures/shares.png)
+
+```{r shares, fig.show = "hide"}
+y <- "shares"
+offset <- "impressions"
+title <- "Number of shares"
+plotRates(y, offset, y, title)
+M <- modelCounts(y, offset)
+M$pred %>% kable(digits = 2)
+summary(M$modelObject)
+plotResid("resid", offset, sprintf("%sResid", y), title)
+```
+
+Image files saved as [PNG](../figures/sharesResid.png), [SVG](../figures/sharesResid.svg)
