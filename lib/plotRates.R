@@ -9,7 +9,7 @@ plotRates <- function (y, x, filename, title) {
     facet_grid(adText ~ adImage) +
     geom_point(alpha = 1/2) +
     geom_smooth() +
-    scale_x_continuous(x) +
+    scale_x_log10(x) +
     scale_y_continuous("Count") +
     labs(title = title) +
     theme(legend.position = "bottom",
