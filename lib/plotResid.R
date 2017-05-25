@@ -5,6 +5,8 @@ plotResid <- function (y, x, filename, title) {
   require(svglite)
   G <- 
     df %>% 
+    mutate(pred = predict(M$modelObject, type = "response"),
+           resid = resid(M$modelObject, type = "response")) %>% 
     ggplot +
     aes(x = get(x), y = get(y)) +
     facet_grid(adText ~ adImage) +

@@ -24,10 +24,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
@@ -49,10 +45,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
@@ -74,10 +66,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
@@ -99,10 +87,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
@@ -124,10 +108,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
@@ -150,10 +130,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
@@ -175,10 +151,6 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 tidy(M$modelObject) %>% kable(digits = 3)
 summary(M$modelObject)
-df <-
-  df %>% 
-  mutate(pred = predict(M$modelObject, type = "response"),
-         resid = resid(M$modelObject, type = "response"))
 plotResid("resid", offset, sprintf("%sResid", y), title)
 ```
 
