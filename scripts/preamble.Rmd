@@ -1,14 +1,9 @@
 # Preamble
 
-Set working directory.
+Set working directory and load libraries.
 
 ```{r}
 setwd("~/Projects/TeoSocialMediaVeterans/scripts")
-```
-
-Load libraries.
-
-```{r}
 library(tools)
 library(MASS)
 library(readxl)
@@ -19,6 +14,7 @@ theme_set(theme_bw())
 library(svglite)
 library(knitr)
 library(broom)
+library(multcomp)
 ```
 
 Reproducibility steps.
