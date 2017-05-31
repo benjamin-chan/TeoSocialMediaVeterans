@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-05-31 08:05:11"
+date: "2017-05-31 15:45:49"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -231,21 +231,21 @@ Source user-defined functions.
 
 $$
 \begin{align*}
-\log(y) = & \beta_0 + \\
+\log(y) = & \beta_0 + \\\\
           & \beta_1 x_\text{image: Family} + 
-            \beta_2 x_\text{image: Veteran} + \\
+            \beta_2 x_\text{image: Veteran} + \\\\
           & \beta_3 x_\text{text: Empowerment} + 
             \beta_4 x_\text{text: Incentive} + 
             \beta_5 x_\text{text: Sharing} + 
-            \beta_6 x_\text{text: Social norms} + \\
+            \beta_6 x_\text{text: Social norms} + \\\\
           & \gamma_1 x_\text{image: Family} x_\text{text: Empowerment} + 
-            \gamma_2 x_\text{image: Family} x_\text{text: Incentive} + 
-            \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
-            \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + \\
+            \gamma_2 x_\text{image: Family} x_\text{text: Incentive} +  \\\\
+          & \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
+            \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + \\\\
           & \gamma_5 x_\text{image: Veteran} x_\text{text: Empowerment} + 
-            \gamma_6 x_\text{image: Veteran} x_\text{text: Incentive} + 
-            \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
-            \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms} + \\
+            \gamma_6 x_\text{image: Veteran} x_\text{text: Incentive} +  \\\\
+          & \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
+            \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms} + \\\\
           & \log(x_\text{offset})
 \end{align*}
 $$
