@@ -19,15 +19,17 @@ names(df) <- c("date",
 df <-
   df %>% 
   mutate(date = as.Date(as.integer(date), origin = as.Date("1900-01-01"))) %>% 
-  mutate(adImage = factor(gsub("\\s-.*", "", ad)),
-         adText = factor(gsub(".*-\\s", "", ad))) %>% 
+  mutate(image = factor(gsub("\\s-.*", "", ad)),
+         text = factor(gsub(".*-\\s", "", ad))) %>% 
+  mutate(text = gsub("Social norms", "SocialNorms", text)) %>% 
+  mutate(text = factor(text)) %>% 
   select(-c(ad))
 str(df)
 ```
 
 ```{r}
 df %>% 
-  group_by(adImage, adText) %>% 
+  group_by(image, text) %>% 
   summarize(nDays = length(date), minDate = min(date), maxDate = max(date)) %>% 
   kable
 ```

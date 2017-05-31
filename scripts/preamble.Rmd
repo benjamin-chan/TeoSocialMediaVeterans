@@ -1,14 +1,9 @@
 # Preamble
 
-Set working directory.
+Set working directory and load libraries.
 
 ```{r}
 setwd("~/Projects/TeoSocialMediaVeterans/scripts")
-```
-
-Load libraries.
-
-```{r}
 library(tools)
 library(MASS)
 library(readxl)
@@ -19,6 +14,7 @@ theme_set(theme_bw())
 library(svglite)
 library(knitr)
 library(broom)
+library(multcomp)
 ```
 
 Reproducibility steps.
@@ -28,18 +24,18 @@ sessionInfo() %>% print(locale = FALSE)
 set.seed(as.integer(as.Date("2017-05-22")))
 ```
 
-Source user-defined functions.
-
-```{r, eval = TRUE}
-sapply(list.files("../lib", full.names = TRUE), source)
-```
-
-
-## References
+References
 
 * Zeileis, A., Kleiber, C., & Jackman, S. (2008). Regression Models for Count Data in R. Journal of Statistical Software, 27(8), 1 - 25. doi:[http://dx.doi.org/10.18637/jss.v027.i08](http://dx.doi.org/10.18637/jss.v027.i08)
 
 ```{r}
 citation()
 citation("MASS")
+citation("multcomp")
+```
+
+Source user-defined functions.
+
+```{r, eval = TRUE}
+sapply(list.files("../lib", full.names = TRUE), source)
 ```

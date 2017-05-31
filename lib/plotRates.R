@@ -7,9 +7,9 @@ plotRates <- function (y, x, filename, title) {
     df %>% 
     ggplot +
     aes(x = get(x), y = get(y)) +
-    facet_grid(adText ~ adImage) +
-    geom_point(alpha = 1/2) +
+    facet_grid(text ~ image) +
     geom_smooth(method = "glm", method.args = list(family = "poisson")) +
+    geom_point(alpha = 1/2) +
     scale_x_log10(toTitleCase(x)) +
     scale_y_continuous("Count") +
     labs(title = title) +
@@ -18,5 +18,5 @@ plotRates <- function (y, x, filename, title) {
           plot.title = element_text(hjust = 0.5))
   ggsave(paste0("../figures/", filename, ".png"), dpi = 300)
   ggsave(paste0("../figures/", filename, ".svg"), dpi = 300)
-  file.info(paste0("../figures/", grep(filename, list.files("../figures/"), value = TRUE)))[c("size", "mtime")]
+  # file.info(paste0("../figures/", grep(filename, list.files("../figures/"), value = TRUE)))[c("size", "mtime")]
 }
