@@ -18,5 +18,5 @@ plotRates <- function (y, x, filename, title) {
           plot.title = element_text(hjust = 0.5))
   ggsave(paste0("../figures/", filename, ".png"), dpi = 300)
   ggsave(paste0("../figures/", filename, ".svg"), dpi = 300)
-  file.info(paste0("../figures/", grep(filename, list.files("../figures/"), value = TRUE)))[c("size", "mtime")]
+  # file.info(paste0("../figures/", grep(filename, list.files("../figures/"), value = TRUE)))[c("size", "mtime")]
 }
