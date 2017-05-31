@@ -7,7 +7,7 @@ plotRates <- function (y, x, filename, title) {
     df %>% 
     ggplot +
     aes(x = get(x), y = get(y)) +
-    facet_grid(adText ~ adImage) +
+    facet_grid(text ~ image) +
     geom_smooth(method = "glm", method.args = list(family = "poisson")) +
     geom_point(alpha = 1/2) +
     scale_x_log10(toTitleCase(x)) +

@@ -9,7 +9,7 @@ plotResid <- function (y, x, filename, title) {
            resid = resid(M$modelObject, type = "response")) %>% 
     ggplot +
     aes(x = get(x), y = get(y)) +
-    facet_grid(adText ~ adImage) +
+    facet_grid(text ~ image) +
     geom_point(alpha = 1/2) +
     scale_x_log10(toTitleCase(x)) +
     scale_y_continuous("Residual count") +

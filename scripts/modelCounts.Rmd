@@ -2,8 +2,8 @@
 
 * Use negative binomial model
 * Factors
-  * Ad image
-  * Ad text
+  * Ad `image`
+  * Ad `text`
 * Include full factorial interaction
 * Use $\log(\text{impressions})$ or $\log(\text{reach})$ as an offset variable
 * Calculate predicted counts per 1,000 impressions/reach
