@@ -23,6 +23,8 @@ df <-
          text = factor(gsub(".*-\\s", "", ad))) %>% 
   mutate(text = gsub("Social norms", "SocialNorms", text)) %>% 
   mutate(text = factor(text)) %>% 
+  mutate(image = relevel(image, ref = "Computer"),
+         text = relevel(text, ref = "Incentive")) %>% 
   select(-c(ad))
 str(df)
 ```
