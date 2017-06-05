@@ -47,6 +47,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/clicksTotalResid.png), [SVG](../figures/clicksTotalResid.svg)
@@ -67,6 +68,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/clicksUniqueResid.png), [SVG](../figures/clicksUniqueResid.svg)
@@ -87,6 +89,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/linkClicksTotalResid.png), [SVG](../figures/linkClicksTotalResid.svg)
@@ -107,6 +110,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/linkClicksUniqueResid.png), [SVG](../figures/linkClicksUniqueResid.svg)
@@ -127,6 +131,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/reactionsResid.png), [SVG](../figures/reactionsResid.svg)
@@ -148,6 +153,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/commentsResid.png), [SVG](../figures/commentsResid.svg)
@@ -168,6 +174,7 @@ M <- modelCounts(y, offset)
 M$pred %>% kable(digits = 2)
 summary(M$modelObject)
 plotResid("resid", offset, sprintf("%sResid", y), title)
+contrastTable(M[["modelObject"]]) %>% kable(digits = 3)
 ```
 
 Image files saved as [PNG](../figures/sharesResid.png), [SVG](../figures/sharesResid.svg)
