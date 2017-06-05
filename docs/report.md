@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-06-01 13:05:19"
+date: "2017-06-05 13:47:35"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -162,9 +162,12 @@ Source user-defined functions.
 
 
 ```
-##         ../lib/modelCounts.R ../lib/plotRates.R ../lib/plotResid.R
-## value   ?                    ?                  ?                 
-## visible FALSE                FALSE              FALSE
+##         ../lib/contrastTable.R ../lib/modelCounts.R ../lib/plotRates.R
+## value   ?                      ?                    ?                 
+## visible FALSE                  FALSE                FALSE             
+##         ../lib/plotResid.R
+## value   ?                 
+## visible FALSE
 ```
 # Read data
 
@@ -182,25 +185,25 @@ Source user-defined functions.
 ##  $ comments        : num  0 0 2 0 0 0 2 0 0 0 ...
 ##  $ shares          : num  0 2 4 3 3 2 3 1 1 0 ...
 ##  $ image           : Factor w/ 3 levels "Computer","Family",..: 1 1 1 1 1 1 1 1 1 1 ...
-##  $ text            : Factor w/ 5 levels "Altruism","Empowerment",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ text            : Factor w/ 5 levels "Incentive","Altruism",..: 2 2 2 2 2 2 2 2 2 2 ...
 ```
 
 
 |image    |text        | nDays|minDate    |maxDate    |
 |:--------|:-----------|-----:|:----------|:----------|
+|Computer |Incentive   |    45|2017-01-15 |2017-03-14 |
 |Computer |Altruism    |    45|2017-01-15 |2017-03-14 |
 |Computer |Empowerment |    45|2017-01-15 |2017-03-14 |
-|Computer |Incentive   |    45|2017-01-15 |2017-03-14 |
 |Computer |Sharing     |    45|2017-01-15 |2017-03-14 |
 |Computer |SocialNorms |    45|2017-01-15 |2017-03-14 |
+|Family   |Incentive   |    45|2017-01-15 |2017-03-14 |
 |Family   |Altruism    |    45|2017-01-15 |2017-03-14 |
 |Family   |Empowerment |    46|2017-01-15 |2017-03-20 |
-|Family   |Incentive   |    45|2017-01-15 |2017-03-14 |
 |Family   |Sharing     |    45|2017-01-15 |2017-03-14 |
 |Family   |SocialNorms |    45|2017-01-15 |2017-03-14 |
+|Veteran  |Incentive   |    45|2017-01-15 |2017-03-14 |
 |Veteran  |Altruism    |    45|2017-01-15 |2017-03-14 |
 |Veteran  |Empowerment |    45|2017-01-15 |2017-03-14 |
-|Veteran  |Incentive   |    45|2017-01-15 |2017-03-14 |
 |Veteran  |Sharing     |    45|2017-01-15 |2017-03-14 |
 |Veteran  |SocialNorms |    45|2017-01-15 |2017-03-14 |
 # Correlate Facebook metrics data
@@ -283,6 +286,20 @@ Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksT
 |Computer |Altruism    |        1000|  8.25|      7.39|      9.21|
 |Computer |Incentive   |        1000|  7.33|      6.52|      8.25|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |  0.069|       0|
+|Family   |     NA|       0|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.154|       0.049|   0.000|       0.000|
+|Altruism    |       NA|       0.566|   0.032|       0.000|
+|Empowerment |       NA|          NA|   0.129|       0.001|
+|Sharing     |       NA|          NA|      NA|       0.062|
+
 ```
 ## 
 ## Call:
@@ -295,21 +312,21 @@ Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksT
 ## 
 ## Coefficients:
 ##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -4.797671   0.056419 -85.037  < 2e-16 ***
-## imageFamily                   0.310288   0.075119   4.131 3.62e-05 ***
-## imageVeteran                  0.552909   0.071094   7.777 7.42e-15 ***
-## textEmpowerment               0.046318   0.080788   0.573  0.56642    
-## textIncentive                -0.117563   0.082369  -1.427  0.15350    
-## textSharing                   0.162739   0.075675   2.151  0.03152 *  
-## textSocialNorms               0.295610   0.075608   3.910 9.24e-05 ***
-## imageFamily:textEmpowerment  -0.142974   0.107839  -1.326  0.18490    
-## imageVeteran:textEmpowerment -0.285680   0.103227  -2.767  0.00565 ** 
-## imageFamily:textIncentive    -0.160905   0.111301  -1.446  0.14827    
-## imageVeteran:textIncentive   -0.006924   0.102365  -0.068  0.94607    
-## imageFamily:textSharing      -0.214610   0.103150  -2.081  0.03747 *  
-## imageVeteran:textSharing     -0.011815   0.095198  -0.124  0.90123    
-## imageFamily:textSocialNorms  -0.428042   0.104689  -4.089 4.34e-05 ***
-## imageVeteran:textSocialNorms -0.060496   0.096224  -0.629  0.52955    
+## (Intercept)                  -4.915234   0.060013 -81.903  < 2e-16 ***
+## imageFamily                   0.149384   0.082128   1.819 0.068925 .  
+## imageVeteran                  0.545986   0.073650   7.413 1.23e-13 ***
+## textAltruism                  0.117563   0.082369   1.427 0.153500    
+## textEmpowerment               0.163881   0.083338   1.966 0.049245 *  
+## textSharing                   0.280302   0.078391   3.576 0.000349 ***
+## textSocialNorms               0.413173   0.078326   5.275 1.33e-07 ***
+## imageFamily:textAltruism      0.160905   0.111301   1.446 0.148268    
+## imageVeteran:textAltruism     0.006924   0.102365   0.068 0.946075    
+## imageFamily:textEmpowerment   0.017931   0.112834   0.159 0.873738    
+## imageVeteran:textEmpowerment -0.278756   0.105004  -2.655 0.007938 ** 
+## imageFamily:textSharing      -0.053705   0.108361  -0.496 0.620166    
+## imageVeteran:textSharing     -0.004891   0.097122  -0.050 0.959835    
+## imageFamily:textSocialNorms  -0.267137   0.109827  -2.432 0.015001 *  
+## imageVeteran:textSocialNorms -0.053572   0.098128  -0.546 0.585106    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -368,6 +385,20 @@ Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicks
 |Computer |Altruism    |  1000|  7.89|      7.07|      8.79|
 |Computer |Incentive   |  1000|  7.08|      6.31|      7.95|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |  0.114|       0|
+|Family   |     NA|       0|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.184|       0.089|   0.003|       0.000|
+|Altruism    |       NA|       0.686|   0.100|       0.001|
+|Empowerment |       NA|          NA|   0.235|       0.006|
+|Sharing     |       NA|          NA|      NA|       0.092|
+
 ```
 ## 
 ## Call:
@@ -380,21 +411,21 @@ Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicks
 ## 
 ## Coefficients:
 ##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -4.842692   0.055445 -87.343  < 2e-16 ***
-## imageFamily                   0.311127   0.073446   4.236 2.27e-05 ***
-## imageVeteran                  0.547114   0.069205   7.906 2.67e-15 ***
-## textEmpowerment               0.032207   0.079777   0.404 0.686427    
-## textIncentive                -0.107545   0.080976  -1.328 0.184143    
-## textSharing                   0.122481   0.074537   1.643 0.100335    
-## textSocialNorms               0.241336   0.074696   3.231 0.001234 ** 
-## imageFamily:textEmpowerment  -0.171431   0.105992  -1.617 0.105792    
-## imageVeteran:textEmpowerment -0.282257   0.101058  -2.793 0.005222 ** 
-## imageFamily:textIncentive    -0.183361   0.109270  -1.678 0.093336 .  
-## imageVeteran:textIncentive   -0.034353   0.099731  -0.344 0.730505    
-## imageFamily:textSharing      -0.192925   0.101101  -1.908 0.056359 .  
-## imageVeteran:textSharing     -0.004814   0.092632  -0.052 0.958553    
-## imageFamily:textSocialNorms  -0.382634   0.102825  -3.721 0.000198 ***
-## imageVeteran:textSocialNorms -0.040613   0.093995  -0.432 0.665685    
+## (Intercept)                  -4.950237   0.059017 -83.878  < 2e-16 ***
+## imageFamily                   0.127766   0.080905   1.579   0.1143    
+## imageVeteran                  0.512761   0.071811   7.140 9.30e-13 ***
+## textAltruism                  0.107545   0.080976   1.328   0.1841    
+## textEmpowerment               0.139752   0.082300   1.698   0.0895 .  
+## textSharing                   0.230026   0.077231   2.978   0.0029 ** 
+## textSocialNorms               0.348881   0.077385   4.508 6.53e-06 ***
+## imageFamily:textAltruism      0.183361   0.109270   1.678   0.0933 .  
+## imageVeteran:textAltruism     0.034353   0.099731   0.344   0.7305    
+## imageFamily:textEmpowerment   0.011930   0.111290   0.107   0.9146    
+## imageVeteran:textEmpowerment -0.247904   0.102860  -2.410   0.0159 *  
+## imageFamily:textSharing      -0.009564   0.106642  -0.090   0.9285    
+## imageVeteran:textSharing      0.029539   0.094595   0.312   0.7548    
+## imageFamily:textSocialNorms  -0.199273   0.108279  -1.840   0.0657 .  
+## imageVeteran:textSocialNorms -0.006261   0.095930  -0.065   0.9480    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -453,6 +484,20 @@ Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/lin
 |Computer |Altruism    |        1000|  4.29|      3.72|      4.96|
 |Veteran  |Altruism    |        1000|  4.24|      3.71|      4.84|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |   0.38|       0|
+|Family   |     NA|       0|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.237|       0.882|   0.722|       0.005|
+|Altruism    |       NA|       0.310|   0.114|       0.000|
+|Empowerment |       NA|          NA|   0.615|       0.004|
+|Sharing     |       NA|          NA|      NA|       0.010|
+
 ```
 ## 
 ## Call:
@@ -465,21 +510,21 @@ Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/lin
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -5.45080    0.07342 -74.242  < 2e-16 ***
-## imageFamily                   0.06077    0.10184   0.597 0.550706    
-## imageVeteran                 -0.01302    0.10014  -0.130 0.896565    
-## textEmpowerment               0.10559    0.10398   1.016 0.309867    
-## textIncentive                 0.12075    0.10203   1.183 0.236621    
-## textSharing                   0.15489    0.09791   1.582 0.113675    
-## textSocialNorms               0.38536    0.09618   4.007 6.16e-05 ***
-## imageFamily:textEmpowerment  -0.10349    0.14354  -0.721 0.470952    
-## imageVeteran:textEmpowerment  0.08634    0.13967   0.618 0.536425    
-## imageFamily:textIncentive    -0.15008    0.14391  -1.043 0.296992    
-## imageVeteran:textIncentive    0.57267    0.13174   4.347 1.38e-05 ***
-## imageFamily:textSharing      -0.09099    0.13805  -0.659 0.509819    
-## imageVeteran:textSharing      0.46744    0.12840   3.641 0.000272 ***
-## imageFamily:textSocialNorms  -0.25334    0.13712  -1.847 0.064675 .  
-## imageVeteran:textSocialNorms  0.61115    0.12678   4.820 1.43e-06 ***
+## (Intercept)                  -5.33005    0.07085 -75.233  < 2e-16 ***
+## imageFamily                  -0.08931    0.10167  -0.878 0.379714    
+## imageVeteran                  0.55966    0.08561   6.538 6.25e-11 ***
+## textAltruism                 -0.12075    0.10203  -1.183 0.236621    
+## textEmpowerment              -0.01515    0.10218  -0.148 0.882103    
+## textSharing                   0.03414    0.09600   0.356 0.722110    
+## textSocialNorms               0.26461    0.09423   2.808 0.004982 ** 
+## imageFamily:textAltruism      0.15008    0.14391   1.043 0.296992    
+## imageVeteran:textAltruism    -0.57267    0.13174  -4.347 1.38e-05 ***
+## imageFamily:textEmpowerment   0.04660    0.14342   0.325 0.745254    
+## imageVeteran:textEmpowerment -0.48633    0.12964  -3.751 0.000176 ***
+## imageFamily:textSharing       0.05909    0.13792   0.428 0.668323    
+## imageVeteran:textSharing     -0.10523    0.11742  -0.896 0.370122    
+## imageFamily:textSocialNorms  -0.10325    0.13700  -0.754 0.451044    
+## imageVeteran:textSocialNorms  0.03848    0.11565   0.333 0.739337    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -538,6 +583,20 @@ Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/li
 |Computer |Altruism    |  1000|  4.29|      3.72|      4.95|
 |Veteran  |Altruism    |  1000|  4.22|      3.69|      4.82|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |  0.422|       0|
+|Family   |     NA|       0|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.248|       0.918|   0.753|       0.007|
+|Altruism    |       NA|       0.301|   0.130|       0.000|
+|Empowerment |       NA|          NA|   0.678|       0.006|
+|Sharing     |       NA|          NA|      NA|       0.013|
+
 ```
 ## 
 ## Call:
@@ -550,21 +609,21 @@ Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/li
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -5.45168    0.07319 -74.488  < 2e-16 ***
-## imageFamily                   0.05680    0.10158   0.559 0.576068    
-## imageVeteran                 -0.01687    0.09985  -0.169 0.865804    
-## textEmpowerment               0.10712    0.10365   1.033 0.301416    
-## textIncentive                 0.11764    0.10176   1.156 0.247676    
-## textSharing                   0.14776    0.09765   1.513 0.130230    
-## textSocialNorms               0.36962    0.09605   3.848 0.000119 ***
-## imageFamily:textEmpowerment  -0.10092    0.14306  -0.705 0.480554    
-## imageVeteran:textEmpowerment  0.07678    0.13933   0.551 0.581579    
-## imageFamily:textIncentive    -0.13814    0.14345  -0.963 0.335555    
-## imageVeteran:textIncentive    0.58099    0.13125   4.427 9.57e-06 ***
-## imageFamily:textSharing      -0.08318    0.13768  -0.604 0.545768    
-## imageVeteran:textSharing      0.46822    0.12797   3.659 0.000253 ***
-## imageFamily:textSocialNorms  -0.23640    0.13686  -1.727 0.084122 .  
-## imageVeteran:textSocialNorms  0.62067    0.12646   4.908 9.20e-07 ***
+## (Intercept)                  -5.33405    0.07070 -75.446  < 2e-16 ***
+## imageFamily                  -0.08134    0.10129  -0.803  0.42192    
+## imageVeteran                  0.56412    0.08518   6.623 3.52e-11 ***
+## textAltruism                 -0.11764    0.10176  -1.156  0.24768    
+## textEmpowerment              -0.01052    0.10191  -0.103  0.91779    
+## textSharing                   0.03012    0.09580   0.314  0.75317    
+## textSocialNorms               0.25199    0.09417   2.676  0.00745 ** 
+## imageFamily:textAltruism      0.13814    0.14345   0.963  0.33555    
+## imageVeteran:textAltruism    -0.58099    0.13125  -4.427 9.57e-06 ***
+## imageFamily:textEmpowerment   0.03722    0.14285   0.261  0.79442    
+## imageVeteran:textEmpowerment -0.50421    0.12922  -3.902 9.54e-05 ***
+## imageFamily:textSharing       0.05496    0.13747   0.400  0.68928    
+## imageVeteran:textSharing     -0.11278    0.11688  -0.965  0.33458    
+## imageFamily:textSocialNorms  -0.09826    0.13664  -0.719  0.47210    
+## imageVeteran:textSocialNorms  0.03968    0.11523   0.344  0.73058    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -623,6 +682,20 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 |Veteran  |Incentive   |        1000| 1.11|      0.87|      1.42|
 |Computer |Incentive   |        1000| 0.95|      0.70|      1.30|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |  0.024|   0.432|
+|Family   |     NA|   0.092|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.004|       0.178|   0.413|       0.036|
+|Altruism    |       NA|       0.123|   0.025|       0.393|
+|Empowerment |       NA|          NA|   0.555|       0.471|
+|Sharing     |       NA|          NA|      NA|       0.172|
+
 ```
 ## 
 ## Call:
@@ -635,21 +708,21 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                   -6.3782     0.1216 -52.451  < 2e-16 ***
-## imageFamily                    0.9229     0.1488   6.202 5.57e-10 ***
-## imageVeteran                   1.3373     0.1417   9.437  < 2e-16 ***
-## textEmpowerment               -0.2909     0.1884  -1.544 0.122595    
-## textIncentive                 -0.5787     0.1995  -2.901 0.003718 ** 
-## textSharing                   -0.4079     0.1825  -2.235 0.025420 *  
-## textSocialNorms               -0.1515     0.1774  -0.855 0.392819    
-## imageFamily:textEmpowerment   -0.3508     0.2331  -1.505 0.132376    
-## imageVeteran:textEmpowerment  -0.7273     0.2260  -3.218 0.001289 ** 
-## imageFamily:textIncentive     -0.4640     0.2523  -1.839 0.065931 .  
-## imageVeteran:textIncentive    -1.1794     0.2459  -4.797 1.61e-06 ***
-## imageFamily:textSharing       -0.4301     0.2314  -1.859 0.063048 .  
-## imageVeteran:textSharing      -0.6631     0.2171  -3.055 0.002254 ** 
-## imageFamily:textSocialNorms   -0.8281     0.2331  -3.553 0.000381 ***
-## imageVeteran:textSocialNorms  -0.9449     0.2184  -4.326 1.52e-05 ***
+## (Intercept)                   -6.9569     0.1581 -43.996  < 2e-16 ***
+## imageFamily                    0.4589     0.2038   2.252  0.02434 *  
+## imageVeteran                   0.1578     0.2009   0.786  0.43203    
+## textAltruism                   0.5787     0.1995   2.901  0.00372 ** 
+## textEmpowerment                0.2878     0.2138   1.346  0.17833    
+## textSharing                    0.1708     0.2086   0.819  0.41298    
+## textSocialNorms                0.4272     0.2041   2.093  0.03638 *  
+## imageFamily:textAltruism       0.4640     0.2523   1.839  0.06593 .  
+## imageVeteran:textAltruism      1.1794     0.2459   4.797 1.61e-06 ***
+## imageFamily:textEmpowerment    0.1132     0.2716   0.417  0.67682    
+## imageVeteran:textEmpowerment   0.4522     0.2671   1.693  0.09049 .  
+## imageFamily:textSharing        0.0339     0.2701   0.126  0.90012    
+## imageVeteran:textSharing       0.5163     0.2596   1.989  0.04673 *  
+## imageFamily:textSocialNorms   -0.3641     0.2715  -1.341  0.17990    
+## imageVeteran:textSocialNorms   0.2346     0.2608   0.900  0.36835    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -709,6 +782,20 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 |Computer |Altruism    |        1000| 0.28|      0.16|      0.49|
 |Computer |Incentive   |        1000| 0.06|      0.02|      0.20|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |  0.001|   0.005|
+|Family   |     NA|   0.392|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.021|       0.002|   0.001|       0.002|
+|Altruism    |       NA|       0.232|   0.116|       0.223|
+|Empowerment |       NA|          NA|   0.739|       0.999|
+|Sharing     |       NA|          NA|      NA|       0.731|
+
 ```
 ## 
 ## Call:
@@ -721,21 +808,21 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                   -8.1713     0.2853 -28.639  < 2e-16 ***
-## imageFamily                    1.0287     0.3402   3.024  0.00249 ** 
-## imageVeteran                   1.0350     0.3345   3.094  0.00197 ** 
-## textEmpowerment                0.4502     0.3770   1.194  0.23246    
-## textIncentive                 -1.4987     0.6516  -2.300  0.02144 *  
-## textSharing                    0.5590     0.3561   1.570  0.11648    
-## textSocialNorms                0.4499     0.3695   1.218  0.22341    
-## imageFamily:textEmpowerment   -0.7395     0.4678  -1.581  0.11390    
-## imageVeteran:textEmpowerment  -0.2110     0.4464  -0.473  0.63651    
-## imageFamily:textIncentive      0.9855     0.7156   1.377  0.16843    
-## imageVeteran:textIncentive     0.7064     0.7095   0.996  0.31944    
-## imageFamily:textSharing       -0.7310     0.4456  -1.641  0.10090    
-## imageVeteran:textSharing      -0.8593     0.4339  -1.980  0.04767 *  
-## imageFamily:textSocialNorms   -1.0720     0.4779  -2.243  0.02488 *  
-## imageVeteran:textSocialNorms  -0.2122     0.4402  -0.482  0.62976    
+## (Intercept)                   -9.6700     0.5858 -16.507  < 2e-16 ***
+## imageFamily                    2.0143     0.6295   3.200 0.001376 ** 
+## imageVeteran                   1.7414     0.6257   2.783 0.005384 ** 
+## textAltruism                   1.4987     0.6516   2.300 0.021441 *  
+## textEmpowerment                1.9489     0.6355   3.067 0.002165 ** 
+## textSharing                    2.0577     0.6234   3.301 0.000963 ***
+## textSocialNorms                1.9486     0.6311   3.088 0.002018 ** 
+## imageFamily:textAltruism      -0.9855     0.7156  -1.377 0.168429    
+## imageVeteran:textAltruism     -0.7064     0.7095  -0.996 0.319440    
+## imageFamily:textEmpowerment   -1.7250     0.7067  -2.441 0.014647 *  
+## imageVeteran:textEmpowerment  -0.9173     0.6920  -1.326 0.184983    
+## imageFamily:textSharing       -1.7165     0.6922  -2.480 0.013146 *  
+## imageVeteran:textSharing      -1.5657     0.6840  -2.289 0.022089 *  
+## imageFamily:textSocialNorms   -2.0575     0.7134  -2.884 0.003926 ** 
+## imageVeteran:textSocialNorms  -0.9186     0.6881  -1.335 0.181865    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -794,6 +881,20 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 |Family   |Incentive   |        1000| 1.13|      0.84|      1.52|
 |Computer |Incentive   |        1000| 0.78|      0.55|      1.11|
 
+
+
+|         | Family| Veteran|
+|:--------|------:|-------:|
+|Computer |  0.119|   0.006|
+|Family   |     NA|   0.241|
+
+|            | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|--------:|-----------:|-------:|-----------:|
+|Incentive   |    0.035|       0.002|   0.000|       0.000|
+|Altruism    |       NA|       0.288|   0.000|       0.011|
+|Empowerment |       NA|          NA|   0.001|       0.145|
+|Sharing     |       NA|          NA|      NA|       0.069|
+
 ```
 ## 
 ## Call:
@@ -806,21 +907,21 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 ## 
 ## Coefficients:
 ##                              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -6.67090    0.14357 -46.465  < 2e-16 ***
-## imageFamily                   0.03704    0.20033   0.185   0.8533    
-## imageVeteran                  0.70115    0.17782   3.943 8.05e-05 ***
-## textEmpowerment               0.21164    0.19912   1.063   0.2878    
-## textIncentive                -0.48105    0.22840  -2.106   0.0352 *  
-## textSharing                   0.76833    0.17779   4.322 1.55e-05 ***
-## textSocialNorms               0.47837    0.18708   2.557   0.0106 *  
-## imageFamily:textEmpowerment   0.15091    0.27242   0.554   0.5796    
-## imageVeteran:textEmpowerment -0.17646    0.24848  -0.710   0.4776    
-## imageFamily:textIncentive     0.32647    0.30755   1.062   0.2885    
-## imageVeteran:textIncentive   -0.11107    0.27867  -0.399   0.6902    
-## imageFamily:textSharing       0.07755    0.24831   0.312   0.7548    
-## imageVeteran:textSharing      0.06401    0.22172   0.289   0.7728    
-## imageFamily:textSocialNorms  -0.21793    0.26647  -0.818   0.4134    
-## imageVeteran:textSocialNorms -0.54929    0.24060  -2.283   0.0224 *  
+## (Intercept)                  -7.15195    0.17763 -40.262  < 2e-16 ***
+## imageFamily                   0.36351    0.23336   1.558  0.11930    
+## imageVeteran                  0.59009    0.21456   2.750  0.00596 ** 
+## textAltruism                  0.48105    0.22840   2.106  0.03519 *  
+## textEmpowerment               0.69269    0.22493   3.080  0.00207 ** 
+## textSharing                   1.24937    0.20628   6.057 1.39e-09 ***
+## textSocialNorms               0.95942    0.21434   4.476 7.60e-06 ***
+## imageFamily:textAltruism     -0.32647    0.30755  -1.062  0.28846    
+## imageVeteran:textAltruism     0.11107    0.27867   0.399  0.69022    
+## imageFamily:textEmpowerment  -0.17556    0.29755  -0.590  0.55517    
+## imageVeteran:textEmpowerment -0.06539    0.27596  -0.237  0.81270    
+## imageFamily:textSharing      -0.24892    0.27565  -0.903  0.36651    
+## imageVeteran:textSharing      0.17507    0.25214   0.694  0.48746    
+## imageFamily:textSocialNorms  -0.54440    0.29211  -1.864  0.06237 .  
+## imageVeteran:textSocialNorms -0.43823    0.26889  -1.630  0.10315    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
