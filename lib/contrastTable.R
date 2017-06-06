@@ -140,5 +140,5 @@ contrastTable <- function (glmObj) {
   mat3[14, 15] <- glht(glmObj, linfct = c("(textSharing + imageVeteran:textSharing) - (textSocialNorms + imageVeteran:textSocialNorms) = 0")) %>% getp
   list(contrastImage = mat1[1:2, 2:3],
        contrastText = mat2[1:4, 2:5],
-       contrastText = mat3[1:14, 2:15])
+       contrastInteraction = mat3[1:14, 2:15])
 }
