@@ -8,13 +8,13 @@ contrastTable <- function (glmObj) {
   }
   mat1 <- matrix(nrow = nlevels(df$image), ncol = nlevels(df$image)) %>%data.frame 
   row.names(mat1) <- levels(df$image)
-  names(mat1) <- levels(df$image)
+  names(mat1) <- row.names(mat1)
   mat1[1, 2] <- glmObj %>% summary %>% .$coef %>% .["imageFamily", "Pr(>|z|)"]
   mat1[1, 3] <- glmObj %>% summary %>% .$coef %>% .["imageVeteran", "Pr(>|z|)"]
   mat1[2, 3] <- glht(glmObj, linfct = c("imageFamily - imageVeteran = 0")) %>% getp
   mat2 <- matrix(nrow = nlevels(df$text), ncol = nlevels(df$text)) %>% data.frame 
   row.names(mat2) <- levels(df$text)
-  names(mat2) <- levels(df$text)
+  names(mat2) <- row.names(mat2)
   mat2[1, 2] <- glmObj %>% summary %>% .$coef %>% .["textAltruism", "Pr(>|z|)"]
   mat2[1, 3] <- glmObj %>% summary %>% .$coef %>% .["textEmpowerment", "Pr(>|z|)"]
   mat2[1, 4] <- glmObj %>% summary %>% .$coef %>% .["textSharing", "Pr(>|z|)"]
