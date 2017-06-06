@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-06-05 13:47:35"
+date: "2017-06-06 12:21:31"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -162,12 +162,12 @@ Source user-defined functions.
 
 
 ```
-##         ../lib/contrastTable.R ../lib/modelCounts.R ../lib/plotRates.R
-## value   ?                      ?                    ?                 
-## visible FALSE                  FALSE                FALSE             
-##         ../lib/plotResid.R
-## value   ?                 
-## visible FALSE
+##         ../lib/contrastHeatmap.R ../lib/contrastTable.R
+## value   ?                        ?                     
+## visible FALSE                    FALSE                 
+##         ../lib/modelCounts.R ../lib/plotRates.R ../lib/plotResid.R
+## value   ?                    ?                  ?                 
+## visible FALSE                FALSE              FALSE
 ```
 # Read data
 
@@ -237,16 +237,16 @@ $$
 \log(y) = & \beta_0 + \\\\
           & \beta_1 x_\text{image: Family} + 
             \beta_2 x_\text{image: Veteran} + \\\\
-          & \beta_3 x_\text{text: Empowerment} + 
-            \beta_4 x_\text{text: Incentive} + 
+          & \beta_3 x_\text{text: Altruism} + 
+            \beta_4 x_\text{text: Empowerment} + 
             \beta_5 x_\text{text: Sharing} + 
             \beta_6 x_\text{text: Social norms} + \\\\
-          & \gamma_1 x_\text{image: Family} x_\text{text: Empowerment} + 
-            \gamma_2 x_\text{image: Family} x_\text{text: Incentive} +  \\\\
+          & \gamma_1 x_\text{image: Family} x_\text{text: Altruism} + 
+            \gamma_2 x_\text{image: Family} x_\text{text: Empowerment} +  \\\\
           & \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
             \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + \\\\
-          & \gamma_5 x_\text{image: Veteran} x_\text{text: Empowerment} + 
-            \gamma_6 x_\text{image: Veteran} x_\text{text: Incentive} +  \\\\
+          & \gamma_5 x_\text{image: Veteran} x_\text{text: Altruism} + 
+            \gamma_6 x_\text{image: Veteran} x_\text{text: Empowerment} +  \\\\
           & \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
             \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms} + \\\\
           & \log(x_\text{offset})
@@ -288,17 +288,54 @@ Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksT
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |  0.069|       0|
-|Family   |     NA|       0|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.069|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.154|       0.049|   0.000|       0.000|
-|Altruism    |       NA|       0.566|   0.032|       0.000|
-|Empowerment |       NA|          NA|   0.129|       0.001|
-|Sharing     |       NA|          NA|      NA|       0.062|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.154|       0.049|   0.000|       0.000|
+|Altruism    |NA        |       NA|       0.566|   0.032|       0.000|
+|Empowerment |NA        |       NA|          NA|   0.129|       0.001|
+|Sharing     |NA        |       NA|          NA|      NA|       0.062|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.154|   0.049|   0.000|   0.000|   0.069|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|
+|Com-Alt |NA      |      NA|   0.566|   0.032|   0.000|   0.689|   0.000|   0.005|   0.001|   0.021|   0.000|   0.000|   0.000|   0.000|   0.000|
+|Com-Emp |NA      |      NA|      NA|   0.129|   0.001|   0.857|   0.001|   0.031|   0.005|   0.093|   0.000|   0.000|   0.000|   0.000|   0.000|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.062|   0.083|   0.037|   0.480|   0.176|   0.836|   0.000|   0.000|   0.030|   0.000|   0.000|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.835|   0.255|   0.598|   0.106|   0.044|   0.000|   0.796|   0.000|   0.000|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.000|   0.017|   0.002|   0.058|   0.000|   0.000|   0.000|   0.000|   0.000|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.176|   0.459|   0.067|   0.071|   0.000|   0.962|   0.000|   0.000|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.530|   0.627|   0.001|   0.000|   0.154|   0.000|   0.000|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.734|   0.009|   0.000|   0.422|   0.000|   0.000|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.056|   0.000|   0.000|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.041|   0.072|   0.000|   0.000|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.009|   0.000|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.133|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Loading required package: reshape2
+```
+
+```
+## Loading required package: RColorBrewer
+```
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -350,8 +387,6 @@ Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksT
 ## Saving 7 x 7 in image
 ```
 
-Image files saved as [PNG](../figures/clicksTotalResid.png), [SVG](../figures/clicksTotalResid.svg)
-
 
 ## Unique clicks
 
@@ -387,17 +422,46 @@ Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicks
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |  0.114|       0|
-|Family   |     NA|       0|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.114|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.184|       0.089|   0.003|       0.000|
-|Altruism    |       NA|       0.686|   0.100|       0.001|
-|Empowerment |       NA|          NA|   0.235|       0.006|
-|Sharing     |       NA|          NA|      NA|       0.092|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.184|       0.089|   0.003|       0.000|
+|Altruism    |NA        |       NA|       0.686|   0.100|       0.001|
+|Empowerment |NA        |       NA|          NA|   0.235|       0.006|
+|Sharing     |NA        |       NA|          NA|      NA|       0.092|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.184|   0.089|   0.003|   0.000|   0.114|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|    0.00|
+|Com-Alt |NA      |      NA|   0.686|   0.100|   0.001|   0.796|   0.000|   0.022|   0.001|   0.025|   0.000|   0.000|   0.000|   0.000|    0.00|
+|Com-Emp |NA      |      NA|      NA|   0.235|   0.006|   0.880|   0.000|   0.068|   0.005|   0.075|   0.000|   0.000|   0.000|   0.000|    0.00|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.092|   0.170|   0.006|   0.486|   0.089|   0.510|   0.000|   0.000|   0.010|   0.000|    0.00|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.003|   0.315|   0.329|   0.993|   0.320|   0.011|   0.000|   0.413|   0.000|    0.00|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.000|   0.043|   0.003|   0.048|   0.000|   0.000|   0.000|   0.000|    0.00|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.046|   0.302|   0.046|   0.137|   0.000|   0.833|   0.000|    0.00|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.326|   0.977|   0.000|   0.000|   0.067|   0.000|    0.00|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.852|   0.009|   0.000|   0.400|   0.000|    0.00|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.066|   0.000|    0.00|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.015|   0.080|   0.000|    0.00|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.032|    0.00|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|    0.00|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|    0.12|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -449,8 +513,6 @@ Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicks
 ## Saving 7 x 7 in image
 ```
 
-Image files saved as [PNG](../figures/clicksUniqueResid.png), [SVG](../figures/clicksUniqueResid.svg)
-
 
 ## Total link clicks
 
@@ -486,17 +548,46 @@ Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/lin
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |   0.38|       0|
-|Family   |     NA|       0|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |   0.38|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.237|       0.882|   0.722|       0.005|
-|Altruism    |       NA|       0.310|   0.114|       0.000|
-|Empowerment |       NA|          NA|   0.615|       0.004|
-|Sharing     |       NA|          NA|      NA|       0.010|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.237|       0.882|   0.722|       0.005|
+|Altruism    |NA        |       NA|       0.310|   0.114|       0.000|
+|Empowerment |NA        |       NA|          NA|   0.615|       0.004|
+|Sharing     |NA        |       NA|          NA|      NA|       0.010|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.237|   0.882|   0.722|   0.005|   0.380|   0.549|   0.559|   0.968|   0.462|       0|   0.173|   0.541|   0.000|       0|
+|Com-Alt |NA      |      NA|   0.310|   0.114|   0.000|   0.761|   0.551|   0.534|   0.210|   0.053|       0|   0.897|   0.066|   0.000|       0|
+|Com-Emp |NA      |      NA|      NA|   0.615|   0.004|   0.474|   0.660|   0.673|   0.848|   0.383|       0|   0.237|   0.451|   0.000|       0|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.010|   0.206|   0.326|   0.332|   0.746|   0.686|       0|   0.074|   0.791|   0.000|       0|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.001|   0.001|   0.004|   0.036|       0|   0.000|   0.020|   0.004|       0|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.773|   0.755|   0.346|   0.105|       0|   0.656|   0.128|   0.000|       0|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.983|   0.511|   0.177|       0|   0.452|   0.214|   0.000|       0|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.522|   0.180|       0|   0.435|   0.218|   0.000|       0|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.390|       0|   0.149|   0.557|   0.000|       0|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.032|   0.881|   0.000|       0|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.293|       0|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.040|   0.000|       0|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|       0|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -548,8 +639,6 @@ Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/lin
 ## Saving 7 x 7 in image
 ```
 
-Image files saved as [PNG](../figures/linkClicksTotalResid.png), [SVG](../figures/linkClicksTotalResid.svg)
-
 
 ## Unique link clicks
 
@@ -585,17 +674,46 @@ Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/li
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |  0.422|       0|
-|Family   |     NA|       0|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.422|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.248|       0.918|   0.753|       0.007|
-|Altruism    |       NA|       0.301|   0.130|       0.000|
-|Empowerment |       NA|          NA|   0.678|       0.006|
-|Sharing     |       NA|          NA|      NA|       0.013|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.248|       0.918|   0.753|       0.007|
+|Altruism    |NA        |       NA|       0.301|   0.130|       0.000|
+|Empowerment |NA        |       NA|          NA|   0.678|       0.006|
+|Sharing     |NA        |       NA|          NA|      NA|       0.013|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.248|   0.918|   0.753|   0.007|   0.422|   0.542|   0.580|   0.969|   0.459|       0|   0.170|   0.604|   0.000|       0|
+|Com-Alt |NA      |      NA|   0.301|   0.130|   0.000|   0.725|   0.576|   0.531|   0.221|   0.056|       0|   0.866|   0.085|   0.000|       0|
+|Com-Emp |NA      |      NA|      NA|   0.678|   0.006|   0.493|   0.621|   0.661|   0.886|   0.405|       0|   0.215|   0.538|   0.000|       0|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.013|   0.251|   0.341|   0.370|   0.777|   0.651|       0|   0.079|   0.832|   0.000|       0|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.001|   0.001|   0.007|   0.050|       0|   0.000|   0.023|   0.003|       0|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.839|   0.790|   0.388|   0.120|       0|   0.593|   0.176|   0.000|       0|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.950|   0.506|   0.172|       0|   0.452|   0.246|   0.000|       0|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.543|   0.188|       0|   0.409|   0.268|   0.000|       0|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.423|       0|   0.147|   0.621|   0.000|       0|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.031|   0.804|   0.000|       0|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.217|       0|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.048|   0.000|       0|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|       0|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -647,8 +765,6 @@ Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/li
 ## Saving 7 x 7 in image
 ```
 
-Image files saved as [PNG](../figures/linkClicksUniqueResid.png), [SVG](../figures/linkClicksUniqueResid.svg)
-
 
 ## Reactions
 
@@ -684,17 +800,46 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |  0.024|   0.432|
-|Family   |     NA|   0.092|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.024|   0.432|
+|Family   |NA       |     NA|   0.092|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.004|       0.178|   0.413|       0.036|
-|Altruism    |       NA|       0.123|   0.025|       0.393|
-|Empowerment |       NA|          NA|   0.555|       0.471|
-|Sharing     |       NA|          NA|      NA|       0.172|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.004|       0.178|   0.413|       0.036|
+|Altruism    |NA        |       NA|       0.123|   0.025|       0.393|
+|Empowerment |NA        |       NA|          NA|   0.555|       0.471|
+|Sharing     |NA        |       NA|          NA|      NA|       0.172|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.004|   0.178|   0.413|   0.036|   0.024|       0|   0.000|   0.001|   0.010|   0.432|       0|   0.000|   0.000|   0.000|
+|Com-Alt |NA      |      NA|   0.123|   0.025|   0.393|   0.498|       0|   0.083|   0.610|   0.744|   0.015|       0|   0.044|   0.081|   0.133|
+|Com-Emp |NA      |      NA|      NA|   0.555|   0.471|   0.375|       0|   0.001|   0.040|   0.219|   0.494|       0|   0.001|   0.001|   0.003|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.172|   0.124|       0|   0.000|   0.005|   0.057|   0.944|       0|   0.000|   0.000|   0.000|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.862|       0|   0.010|   0.169|   0.597|   0.132|       0|   0.004|   0.008|   0.018|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|       0|   0.017|   0.233|   0.725|   0.092|       0|   0.007|   0.015|   0.030|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.000|   0.000|       0|   0.000|   0.000|   0.000|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.209|   0.040|   0.000|       0|   0.797|   0.916|   0.788|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.320|   0.003|       0|   0.124|   0.215|   0.312|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.038|       0|   0.019|   0.037|   0.067|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.000|   0.000|   0.000|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.000|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.700|   0.591|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.856|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -746,9 +891,6 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 ## Saving 7 x 7 in image
 ```
 
-Image files saved as [PNG](../figures/reactionsResid.png), [SVG](../figures/reactionsResid.svg)
-
-
 
 ## Comments
 
@@ -784,17 +926,46 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |  0.001|   0.005|
-|Family   |     NA|   0.392|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.001|   0.005|
+|Family   |NA       |     NA|   0.392|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.021|       0.002|   0.001|       0.002|
-|Altruism    |       NA|       0.232|   0.116|       0.223|
-|Empowerment |       NA|          NA|   0.739|       0.999|
-|Sharing     |       NA|          NA|      NA|       0.731|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.021|       0.002|   0.001|       0.002|
+|Altruism    |NA        |       NA|       0.232|   0.116|       0.223|
+|Empowerment |NA        |       NA|          NA|   0.739|       0.999|
+|Sharing     |NA        |       NA|          NA|      NA|       0.731|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.021|   0.002|   0.001|   0.002|   0.001|   0.000|   0.000|   0.000|   0.003|   0.005|   0.000|   0.000|   0.000|   0.000|
+|Com-Alt |NA      |      NA|   0.232|   0.116|   0.223|   0.160|   0.002|   0.036|   0.013|   0.275|   0.501|   0.002|   0.000|   0.028|   0.000|
+|Com-Emp |NA      |      NA|      NA|   0.739|   0.999|   0.847|   0.061|   0.368|   0.194|   0.899|   0.530|   0.053|   0.005|   0.348|   0.005|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.731|   0.890|   0.096|   0.542|   0.301|   0.635|   0.302|   0.084|   0.008|   0.525|   0.008|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.842|   0.053|   0.354|   0.181|   0.897|   0.519|   0.045|   0.004|   0.332|   0.004|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.083|   0.469|   0.257|   0.743|   0.392|   0.072|   0.007|   0.450|   0.007|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.296|   0.521|   0.040|   0.006|   0.980|   0.320|   0.250|   0.324|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.678|   0.292|   0.099|   0.273|   0.042|   0.986|   0.043|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.446|   0.036|   0.494|   0.099|   0.641|   0.101|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.614|   0.034|   0.003|   0.270|   0.003|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.005|   0.000|   0.081|   0.000|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.317|   0.226|   0.321|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.025|   0.994|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.025|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -846,8 +1017,6 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 ## Saving 7 x 7 in image
 ```
 
-Image files saved as [PNG](../figures/commentsResid.png), [SVG](../figures/commentsResid.svg)
-
 
 ## Shares
 
@@ -883,17 +1052,46 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 
 
 
-|         | Family| Veteran|
-|:--------|------:|-------:|
-|Computer |  0.119|   0.006|
-|Family   |     NA|   0.241|
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.119|   0.006|
+|Family   |NA       |     NA|   0.241|
+|Veteran  |NA       |     NA|      NA|
 
-|            | Altruism| Empowerment| Sharing| SocialNorms|
-|:-----------|--------:|-----------:|-------:|-----------:|
-|Incentive   |    0.035|       0.002|   0.000|       0.000|
-|Altruism    |       NA|       0.288|   0.000|       0.011|
-|Empowerment |       NA|          NA|   0.001|       0.145|
-|Sharing     |       NA|          NA|      NA|       0.069|
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.035|       0.002|   0.000|       0.000|
+|Altruism    |NA        |       NA|       0.288|   0.000|       0.011|
+|Empowerment |NA        |       NA|          NA|   0.001|       0.145|
+|Sharing     |NA        |       NA|          NA|      NA|       0.069|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.035|   0.002|   0.000|   0.000|   0.119|   0.022|   0.000|   0.000|   0.000|   0.006|   0.000|   0.000|       0|   0.000|
+|Com-Alt |NA      |      NA|   0.288|   0.000|   0.011|   0.573|   0.853|   0.034|   0.000|   0.122|   0.561|   0.000|   0.000|       0|   0.000|
+|Com-Emp |NA      |      NA|      NA|   0.001|   0.145|   0.108|   0.374|   0.309|   0.000|   0.649|   0.575|   0.005|   0.003|       0|   0.017|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.069|   0.000|   0.000|   0.022|   0.435|   0.005|   0.000|   0.651|   0.830|       0|   0.361|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.002|   0.017|   0.646|   0.010|   0.303|   0.030|   0.162|   0.106|       0|   0.349|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.453|   0.008|   0.000|   0.037|   0.241|   0.000|   0.000|       0|   0.000|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.051|   0.000|   0.170|   0.696|   0.000|   0.000|       0|   0.001|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.003|   0.565|   0.091|   0.062|   0.037|       0|   0.160|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.904|   0.000|   0.216|   0.319|       0|   0.091|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.284|   0.015|   0.008|       0|   0.048|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|       0|   0.001|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.813|       0|   0.639|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.484|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+```
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+## Saving 7 x 7 in image
+```
 
 ```
 ## 
@@ -944,5 +1142,3 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 ## Saving 7 x 7 in image
 ## Saving 7 x 7 in image
 ```
-
-Image files saved as [PNG](../figures/sharesResid.png), [SVG](../figures/sharesResid.svg)
