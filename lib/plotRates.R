@@ -3,6 +3,11 @@ plotRates <- function (y, x, filename, title) {
   require(ggplot2)
   theme_set(theme_bw())
   require(svglite)
+  if (x == "date") {
+    scaleX <- scale_x_date(toTitleCase(x))
+  } else {
+    scaleX <- scale_x_log10(toTitleCase(x))
+  }
   G <- 
     df %>% 
     ggplot +
@@ -10,7 +15,7 @@ plotRates <- function (y, x, filename, title) {
     facet_grid(text ~ image) +
     geom_smooth(method = "glm", method.args = list(family = "poisson")) +
     geom_point(alpha = 1/2) +
-    scale_x_log10(toTitleCase(x)) +
+    scaleX +
     scale_y_continuous("Count") +
     labs(title = title) +
     theme(legend.position = "bottom",

@@ -1,13 +1,15 @@
-modelCounts <- function(y, offset) {
+modelCounts <- function(y, offset = NULL) {
     require(MASS)
     require(broom)
     text <- paste(eval(y),
-                  " ~ image + text + image * text",
-                  sprintf("+ offset(log(%s))", eval(offset)))
-    M <- glm.nb(formula(text), data = df)
+                  " ~ image + text + image * text")
     grid <- expand.grid(image = levels(df$image), 
-                        text = levels(df$text), 
-                        offset = 1000)
+                        text = levels(df$text))
+    if (!is.null(offset)) {
+      text <- paste(text, sprintf("+ offset(log(%s))", eval(offset)))
+      grid <- cbind(grid, offset = 1000)
+    }
+    M <- glm.nb(formula(text), data = df)
     names(grid) <- c("image", "text", offset)
     pred <- 
       grid %>% 

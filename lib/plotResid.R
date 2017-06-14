@@ -3,6 +3,11 @@ plotResid <- function (y, x, filename, title) {
   require(ggplot2)
   theme_set(theme_bw())
   require(svglite)
+  if (x == "date") {
+    scaleX <- scale_x_date(toTitleCase(x))
+  } else {
+    scaleX <- scale_x_log10(toTitleCase(x))
+  }
   G <- 
     df %>% 
     mutate(pred = predict(M$modelObject, type = "response"),
@@ -11,7 +16,7 @@ plotResid <- function (y, x, filename, title) {
     aes(x = get(x), y = get(y)) +
     facet_grid(text ~ image) +
     geom_point(alpha = 1/2) +
-    scale_x_log10(toTitleCase(x)) +
+    scaleX +
     scale_y_continuous("Residual count") +
     labs(title = title) +
     theme(legend.position = "bottom",
