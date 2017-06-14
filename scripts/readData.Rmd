@@ -2,9 +2,6 @@
 
 ```{r}
 df <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by day, no consents or completions 5.19.17.xlsx" %>% 
-  read_excel() %>% 
-  filter(row_number() > 1)
 names(df) <- c("date",
                "ad",
                "clicksTotal",
@@ -16,6 +13,9 @@ names(df) <- c("date",
                "reactions",
                "comments",
                "shares")
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.8.17.csv" %>% 
+  read.csv(stringsAsFactors = FALSE) %>% 
+  filter(Ad != "All")
 df <-
   df %>% 
   mutate(date = as.Date(as.integer(date), origin = as.Date("1900-01-01"))) %>% 
