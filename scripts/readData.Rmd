@@ -18,7 +18,7 @@ names(df) <- c("date",
   filter(Ad != "All")
 df <-
   df %>% 
-  mutate(date = as.Date(as.integer(date), origin = as.Date("1900-01-01"))) %>% 
+  mutate(date = as.Date(date, format = "%m/%d/%y")) %>% 
   mutate(image = factor(gsub("\\s-.*", "", ad)),
          text = factor(gsub(".*-\\s", "", ad))) %>% 
   mutate(text = gsub("Social norms", "SocialNorms", text)) %>% 
