@@ -2,20 +2,32 @@
 
 ```{r}
 df <-
-names(df) <- c("date",
-               "ad",
-               "clicksTotal",
-               "linkClicksTotal",
-               "impressions",
-               "clicksUnique",
-               "linkClicksUnique",
-               "reach",
-               "reactions",
-               "comments",
-               "shares")
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.8.17.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
   filter(Ad != "All")
+oldnames <- names(df)
+newnames <- c("date",
+              "ad",
+              "reach",
+              "cost",
+              "impressions",
+              "cpm",
+              "linkClicks",
+              "ctr",
+              "cpc",
+              "uniqueLinkClicks",
+              "uniqueCTR",
+              "costPerUniqueLinkClick",
+              "clicksAll",
+              "ctrAll",
+              "cpcAll",
+              "uniqueClicksAll",
+              "uniqueCTRAll",
+              "costPerUniqueClickAll",
+              "reactions",
+              "comments",
+              "shares")
+names(df) <- newnames
 df <-
   df %>% 
   mutate(date = as.Date(date, format = "%m/%d/%y")) %>% 
@@ -24,10 +36,16 @@ df <-
   mutate(text = gsub("Social norms", "SocialNorms", text)) %>% 
   mutate(text = factor(text)) %>% 
   mutate(image = relevel(image, ref = "Computer"),
-         text = relevel(text, ref = "Incentive")) %>% 
-  select(-c(ad))
-str(df)
+         text = relevel(text, ref = "Incentive"))
 ```
+
+Column name mapping.
+
+```{r}
+data.frame(old = c(oldnames, NA, NA), new = names(df)) %>% kable
+```
+
+Summarize.
 
 ```{r}
 df %>% 
