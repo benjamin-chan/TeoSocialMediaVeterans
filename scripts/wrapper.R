@@ -1,0 +1,9 @@
+plotRates(y, x, y, title)
+M <- modelCounts(y, offset = offset)
+M$pred %>% kable(digits = 2)
+M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
+M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
+M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
+M$modelObject %>% summary
+plotResid("resid", x, sprintf("%sResid", y), title)
