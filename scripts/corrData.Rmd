@@ -3,12 +3,12 @@
 ```{r}
 matCorr <-
   df %>% 
-  select(clicksTotal,
-         linkClicksTotal,
-         impressions,
-         clicksUnique,
-         linkClicksUnique,
+  select(impressions,
          reach,
+         clicksAll,
+         linkClicks,
+         uniqueClicksAll,
+         uniqueLinkClicks,
          reactions,
          comments,
          shares) %>% 
