@@ -32,91 +32,66 @@ $$
 $$
 
 
-## Total clicks
 
-Image files saved as [PNG](../figures/clicksTotal.png), [SVG](../figures/clicksTotal.svg)
 
-![clicksTotal.png](../figures/clicksTotal.png)
 
-```{r clicksTotal, fig.show = "hide"}
-y <- "clicksTotal"
+## Clicks, all
+
+Image files saved as [PNG](../figures/clicksAll.png), [SVG](../figures/clicksAll.svg)
+
+![clicksAll.png](../figures/clicksAll.png)
+
+```{r clicksAll, fig.show = "hide"}
+y <- "clicksAll"
+x <- "impressions"
 offset <- "impressions"
-title <- "Number of ad clicks"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+title <- "Number of clicks, all"
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
 
 
-## Unique clicks
+## Unique clicks, all
 
-Image files saved as [PNG](../figures/clicksUnique.png), [SVG](../figures/clicksUnique.svg)
+Image files saved as [PNG](../figures/uniqueClicksAll.png), [SVG](../figures/uniqueClicksAll.svg)
 
-![clicksUnique.png](../figures/clicksUnique.png)
+![uniqueClicksAll.png](../figures/uniqueClicksAll.png)
 
-```{r clicksUnique, fig.show = "hide"}
-y <- "clicksUnique"
-offset <- "reach"
-title <- "Number of unique ad clicks"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+```{r uniqueClicksAll, fig.show = "hide"}
+y <- "uniqueClicksAll"
+x <- "impressions"
+offset <- "impressions"
+title <- "Number of unique clicks, all"
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
 
 
 ## Total link clicks
 
-Image files saved as [PNG](../figures/linkClicksTotal.png), [SVG](../figures/linkClicksTotal.svg)
+Image files saved as [PNG](../figures/linkClicks.png), [SVG](../figures/linkClicks.svg)
 
-![linkClicksTotal.png](../figures/linkClicksTotal.png)
+![linkClicks.png](../figures/linkClicks.png)
 
-```{r linkClicksTotal, fig.show = "hide"}
-y <- "linkClicksTotal"
+```{r linkClicks, fig.show = "hide"}
+y <- "linkClicks"
+x <- "impressions"
 offset <- "impressions"
-title <- "Number of total link clicks"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+title <- "Number of link clicks"
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
 
 
 ## Unique link clicks
 
-Image files saved as [PNG](../figures/linkClicksUnique.png), [SVG](../figures/linkClicksUnique.svg)
+Image files saved as [PNG](../figures/uniqueLinkClicks.png), [SVG](../figures/uniqueLinkClicks.svg)
 
-![linkClicksUnique.png](../figures/linkClicksUnique.png)
+![uniqueLinkClicks.png](../figures/uniqueLinkClicks.png)
 
-```{r linkClicksUnique, fig.show = "hide"}
-y <- "linkClicksUnique"
-offset <- "reach"
+```{r uniqueLinkClicks, fig.show = "hide"}
+y <- "uniqueLinkClicks"
+x <- "impressions"
+offset <- "impressions"
 title <- "Number of unique link clicks"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
 
 
@@ -128,17 +103,10 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 
 ```{r reactions, fig.show = "hide"}
 y <- "reactions"
+x <- "impressions"
 offset <- "impressions"
 title <- "Number of reactions"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
 
 
@@ -150,17 +118,10 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 
 ```{r comments, fig.show = "hide"}
 y <- "comments"
+x <- "impressions"
 offset <- "impressions"
 title <- "Number of comments"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
 
 
@@ -172,15 +133,8 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 
 ```{r shares, fig.show = "hide"}
 y <- "shares"
+x <- "impressions"
 offset <- "impressions"
 title <- "Number of shares"
-plotRates(y, offset, y, title)
-M <- modelCounts(y, offset)
-M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
-M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastText"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapText", y))
-M[["modelObject"]] %>% contrastTable %>% .[["contrastInteraction"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapInteraction", y))
-M$modelObject %>% summary
-plotResid("resid", offset, sprintf("%sResid", y), title)
+source("../scripts/wrapper.R", print.eval = TRUE)
 ```
