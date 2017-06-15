@@ -1,54 +1,67 @@
-  |                                                                         |                                                                 |   0%  |                                                                         |..                                                               |   4%
+  |                                                                         |                                                                 |   0%  |                                                                         |..                                                               |   3%
    inline R code fragments
 
-  |                                                                         |.....                                                            |   7%
+  |                                                                         |....                                                             |   6%
 label: unnamed-chunk-1
-  |                                                                         |.......                                                          |  11%
+  |                                                                         |......                                                           |   9%
   ordinary text without R code
 
-  |                                                                         |.........                                                        |  14%
+  |                                                                         |........                                                         |  12%
 label: unnamed-chunk-2
-  |                                                                         |............                                                     |  18%
+  |                                                                         |..........                                                       |  15%
   ordinary text without R code
 
-  |                                                                         |..............                                                   |  21%
+  |                                                                         |...........                                                      |  18%
 label: unnamed-chunk-3
-  |                                                                         |................                                                 |  25%
+  |                                                                         |.............                                                    |  21%
   ordinary text without R code
 
-  |                                                                         |...................                                              |  29%
+  |                                                                         |...............                                                  |  24%
 label: unnamed-chunk-4 (with options) 
 List of 1
  $ eval: logi TRUE
 
+  |                                                                         |.................                                                |  26%
+  ordinary text without R code
+
+  |                                                                         |...................                                              |  29%
+label: unnamed-chunk-5
   |                                                                         |.....................                                            |  32%
   ordinary text without R code
 
-  |                                                                         |.......................                                          |  36%
-label: unnamed-chunk-5
-  |                                                                         |..........................                                       |  39%
-  ordinary text without R code
-
-  |                                                                         |............................                                     |  43%
+  |                                                                         |.......................                                          |  35%
 label: unnamed-chunk-6
-  |                                                                         |..............................                                   |  46%
+  |                                                                         |.........................                                        |  38%
   ordinary text without R code
 
-  |                                                                         |................................                                 |  50%
+  |                                                                         |...........................                                      |  41%
 label: unnamed-chunk-7
-  |                                                                         |...................................                              |  54%
+  |                                                                         |.............................                                    |  44%
   ordinary text without R code
 
-  |                                                                         |.....................................                            |  57%
-label: clicksTotal (with options) 
+  |                                                                         |...............................                                  |  47%
+label: unnamed-chunk-8
+  |                                                                         |................................                                 |  50%
+  ordinary text without R code
+
+  |                                                                         |..................................                               |  53%
+label: impressions (with options) 
 List of 1
  $ fig.show: chr "hide"
 
-  |                                                                         |.......................................                          |  61%
+  |                                                                         |....................................                             |  56%
   ordinary text without R code
 
-  |                                                                         |..........................................                       |  64%
-label: clicksUnique (with options) 
+  |                                                                         |......................................                           |  59%
+label: reach (with options) 
+List of 1
+ $ fig.show: chr "hide"
+
+  |                                                                         |........................................                         |  62%
+  ordinary text without R code
+
+  |                                                                         |..........................................                       |  65%
+label: clicksAll (with options) 
 List of 1
  $ fig.show: chr "hide"
 
@@ -56,41 +69,52 @@ List of 1
   ordinary text without R code
 
   |                                                                         |..............................................                   |  71%
-label: linkClicksTotal (with options) 
+label: uniqueClicksAll (with options) 
 List of 1
  $ fig.show: chr "hide"
 
-  |                                                                         |.................................................                |  75%
+  |                                                                         |................................................                 |  74%
   ordinary text without R code
 
-  |                                                                         |...................................................              |  79%
-label: linkClicksUnique (with options) 
+  |                                                                         |..................................................               |  76%
+label: linkClicks (with options) 
 List of 1
  $ fig.show: chr "hide"
 
-  |                                                                         |.....................................................            |  82%
+  |                                                                         |....................................................             |  79%
   ordinary text without R code
 
-  |                                                                         |........................................................         |  86%
+  |                                                                         |......................................................           |  82%
+label: uniqueLinkClicks (with options) 
+List of 1
+ $ fig.show: chr "hide"
+
+  |                                                                         |.......................................................          |  85%
+  ordinary text without R code
+
+  |                                                                         |.........................................................        |  88%
 label: reactions (with options) 
-List of 1
+List of 2
  $ fig.show: chr "hide"
+ $ eval    : logi FALSE
 
-  |                                                                         |..........................................................       |  89%
+  |                                                                         |...........................................................      |  91%
   ordinary text without R code
 
-  |                                                                         |............................................................     |  93%
+  |                                                                         |.............................................................    |  94%
 label: comments (with options) 
-List of 1
+List of 2
  $ fig.show: chr "hide"
+ $ eval    : logi FALSE
 
-  |                                                                         |...............................................................  |  96%
+  |                                                                         |...............................................................  |  97%
   ordinary text without R code
 
   |                                                                         |.................................................................| 100%
 label: shares (with options) 
-List of 1
+List of 2
  $ fig.show: chr "hide"
+ $ eval    : logi FALSE
 
 
 [1] "../docs/report.md"
