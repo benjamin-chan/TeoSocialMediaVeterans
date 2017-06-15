@@ -5,14 +5,13 @@
   * Ad `image`
   * Ad `text`
 * Include full factorial interaction
-* Use $\log(\text{impressions})$ or $\log(\text{reach})$ as an offset variable
-* Calculate predicted counts per 1,000 impressions/reach
 
 **Model**
 
+Define the linear predictor as $\eta$, where
+
 $$
 \begin{align*}
-\log(y) = & \beta_0 + \\\\
           & \beta_1 x_\text{image: Family} + 
             \beta_2 x_\text{image: Veteran} + \\\\
           & \beta_3 x_\text{text: Altruism} + 
@@ -28,6 +27,7 @@ $$
           & \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
             \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms} + \\\\
           & \log(x_\text{offset})
+\eta = & \beta_0 + \\\\
 \end{align*}
 $$
 
