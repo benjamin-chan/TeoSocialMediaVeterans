@@ -30,7 +30,6 @@ newnames <- c("date",
 names(df) <- newnames
 df <-
   df %>% 
-  filter(!grepl("EMP", ad)) %>% 
   mutate(date = as.Date(date, format = "%m/%d/%y")) %>% 
   mutate(image = factor(gsub("\\s-.*", "", ad)),
          text = factor(gsub(".*-\\s", "", ad))) %>% 
