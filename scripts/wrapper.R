@@ -1,5 +1,6 @@
 plotRates(y, x, y, title)
 M <- modelCounts(y, offset = offset)
+print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
 M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
 M[["modelObject"]] %>% contrastTable %>% .[["contrastImage"]] %>% contrastHeatmap(sprintf("%sContrastHeatmapImage", y))
