@@ -13,7 +13,7 @@ matCorr <-
          comments,
          shares) %>% 
   as.matrix %>% 
-  cor
+  cor(use = "pairwise.complete.obs")
 matCorr[lower.tri(matCorr)] <- NA
 matCorr %>% 
   kable(digits = 2)
