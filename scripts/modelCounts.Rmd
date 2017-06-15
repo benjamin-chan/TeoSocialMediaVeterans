@@ -32,7 +32,34 @@ $$
 $$
 
 
+## Impressions
 
+Image files saved as [PNG](../figures/impressions.png), [SVG](../figures/impressions.svg)
+
+![impressions.png](../figures/impressions.png)
+
+```{r impressions, fig.show = "hide"}
+y <- "impressions"
+x <- "date"
+offset <- NULL
+title <- "Ad impressions"
+source("../scripts/wrapper.R", print.eval = TRUE)
+```
+
+
+## Reach
+
+Image files saved as [PNG](../figures/reach.png), [SVG](../figures/reach.svg)
+
+![reach.png](../figures/reach.png)
+
+```{r reach, fig.show = "hide"}
+y <- "reach"
+x <- "date"
+offset <- NULL
+title <- "Ad reach"
+source("../scripts/wrapper.R", print.eval = TRUE)
+```
 
 
 ## Clicks, all
