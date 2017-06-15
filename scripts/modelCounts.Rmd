@@ -130,8 +130,8 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 
 ```{r reactions, fig.show = "hide"}
 y <- "reactions"
-x <- "impressions"
-offset <- "impressions"
+x <- "clicksAll"
+offset <- "clicksAll"
 title <- "Number of reactions"
 source("../scripts/wrapper.R", print.eval = TRUE)
 ```
@@ -145,8 +145,8 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 
 ```{r comments, fig.show = "hide"}
 y <- "comments"
-x <- "impressions"
-offset <- "impressions"
+x <- "clicksAll"
+offset <- "clicksAll"
 title <- "Number of comments"
 source("../scripts/wrapper.R", print.eval = TRUE)
 ```
@@ -160,8 +160,8 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 
 ```{r shares, fig.show = "hide"}
 y <- "shares"
-x <- "impressions"
-offset <- "impressions"
+x <- "clicksAll"
+offset <- "clicksAll"
 title <- "Number of shares"
 source("../scripts/wrapper.R", print.eval = TRUE)
 ```
