@@ -147,7 +147,7 @@ Image files saved as [PNG](../figures/reactions.png), [SVG](../figures/reactions
 
 ![reactions.png](../figures/reactions.png)
 
-```{r reactions, fig.show = "hide"}
+```{r reactions, fig.show = "hide", eval = FALSE}
 y <- "reactions"
 x <- "clicksAll"
 offset <- "clicksAll"
@@ -162,7 +162,7 @@ Image files saved as [PNG](../figures/comments.png), [SVG](../figures/comments.s
 
 ![comments.png](../figures/comments.png)
 
-```{r comments, fig.show = "hide"}
+```{r comments, fig.show = "hide", eval = FALSE}
 y <- "comments"
 x <- "clicksAll"
 offset <- "clicksAll"
@@ -177,7 +177,7 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 
 ![shares.png](../figures/shares.png)
 
-```{r shares, fig.show = "hide"}
+```{r shares, fig.show = "hide", eval = FALSE}
 y <- "shares"
 x <- "clicksAll"
 offset <- "clicksAll"
