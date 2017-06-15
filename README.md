@@ -60,6 +60,8 @@ services, (h) presence of suicidality, and ad type.
 
 ## Outputs
 
+Full report: [HTML](docs/report.html) or [Markdown](docs/report.md)
+
 
 
 ## References
