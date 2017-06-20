@@ -1,11 +1,14 @@
 # Read data
 
+
+## Facebook ad metrics data
+
 ```{r}
-df <-
+df1 <-
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.8.17.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
   filter(Ad != "All")
-oldnames <- names(df)
+oldnames <- names(df1)
 newnames <- c("date",
               "ad",
               "reach",
@@ -27,9 +30,9 @@ newnames <- c("date",
               "reactions",
               "comments",
               "shares")
-names(df) <- newnames
-df <-
-  df %>% 
+names(df1) <- newnames
+df1 <-
+  df1 %>% 
   mutate(date = as.Date(date, format = "%m/%d/%y")) %>% 
   mutate(image = factor(gsub("\\s-.*", "", ad)),
          text = factor(gsub(".*-\\s", "", ad))) %>% 
@@ -42,14 +45,47 @@ df <-
 Column name mapping.
 
 ```{r}
-data.frame(old = c(oldnames, NA, NA), new = names(df)) %>% kable
+data.frame(old = c(oldnames, NA, NA), new = names(df1)) %>% kable
 ```
 
 Summarize.
 
 ```{r}
-df %>% 
+df1 %>% 
   group_by(image, text) %>% 
   summarize(nDays = length(date), minDate = min(date), maxDate = max(date)) %>% 
   kable
+```
+
+
+## Survey data
+
+Inclusion criteria
+
+* Respondents who consented
+* Eligible, ineligible, or missing eligibility indicator
+
+Cleaning
+
+* Parse out `fba` into 2 separate variables for `image` and `text`
+* Assign indicator for survey completion, `indSurveyComplete`
+
+```{r}
+df2 <-
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
+  read.csv(stringsAsFactors = FALSE) %>% 
+  filter(consent == 1) %>% 
+  mutate(image = 
+           substr(fba, 1, 1) %>%
+           factor(levels = c("c", "f", "v"),
+                  labels = c("Computer", "Family", "Veteran")),
+         text = 
+           substr(fba, 2, 4) %>% 
+           factor(levels = c("inc", "alt", "emp", "sha", "soc"),
+                  labels = c("Incentive", "Altruism", "Empowerment", "Sharing", "SocialNorms"))) %>% 
+  mutate(indSurveyComplete = time_completed_questions != "")
+df2 %>% group_by(image, text) %>% summarize(n = length(record_id))
+df2 %>% group_by(consent, eligible, consent_and_eligibility_complete) %>% summarize(n = length(record_id))
+df2 %>% group_by(eligible, indSurveyComplete) %>% summarize(n = length(record_id))
+df2 %>% group_by(eligible, indSurveyComplete, va_ever_enrolled, va_use_12mo) %>% summarize(n = length(record_id))
 ```

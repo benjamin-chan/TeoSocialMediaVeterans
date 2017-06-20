@@ -2,7 +2,7 @@
 
 ```{r}
 matCorr <-
-  df %>% 
+  df1 %>% 
   select(impressions,
          reach,
          clicksAll,
@@ -17,4 +17,17 @@ matCorr <-
 matCorr[lower.tri(matCorr)] <- NA
 matCorr %>% 
   kable(digits = 2)
+```
+
+Check correlation between `impressions` and `reach`.
+
+```{r}
+title <- sprintf("Correlation = %.05f", cor(df1[, c("impressions", "reach")])[1, 2])
+df1 %>% 
+  ggplot +
+  aes(x = impressions, y = reach) + 
+  geom_point(alpha = 1/2) + 
+  geom_abline(intercept = 0, slope = 1) +
+  labs(title = title) +
+  theme(plot.title = element_text(hjust = 1/2))
 ```

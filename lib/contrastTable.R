@@ -6,14 +6,14 @@ contrastTable <- function (glmObj) {
     require(magrittr)
     glhtObj %>% summary %>% .$test %>% .$pvalues %>% as.numeric
   }
-  mat1 <- matrix(nrow = nlevels(df$image), ncol = nlevels(df$image)) %>%data.frame 
-  row.names(mat1) <- levels(df$image)
+  mat1 <- matrix(nrow = nlevels(df11$image), ncol = nlevels(df11$image)) %>%data.frame 
+  row.names(mat1) <- levels(df11$image)
   names(mat1) <- row.names(mat1)
   mat1[1, 2] <- glmObj %>% summary %>% .$coef %>% .["imageFamily", "Pr(>|z|)"]
   mat1[1, 3] <- glmObj %>% summary %>% .$coef %>% .["imageVeteran", "Pr(>|z|)"]
   mat1[2, 3] <- glht(glmObj, linfct = c("imageFamily - imageVeteran = 0")) %>% getp
-  mat2 <- matrix(nrow = nlevels(df$text), ncol = nlevels(df$text)) %>% data.frame 
-  row.names(mat2) <- levels(df$text)
+  mat2 <- matrix(nrow = nlevels(df11$text), ncol = nlevels(df1$text)) %>% data.frame 
+  row.names(mat2) <- levels(df1$text)
   names(mat2) <- row.names(mat2)
   mat2[1, 2] <- glmObj %>% summary %>% .$coef %>% .["textAltruism", "Pr(>|z|)"]
   mat2[1, 3] <- glmObj %>% summary %>% .$coef %>% .["textEmpowerment", "Pr(>|z|)"]
@@ -26,12 +26,12 @@ contrastTable <- function (glmObj) {
   mat2[3, 5] <- glht(glmObj, linfct = c("textEmpowerment - textSocialNorms = 0")) %>% getp
   mat2[4, 5] <- glht(glmObj, linfct = c("textSharing - textSocialNorms = 0")) %>% getp
   mat3 <- 
-    matrix(nrow = nlevels(df$image) * nlevels(df$text), 
-           ncol = nlevels(df$image) * nlevels(df$text)) %>% 
+    matrix(nrow = nlevels(df1$image) * nlevels(df1$text), 
+           ncol = nlevels(df1$image) * nlevels(df1$text)) %>% 
     data.frame 
   row.names(mat3) <- sprintf("%s-%s", 
-                             rep(substr(levels(df$image), 1, 3), each = nlevels(df$text)), 
-                             rep(substr(levels(df$text), 1, 3), nlevels(df$image)))
+                             rep(substr(levels(df1$image), 1, 3), each = nlevels(df1$text)), 
+                             rep(substr(levels(df1$text), 1, 3), nlevels(df1$image)))
   names(mat3) <- row.names(mat3)
   mat3[ 1,  2] <- glht(glmObj, linfct = c("textAltruism = 0")) %>% getp
   mat3[ 1,  3] <- glht(glmObj, linfct = c("textEmpowerment = 0")) %>% getp
