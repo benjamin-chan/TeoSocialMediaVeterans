@@ -74,6 +74,7 @@ Cleaning
 df2 <-
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
+  filter(consent == 1) %>% 
   mutate(image = 
            substr(fba, 1, 1) %>%
            factor(levels = c("c", "f", "v"),
