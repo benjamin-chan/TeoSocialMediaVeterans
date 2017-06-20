@@ -60,6 +60,16 @@ df1 %>%
 
 ## Survey data
 
+Inclusion criteria
+
+* Respondents who consented
+* Eligible, ineligible, or missing eligibility indicator
+
+Cleaning
+
+* Parse out `fba` into 2 separate variables for `image` and `text`
+* Assign indicator for survey completion, `indSurveyComplete`
+
 ```{r}
 df2 <-
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
