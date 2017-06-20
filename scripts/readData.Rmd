@@ -56,3 +56,21 @@ df1 %>%
   summarize(nDays = length(date), minDate = min(date), maxDate = max(date)) %>% 
   kable
 ```
+
+
+## Survey data
+
+```{r}
+df2 <-
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
+  read.csv(stringsAsFactors = FALSE) %>% 
+  mutate(image = 
+           substr(fba, 1, 1) %>%
+           factor(levels = c("c", "f", "v"),
+                  labels = c("Computer", "Family", "Veteran")),
+         text = 
+           substr(fba, 2, 4) %>% 
+           factor(levels = c("inc", "alt", "emp", "sha", "soc"),
+                  labels = c("Incentive", "Altruism", "Empowerment", "Sharing", "SocialNorms")))
+df2 %>% group_by(image, text) %>% summarize(n = length(record_id))
+```
