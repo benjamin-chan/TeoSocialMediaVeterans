@@ -2,7 +2,7 @@
 
 ```{r}
 matCorr <-
-  df %>% 
+  df1 %>% 
   select(impressions,
          reach,
          clicksAll,

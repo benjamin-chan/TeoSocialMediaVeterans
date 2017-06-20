@@ -9,7 +9,7 @@ plotResid <- function (y, x, filename, title) {
     scaleX <- scale_x_log10(toTitleCase(x))
   }
   G <- 
-    df %>% 
+    df1 %>% 
     mutate(pred = predict(M$modelObject, type = "response"),
            resid = resid(M$modelObject, type = "response")) %>% 
     ggplot +

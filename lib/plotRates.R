@@ -9,7 +9,7 @@ plotRates <- function (y, x, filename, title) {
     scaleX <- scale_x_log10(toTitleCase(x))
   }
   G <- 
-    df %>% 
+    df1 %>% 
     ggplot +
     aes(x = get(x), y = get(y)) +
     facet_grid(text ~ image) +

@@ -3,13 +3,13 @@ modelCounts <- function(y, offset = NULL) {
     require(broom)
     text <- paste(eval(y),
                   " ~ image + text + image * text")
-    grid <- expand.grid(image = levels(df$image), 
-                        text = levels(df$text))
+    grid <- expand.grid(image = levels(df1$image), 
+                        text = levels(df1$text))
     if (!is.null(offset)) {
       text <- paste(text, sprintf("+ offset(log(%s))", eval(offset)))
       grid <- cbind(grid, offset = 1000)
     }
-    M <- glm.nb(formula(text), data = df)
+    M <- glm.nb(formula(text), data = df1)
     names(grid) <- c("image", "text", offset)
     pred <- 
       grid %>% 

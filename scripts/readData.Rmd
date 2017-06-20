@@ -1,11 +1,14 @@
 # Read data
 
+
+## Facebook ad metrics data
+
 ```{r}
-df <-
+df1 <-
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.8.17.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
   filter(Ad != "All")
-oldnames <- names(df)
+oldnames <- names(df1)
 newnames <- c("date",
               "ad",
               "reach",
@@ -27,9 +30,9 @@ newnames <- c("date",
               "reactions",
               "comments",
               "shares")
-names(df) <- newnames
-df <-
-  df %>% 
+names(df1) <- newnames
+df1 <-
+  df1 %>% 
   mutate(date = as.Date(date, format = "%m/%d/%y")) %>% 
   mutate(image = factor(gsub("\\s-.*", "", ad)),
          text = factor(gsub(".*-\\s", "", ad))) %>% 
@@ -42,13 +45,13 @@ df <-
 Column name mapping.
 
 ```{r}
-data.frame(old = c(oldnames, NA, NA), new = names(df)) %>% kable
+data.frame(old = c(oldnames, NA, NA), new = names(df1)) %>% kable
 ```
 
 Summarize.
 
 ```{r}
-df %>% 
+df1 %>% 
   group_by(image, text) %>% 
   summarize(nDays = length(date), minDate = min(date), maxDate = max(date)) %>% 
   kable
