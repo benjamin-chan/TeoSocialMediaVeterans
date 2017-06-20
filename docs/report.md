@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-06-15 08:57:25"
+date: "2017-06-20 15:39:05"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -172,6 +172,9 @@ Source user-defined functions.
 # Read data
 
 
+## Facebook ad metrics data
+
+
 
 Column name mapping.
 
@@ -209,12 +212,12 @@ Summarize.
 |:--------|:-----------|-----:|:----------|:----------|
 |Computer |Incentive   |    45|2017-01-13 |2017-03-12 |
 |Computer |Altruism    |    45|2017-01-13 |2017-03-12 |
-|Computer |Empowerment |    40|2017-01-13 |2017-03-07 |
+|Computer |Empowerment |    45|2017-01-13 |2017-03-12 |
 |Computer |Sharing     |    45|2017-01-13 |2017-03-12 |
 |Computer |SocialNorms |    45|2017-01-13 |2017-03-12 |
 |Family   |Incentive   |    45|2017-01-13 |2017-03-12 |
 |Family   |Altruism    |    45|2017-01-13 |2017-03-12 |
-|Family   |Empowerment |    40|2017-01-13 |2017-03-12 |
+|Family   |Empowerment |    46|2017-01-13 |2017-03-18 |
 |Family   |Sharing     |    45|2017-01-13 |2017-03-12 |
 |Family   |SocialNorms |    45|2017-01-13 |2017-03-12 |
 |Veteran  |Incentive   |    45|2017-01-13 |2017-03-12 |
@@ -222,20 +225,114 @@ Summarize.
 |Veteran  |Empowerment |    45|2017-01-13 |2017-03-12 |
 |Veteran  |Sharing     |    45|2017-01-13 |2017-03-12 |
 |Veteran  |SocialNorms |    45|2017-01-13 |2017-03-12 |
+
+
+## Survey data
+
+Inclusion criteria
+
+* Respondents who consented
+* Eligible, ineligible, or missing eligibility indicator
+
+Cleaning
+
+* Parse out `fba` into 2 separate variables for `image` and `text`
+* Assign indicator for survey completion, `indSurveyComplete`
+* Score the DSI-SS inventory
+  * See [Joiner 2002](http://www.sciencedirect.com/science/article/pii/S0005796701000171)
+  * *Scores on each item range from 0 to 3 and, for the inventory, from 0 to 12, with higher scores reflecting greater severity of suicidal ideation.*
+
+
+|image    |text        |   n|
+|:--------|:-----------|---:|
+|Computer |Incentive   |  41|
+|Computer |Altruism    |  45|
+|Computer |Empowerment |  12|
+|Computer |Sharing     |  81|
+|Computer |SocialNorms |  88|
+|Family   |Incentive   |  36|
+|Family   |Altruism    |  20|
+|Family   |Empowerment |  36|
+|Family   |Sharing     |  46|
+|Family   |SocialNorms |  47|
+|Veteran  |Incentive   | 283|
+|Veteran  |Altruism    |  57|
+|Veteran  |Empowerment |  63|
+|Veteran  |Sharing     | 217|
+|Veteran  |SocialNorms | 251|
+|NA       |NA          |   6|
+
+
+
+| consent| eligible| consent_and_eligibility_complete|indSurveyComplete |   n|
+|-------:|--------:|--------------------------------:|:-----------------|---:|
+|       1|        0|                                2|FALSE             | 534|
+|       1|        1|                                2|FALSE             |  94|
+|       1|        1|                                2|TRUE              | 617|
+|       1|       NA|                                0|FALSE             |  84|
+
+### Use of VA health services
+
+Questions
+
+* Only makes sense for respondents who are eligible?
+* Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
+
+
+| eligible|indSurveyComplete | va_ever_enrolled| va_use_12mo|   n|
+|--------:|:-----------------|----------------:|-----------:|---:|
+|        0|FALSE             |               NA|          NA| 534|
+|        1|FALSE             |                1|           0|   2|
+|        1|FALSE             |                1|           1|   7|
+|        1|FALSE             |               NA|          NA|  85|
+|        1|TRUE              |                0|          NA| 163|
+|        1|TRUE              |                1|           0| 137|
+|        1|TRUE              |                1|           1| 274|
+|        1|TRUE              |                1|           9|   2|
+|        1|TRUE              |                1|          NA|   1|
+|        1|TRUE              |                9|           0|  33|
+|        1|TRUE              |                9|           1|   2|
+|        1|TRUE              |                9|           9|   5|
+|       NA|FALSE             |               NA|          NA|  84|
+
+### Presence of suicidality
+
+Questions
+
+* What DSI-SS cutoff should we use?
+
+
+| dsiss|   n|  freq|
+|-----:|---:|-----:|
+|     0| 439| 0.330|
+|     1|  43| 0.032|
+|     2|  29| 0.022|
+|     3|  37| 0.028|
+|     4|  28| 0.021|
+|     5|  22| 0.017|
+|     6|   6| 0.005|
+|     7|   7| 0.005|
+|     8|   3| 0.002|
+|     9|   2| 0.002|
+|    NA| 713| 0.536|
 # Correlate Facebook metrics data
 
 
 |                 | impressions| reach| clicksAll| linkClicks| uniqueClicksAll| uniqueLinkClicks| reactions| comments| shares|
 |:----------------|-----------:|-----:|---------:|----------:|---------------:|----------------:|---------:|--------:|------:|
-|impressions      |           1|     1|      0.70|       0.64|            0.71|             0.64|      0.22|     0.20|   0.40|
-|reach            |          NA|     1|      0.71|       0.64|            0.71|             0.64|      0.22|     0.20|   0.40|
-|clicksAll        |          NA|    NA|      1.00|       0.83|            0.99|             0.83|      0.41|     0.32|   0.65|
-|linkClicks       |          NA|    NA|        NA|       1.00|            0.83|             1.00|     -0.01|     0.18|   0.31|
-|uniqueClicksAll  |          NA|    NA|        NA|         NA|            1.00|             0.83|      0.42|     0.29|   0.64|
-|uniqueLinkClicks |          NA|    NA|        NA|         NA|              NA|             1.00|     -0.01|     0.18|   0.30|
+|impressions      |           1|     1|      0.71|       0.64|            0.72|             0.64|      0.24|     0.20|   0.39|
+|reach            |          NA|     1|      0.71|       0.64|            0.72|             0.64|      0.24|     0.20|   0.39|
+|clicksAll        |          NA|    NA|      1.00|       0.83|            0.99|             0.83|      0.42|     0.32|   0.65|
+|linkClicks       |          NA|    NA|        NA|       1.00|            0.83|             1.00|      0.00|     0.18|   0.31|
+|uniqueClicksAll  |          NA|    NA|        NA|         NA|            1.00|             0.83|      0.43|     0.29|   0.64|
+|uniqueLinkClicks |          NA|    NA|        NA|         NA|              NA|             1.00|      0.00|     0.18|   0.31|
 |reactions        |          NA|    NA|        NA|         NA|              NA|               NA|      1.00|     0.19|   0.25|
 |comments         |          NA|    NA|        NA|         NA|              NA|               NA|        NA|     1.00|   0.09|
 |shares           |          NA|    NA|        NA|         NA|              NA|               NA|        NA|       NA|   1.00|
+
+Check correlation between `impressions` and `reach`.
+
+![plot of chunk unnamed-chunk-12](../figures/unnamed-chunk-12-1.png)
 # Model counts
 
 * Use negative binomial model
@@ -307,52 +404,52 @@ Image files saved as [PNG](../figures/impressions.png), [SVG](../figures/impress
 ## 
 ## |image    |text        |    pred| predLower| predUpper|
 ## |:--------|:-----------|-------:|---------:|---------:|
-## |Veteran  |Sharing     | 1757.73|   1575.81|   1960.66|
-## |Veteran  |Incentive   | 1602.71|   1436.80|   1787.78|
-## |Veteran  |Altruism    | 1312.31|   1176.40|   1463.92|
-## |Veteran  |Empowerment | 1275.38|   1143.28|   1422.74|
-## |Family   |Empowerment | 1274.75|   1135.17|   1431.50|
-## |Computer |Sharing     | 1256.49|   1126.35|   1401.67|
-## |Veteran  |SocialNorms | 1250.96|   1121.38|   1395.50|
-## |Family   |Sharing     | 1193.04|   1069.45|   1330.92|
-## |Family   |Altruism    | 1125.38|   1008.78|   1255.46|
-## |Computer |SocialNorms | 1099.00|    985.12|   1226.04|
-## |Computer |Altruism    | 1097.71|    983.97|   1224.60|
-## |Family   |SocialNorms | 1093.20|    979.92|   1219.57|
-## |Family   |Incentive   | 1080.02|    968.11|   1204.87|
-## |Computer |Incentive   | 1056.07|    946.63|   1178.16|
-## |Computer |Empowerment |  979.60|    872.25|   1100.16|
+## |Veteran  |Sharing     | 1757.73|   1559.21|   1981.54|
+## |Veteran  |Incentive   | 1602.71|   1421.67|   1806.81|
+## |Veteran  |Altruism    | 1312.31|   1164.01|   1479.50|
+## |Veteran  |Empowerment | 1275.38|   1131.25|   1437.87|
+## |Computer |Sharing     | 1256.49|   1114.49|   1416.58|
+## |Veteran  |SocialNorms | 1250.96|   1109.58|   1410.35|
+## |Family   |Empowerment | 1194.50|   1060.88|   1344.95|
+## |Family   |Sharing     | 1193.04|   1058.20|   1345.08|
+## |Family   |Altruism    | 1125.38|    998.16|   1268.81|
+## |Computer |SocialNorms | 1099.00|    974.76|   1239.08|
+## |Computer |Altruism    | 1097.71|    973.61|   1237.63|
+## |Family   |SocialNorms | 1093.20|    969.61|   1232.54|
+## |Family   |Incentive   | 1080.02|    957.92|   1217.69|
+## |Computer |Incentive   | 1056.07|    936.66|   1190.69|
+## |Computer |Empowerment |  977.13|    866.63|   1101.72|
 ## 
 ## 
 ## |         |Computer | Family| Veteran|
 ## |:--------|:--------|------:|-------:|
-## |Computer |NA       |  0.776|       0|
+## |Computer |NA       |  0.796|       0|
 ## |Family   |NA       |     NA|       0|
 ## |Veteran  |NA       |     NA|      NA|
 ## 
 ## |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 ## |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-## |Incentive   |NA        |    0.624|       0.356|   0.028|       0.614|
-## |Altruism    |NA        |       NA|       0.162|   0.087|       0.988|
-## |Empowerment |NA        |       NA|          NA|   0.002|       0.158|
-## |Sharing     |NA        |       NA|          NA|      NA|       0.090|
+## |Incentive   |NA        |    0.655|       0.370|   0.045|       0.645|
+## |Altruism    |NA        |       NA|       0.179|   0.119|       0.989|
+## |Empowerment |NA        |       NA|          NA|   0.004|       0.175|
+## |Sharing     |NA        |       NA|          NA|      NA|       0.122|
 ## |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 ## 
 ## |        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
 ## |:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-## |Com-Inc |NA      |   0.624|   0.356|   0.028|   0.614|   0.776|   0.421|   0.021|   0.122|   0.662|   0.000|   0.006|   0.017|   0.000|   0.032|
-## |Com-Alt |NA      |      NA|   0.162|   0.087|   0.988|   0.837|   0.752|   0.066|   0.291|   0.958|   0.000|   0.024|   0.057|   0.000|   0.098|
-## |Com-Emp |NA      |      NA|      NA|   0.002|   0.158|   0.230|   0.088|   0.002|   0.015|   0.178|   0.000|   0.000|   0.001|   0.000|   0.003|
-## |Com-Sha |NA      |      NA|      NA|      NA|   0.090|   0.055|   0.163|   0.859|   0.511|   0.078|   0.002|   0.582|   0.850|   0.000|   0.955|
-## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.825|   0.764|   0.068|   0.298|   0.947|   0.000|   0.025|   0.059|   0.000|   0.101|
-## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.602|   0.042|   0.207|   0.878|   0.000|   0.014|   0.035|   0.000|   0.063|
-## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.125|   0.459|   0.713|   0.000|   0.051|   0.113|   0.000|   0.180|
-## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.415|   0.059|   0.005|   0.721|   0.995|   0.000|   0.817|
-## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.154|   0.000|   0.227|   0.398|   0.000|   0.548|
-## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.021|   0.051|   0.000|   0.088|
-## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.011|   0.004|   0.242|   0.002|
-## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.717|   0.000|   0.544|
-## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.806|
+## |Com-Inc |NA      |   0.655|   0.370|   0.045|   0.645|   0.796|   0.463|   0.152|   0.159|   0.690|   0.000|   0.012|   0.029|   0.000|   0.050|
+## |Com-Alt |NA      |      NA|   0.179|   0.119|   0.989|   0.851|   0.774|   0.326|   0.336|   0.962|   0.000|   0.039|   0.083|   0.000|   0.131|
+## |Com-Emp |NA      |      NA|      NA|   0.004|   0.175|   0.248|   0.103|   0.020|   0.021|   0.195|   0.000|   0.001|   0.002|   0.000|   0.004|
+## |Com-Sha |NA      |      NA|      NA|      NA|   0.122|   0.080|   0.203|   0.557|   0.549|   0.108|   0.005|   0.615|   0.863|   0.000|   0.959|
+## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.841|   0.784|   0.333|   0.343|   0.951|   0.000|   0.040|   0.085|   0.000|   0.135|
+## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.635|   0.242|   0.250|   0.889|   0.000|   0.024|   0.055|   0.000|   0.090|
+## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.489|   0.500|   0.738|   0.000|   0.076|   0.148|   0.000|   0.222|
+## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.989|   0.303|   0.001|   0.274|   0.447|   0.000|   0.592|
+## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.180|   0.001|   0.271|   0.441|   0.000|   0.584|
+## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.035|   0.075|   0.000|   0.119|
+## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.021|   0.008|   0.286|   0.004|
+## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.741|   0.001|   0.580|
+## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.823|
 ## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
 ## |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 ```
@@ -377,46 +474,46 @@ Image files saved as [PNG](../figures/impressions.png), [SVG](../figures/impress
 ```
 ## 
 ## Call:
-## glm.nb(formula = formula(text), data = df, init.theta = 7.180819185, 
+## glm.nb(formula = formula(text), data = df1, init.theta = 5.96351648, 
 ##     link = log)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.9074  -0.6555   0.0650   0.4441   3.9275  
+## -5.1220  -0.6081   0.0731   0.4132   3.8272  
 ## 
 ## Coefficients:
 ##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                   6.962307   0.055819 124.731  < 2e-16 ***
-## imageFamily                   0.022430   0.078936   0.284  0.77629    
-## imageVeteran                  0.417145   0.078894   5.287 1.24e-07 ***
-## textAltruism                  0.038676   0.078934   0.490  0.62415    
-## textEmpowerment              -0.075162   0.081380  -0.924  0.35570    
-## textSharing                   0.173770   0.078918   2.202  0.02767 *  
-## textSocialNorms               0.039849   0.078934   0.505  0.61367    
-## imageFamily:textAltruism      0.002461   0.111626   0.022  0.98241    
-## imageVeteran:textAltruism    -0.238583   0.111583  -2.138  0.03250 *  
-## imageFamily:textEmpowerment   0.240931   0.115061   2.094  0.03627 *  
-## imageVeteran:textEmpowerment -0.153292   0.113328  -1.353  0.17617    
-## imageFamily:textSharing      -0.074243   0.111609  -0.665  0.50592    
-## imageVeteran:textSharing     -0.081441   0.111552  -0.730  0.46534    
-## imageFamily:textSocialNorms  -0.027722   0.111628  -0.248  0.80387    
-## imageVeteran:textSocialNorms -0.287638   0.111587  -2.578  0.00995 ** 
+## (Intercept)                   6.962307   0.061216 113.733  < 2e-16 ***
+## imageFamily                   0.022430   0.086570   0.259   0.7956    
+## imageVeteran                  0.417145   0.086531   4.821 1.43e-06 ***
+## textAltruism                  0.038676   0.086568   0.447   0.6550    
+## textEmpowerment              -0.077683   0.086582  -0.897   0.3696    
+## textSharing                   0.173770   0.086553   2.008   0.0447 *  
+## textSocialNorms               0.039849   0.086568   0.460   0.6453    
+## imageFamily:textAltruism      0.002461   0.122422   0.020   0.9840    
+## imageVeteran:textAltruism    -0.238583   0.122383  -1.949   0.0512 .  
+## imageFamily:textEmpowerment   0.178430   0.122094   1.461   0.1439    
+## imageVeteran:textEmpowerment -0.150771   0.122395  -1.232   0.2180    
+## imageFamily:textSharing      -0.074243   0.122407  -0.607   0.5442    
+## imageVeteran:textSharing     -0.081441   0.122355  -0.666   0.5057    
+## imageFamily:textSocialNorms  -0.027722   0.122424  -0.226   0.8209    
+## imageVeteran:textSocialNorms -0.287638   0.122386  -2.350   0.0188 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Negative Binomial(7.1808) family taken to be 1)
+## (Dispersion parameter for Negative Binomial(5.9635) family taken to be 1)
 ## 
-##     Null deviance: 794.82  on 664  degrees of freedom
-## Residual deviance: 680.44  on 650  degrees of freedom
-## AIC: 9996.9
+##     Null deviance: 792.85  on 675  degrees of freedom
+## Residual deviance: 696.21  on 661  degrees of freedom
+## AIC: 10266
 ## 
 ## Number of Fisher Scoring iterations: 1
 ## 
 ## 
-##               Theta:  7.181 
-##           Std. Err.:  0.388 
+##               Theta:  5.964 
+##           Std. Err.:  0.318 
 ## 
-##  2 x log-likelihood:  -9964.874
+##  2 x log-likelihood:  -10234.076
 ```
 
 ```
@@ -443,52 +540,52 @@ Image files saved as [PNG](../figures/reach.png), [SVG](../figures/reach.svg)
 ## 
 ## |image    |text        |    pred| predLower| predUpper|
 ## |:--------|:-----------|-------:|---------:|---------:|
-## |Veteran  |Sharing     | 1752.78|   1571.80|   1954.59|
-## |Veteran  |Incentive   | 1596.22|   1431.38|   1780.05|
-## |Veteran  |Altruism    | 1307.96|   1172.82|   1458.66|
-## |Veteran  |Empowerment | 1271.02|   1139.69|   1417.48|
-## |Family   |Empowerment | 1270.50|   1131.71|   1426.31|
-## |Computer |Sharing     | 1252.44|   1123.03|   1396.77|
-## |Veteran  |SocialNorms | 1247.20|   1118.33|   1390.93|
-## |Family   |Sharing     | 1189.13|   1066.24|   1326.19|
-## |Family   |Altruism    | 1121.07|   1005.19|   1250.30|
-## |Computer |SocialNorms | 1094.47|    981.33|   1220.64|
-## |Computer |Altruism    | 1092.84|    979.88|   1218.84|
-## |Family   |SocialNorms | 1089.00|    976.43|   1214.55|
-## |Family   |Incentive   | 1075.53|    964.35|   1199.54|
-## |Computer |Incentive   | 1051.13|    942.46|   1172.33|
-## |Computer |Empowerment |  975.35|    868.72|   1095.07|
+## |Veteran  |Sharing     | 1752.78|   1555.30|   1975.34|
+## |Veteran  |Incentive   | 1596.22|   1416.35|   1798.94|
+## |Veteran  |Altruism    | 1307.96|   1160.51|   1474.13|
+## |Veteran  |Empowerment | 1271.02|   1127.73|   1432.52|
+## |Computer |Sharing     | 1252.44|   1111.24|   1411.59|
+## |Veteran  |SocialNorms | 1247.20|   1106.59|   1405.68|
+## |Family   |Sharing     | 1189.13|   1055.05|   1340.25|
+## |Family   |Empowerment | 1189.04|   1056.35|   1338.40|
+## |Family   |Altruism    | 1121.07|    994.64|   1263.56|
+## |Computer |SocialNorms | 1094.47|    971.04|   1233.59|
+## |Computer |Altruism    | 1092.84|    969.60|   1231.76|
+## |Family   |SocialNorms | 1089.00|    966.18|   1227.43|
+## |Family   |Incentive   | 1075.53|    954.23|   1212.25|
+## |Computer |Incentive   | 1051.13|    932.58|   1184.76|
+## |Computer |Empowerment |  971.80|    862.17|   1095.37|
 ## 
 ## 
 ## |         |Computer | Family| Veteran|
 ## |:--------|:--------|------:|-------:|
-## |Computer |NA       |  0.771|       0|
+## |Computer |NA       |   0.79|       0|
 ## |Family   |NA       |     NA|       0|
 ## |Veteran  |NA       |     NA|      NA|
 ## 
 ## |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 ## |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-## |Incentive   |NA        |    0.621|       0.357|   0.026|       0.608|
-## |Altruism    |NA        |       NA|       0.161|   0.083|       0.985|
-## |Empowerment |NA        |       NA|          NA|   0.002|       0.156|
-## |Sharing     |NA        |       NA|          NA|      NA|       0.087|
+## |Incentive   |NA        |    0.652|       0.364|   0.042|       0.640|
+## |Altruism    |NA        |       NA|       0.174|   0.114|       0.986|
+## |Empowerment |NA        |       NA|          NA|   0.003|       0.169|
+## |Sharing     |NA        |       NA|          NA|      NA|       0.118|
 ## |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 ## 
 ## |        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
 ## |:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-## |Com-Inc |NA      |   0.621|   0.357|   0.026|   0.608|   0.771|   0.413|   0.019|   0.117|   0.653|   0.000|   0.005|   0.016|   0.000|   0.030|
-## |Com-Alt |NA      |      NA|   0.161|   0.083|   0.985|   0.839|   0.746|   0.063|   0.283|   0.964|   0.000|   0.022|   0.055|   0.000|   0.093|
-## |Com-Emp |NA      |      NA|      NA|   0.002|   0.156|   0.228|   0.086|   0.002|   0.015|   0.175|   0.000|   0.000|   0.001|   0.000|   0.002|
-## |Com-Sha |NA      |      NA|      NA|      NA|   0.087|   0.053|   0.159|   0.860|   0.510|   0.076|   0.002|   0.582|   0.852|   0.000|   0.957|
-## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.825|   0.760|   0.066|   0.292|   0.949|   0.000|   0.024|   0.057|   0.000|   0.097|
-## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.598|   0.040|   0.202|   0.874|   0.000|   0.013|   0.034|   0.000|   0.060|
-## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.123|   0.454|   0.712|   0.000|   0.050|   0.111|   0.000|   0.176|
-## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.415|   0.057|   0.005|   0.720|   0.996|   0.000|   0.820|
-## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.152|   0.000|   0.226|   0.397|   0.000|   0.545|
-## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.020|   0.050|   0.000|   0.085|
-## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.011|   0.004|   0.234|   0.002|
-## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.716|   0.000|   0.546|
-## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.810|
+## |Com-Inc |NA      |   0.652|   0.364|   0.042|   0.640|   0.790|   0.456|   0.151|   0.153|   0.682|   0.000|   0.011|   0.028|   0.000|   0.048|
+## |Com-Alt |NA      |      NA|   0.174|   0.114|   0.986|   0.853|   0.768|   0.326|   0.328|   0.967|   0.000|   0.037|   0.080|   0.000|   0.126|
+## |Com-Emp |NA      |      NA|      NA|   0.003|   0.169|   0.240|   0.098|   0.019|   0.019|   0.187|   0.000|   0.001|   0.002|   0.000|   0.004|
+## |Com-Sha |NA      |      NA|      NA|      NA|   0.118|   0.078|   0.199|   0.545|   0.548|   0.105|   0.005|   0.615|   0.865|   0.000|   0.961|
+## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.840|   0.781|   0.334|   0.337|   0.954|   0.000|   0.039|   0.083|   0.000|   0.130|
+## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.631|   0.243|   0.245|   0.885|   0.000|   0.023|   0.053|   0.000|   0.086|
+## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.493|   0.495|   0.737|   0.000|   0.074|   0.146|   0.000|   0.217|
+## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.999|   0.306|   0.001|   0.267|   0.437|   0.000|   0.578|
+## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.175|   0.001|   0.270|   0.440|   0.000|   0.581|
+## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.034|   0.073|   0.000|   0.116|
+## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.021|   0.008|   0.278|   0.004|
+## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.740|   0.001|   0.582|
+## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.826|
 ## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
 ## |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 ```
@@ -505,46 +602,46 @@ Image files saved as [PNG](../figures/reach.png), [SVG](../figures/reach.svg)
 ```
 ## 
 ## Call:
-## glm.nb(formula = formula(text), data = df, init.theta = 7.217640526, 
+## glm.nb(formula = formula(text), data = df1, init.theta = 5.994674917, 
 ##     link = log)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.9097  -0.6531   0.0648   0.4421   3.9084  
+## -5.1300  -0.6036   0.0751   0.4047   3.8146  
 ## 
 ## Coefficients:
 ##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                   6.957624   0.055678 124.962  < 2e-16 ***
-## imageFamily                   0.022948   0.078737   0.291  0.77071    
-## imageVeteran                  0.417771   0.078694   5.309  1.1e-07 ***
-## textAltruism                  0.038915   0.078735   0.494  0.62113    
-## textEmpowerment              -0.074828   0.081175  -0.922  0.35663    
-## textSharing                   0.175228   0.078719   2.226  0.02601 *  
-## textSocialNorms               0.040398   0.078735   0.513  0.60789    
-## imageFamily:textAltruism      0.002549   0.111344   0.023  0.98174    
-## imageVeteran:textAltruism    -0.238089   0.111301  -2.139  0.03242 *  
-## imageFamily:textEmpowerment   0.241422   0.114771   2.104  0.03542 *  
-## imageVeteran:textEmpowerment -0.152990   0.113042  -1.353  0.17593    
-## imageFamily:textSharing      -0.074820   0.111327  -0.672  0.50154    
-## imageVeteran:textSharing     -0.081666   0.111270  -0.734  0.46298    
-## imageFamily:textSocialNorms  -0.027955   0.111346  -0.251  0.80176    
-## imageVeteran:textSocialNorms -0.287137   0.111304  -2.580  0.00989 ** 
+## (Intercept)                   6.957624   0.061058 113.950  < 2e-16 ***
+## imageFamily                   0.022948   0.086347   0.266   0.7904    
+## imageVeteran                  0.417771   0.086308   4.840  1.3e-06 ***
+## textAltruism                  0.038915   0.086345   0.451   0.6522    
+## textEmpowerment              -0.078474   0.086360  -0.909   0.3635    
+## textSharing                   0.175228   0.086330   2.030   0.0424 *  
+## textSocialNorms               0.040398   0.086345   0.468   0.6399    
+## imageFamily:textAltruism      0.002549   0.122106   0.021   0.9833    
+## imageVeteran:textAltruism    -0.238089   0.122067  -1.950   0.0511 .  
+## imageFamily:textEmpowerment   0.178807   0.121780   1.468   0.1420    
+## imageVeteran:textEmpowerment -0.149344   0.122079  -1.223   0.2212    
+## imageFamily:textSharing      -0.074820   0.122091  -0.613   0.5400    
+## imageVeteran:textSharing     -0.081666   0.122039  -0.669   0.5034    
+## imageFamily:textSocialNorms  -0.027955   0.122109  -0.229   0.8189    
+## imageVeteran:textSocialNorms -0.287137   0.122070  -2.352   0.0187 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Negative Binomial(7.2176) family taken to be 1)
+## (Dispersion parameter for Negative Binomial(5.9947) family taken to be 1)
 ## 
-##     Null deviance: 795.83  on 664  degrees of freedom
-## Residual deviance: 680.36  on 650  degrees of freedom
-## AIC: 9988.9
+##     Null deviance: 793.83  on 675  degrees of freedom
+## Residual deviance: 696.13  on 661  degrees of freedom
+## AIC: 10258
 ## 
 ## Number of Fisher Scoring iterations: 1
 ## 
 ## 
-##               Theta:  7.218 
-##           Std. Err.:  0.390 
+##               Theta:  5.995 
+##           Std. Err.:  0.320 
 ## 
-##  2 x log-likelihood:  -9956.888
+##  2 x log-likelihood:  -10225.767
 ```
 
 ```
@@ -571,20 +668,20 @@ Image files saved as [PNG](../figures/clicksAll.png), [SVG](../figures/clicksAll
 ## 
 ## |image    |text        | impressions|  pred| predLower| predUpper|
 ## |:--------|:-----------|-----------:|-----:|---------:|---------:|
-## |Veteran  |SocialNorms |        1000| 18.14|     16.74|     19.66|
-## |Veteran  |Sharing     |        1000| 16.68|     15.47|     17.98|
+## |Veteran  |SocialNorms |        1000| 18.14|     16.74|     19.65|
+## |Veteran  |Sharing     |        1000| 16.68|     15.47|     17.97|
 ## |Veteran  |Altruism    |        1000| 14.34|     13.17|     15.61|
 ## |Veteran  |Incentive   |        1000| 12.66|     11.64|     13.77|
 ## |Veteran  |Empowerment |        1000| 11.29|     10.28|     12.39|
 ## |Family   |Altruism    |        1000| 11.25|     10.21|     12.40|
 ## |Computer |SocialNorms |        1000| 11.09|     10.04|     12.24|
 ## |Family   |Sharing     |        1000| 10.68|      9.69|     11.77|
-## |Family   |Empowerment |        1000| 10.03|      9.03|     11.13|
-## |Family   |SocialNorms |        1000|  9.85|      8.88|     10.93|
+## |Family   |Empowerment |        1000| 10.21|      9.23|     11.30|
+## |Family   |SocialNorms |        1000|  9.85|      8.89|     10.93|
 ## |Computer |Sharing     |        1000|  9.71|      8.79|     10.72|
-## |Computer |Empowerment |        1000|  8.68|      7.70|      9.78|
-## |Family   |Incentive   |        1000|  8.52|      7.63|      9.51|
-## |Computer |Altruism    |        1000|  8.25|      7.38|      9.22|
+## |Computer |Empowerment |        1000|  8.64|      7.71|      9.68|
+## |Family   |Incentive   |        1000|  8.52|      7.63|      9.50|
+## |Computer |Altruism    |        1000|  8.25|      7.39|      9.21|
 ## |Computer |Incentive   |        1000|  7.33|      6.52|      8.25|
 ## 
 ## 
@@ -596,28 +693,28 @@ Image files saved as [PNG](../figures/clicksAll.png), [SVG](../figures/clicksAll
 ## 
 ## |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 ## |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-## |Incentive   |NA        |    0.154|       0.050|   0.000|       0.000|
-## |Altruism    |NA        |       NA|       0.544|   0.032|       0.000|
-## |Empowerment |NA        |       NA|          NA|   0.158|       0.002|
-## |Sharing     |NA        |       NA|          NA|      NA|       0.063|
+## |Incentive   |NA        |    0.154|       0.049|   0.000|       0.000|
+## |Altruism    |NA        |       NA|       0.566|   0.032|       0.000|
+## |Empowerment |NA        |       NA|          NA|   0.129|       0.001|
+## |Sharing     |NA        |       NA|          NA|      NA|       0.062|
 ## |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 ## 
 ## |        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
 ## |:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-## |Com-Inc |NA      |   0.154|   0.050|   0.000|   0.000|   0.069|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Com-Alt |NA      |      NA|   0.544|   0.032|   0.000|   0.690|   0.000|   0.012|   0.001|   0.022|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Com-Emp |NA      |      NA|      NA|   0.158|   0.002|   0.821|   0.001|   0.075|   0.008|   0.116|   0.000|   0.000|   0.001|   0.000|   0.000|
-## |Com-Sha |NA      |      NA|      NA|      NA|   0.063|   0.083|   0.037|   0.659|   0.177|   0.837|   0.000|   0.000|   0.030|   0.000|   0.000|
-## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.835|   0.171|   0.599|   0.107|   0.045|   0.000|   0.796|   0.000|   0.000|
-## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.000|   0.035|   0.002|   0.058|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.114|   0.460|   0.068|   0.072|   0.000|   0.963|   0.000|   0.000|
-## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.386|   0.816|   0.001|   0.000|   0.098|   0.000|   0.000|
-## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.770|   0.010|   0.000|   0.423|   0.000|   0.000|
+## |Com-Inc |NA      |   0.154|   0.049|   0.000|   0.000|   0.069|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Com-Alt |NA      |      NA|   0.566|   0.032|   0.000|   0.689|   0.000|   0.005|   0.001|   0.021|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Com-Emp |NA      |      NA|      NA|   0.129|   0.001|   0.857|   0.001|   0.031|   0.005|   0.093|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Com-Sha |NA      |      NA|      NA|      NA|   0.062|   0.083|   0.037|   0.480|   0.176|   0.836|   0.000|   0.000|   0.030|   0.000|   0.000|
+## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.835|   0.255|   0.598|   0.106|   0.044|   0.000|   0.796|   0.000|   0.000|
+## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.000|   0.017|   0.002|   0.058|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.176|   0.459|   0.067|   0.071|   0.000|   0.962|   0.000|   0.000|
+## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.530|   0.627|   0.001|   0.000|   0.154|   0.000|   0.000|
+## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.734|   0.009|   0.000|   0.422|   0.000|   0.000|
 ## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.056|   0.000|   0.000|
-## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.041|   0.073|   0.000|   0.000|
+## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.041|   0.072|   0.000|   0.000|
 ## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.009|   0.000|
 ## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|
-## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.134|
+## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.133|
 ## |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 ```
 
@@ -633,46 +730,46 @@ Image files saved as [PNG](../figures/clicksAll.png), [SVG](../figures/clicksAll
 ```
 ## 
 ## Call:
-## glm.nb(formula = formula(text), data = df, init.theta = 33.4500866, 
+## glm.nb(formula = formula(text), data = df1, init.theta = 33.93522219, 
 ##     link = log)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.2285  -0.7317  -0.0295   0.5969   2.7554  
+## -3.2316  -0.7114  -0.0379   0.6036   2.7668  
 ## 
 ## Coefficients:
 ##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -4.915177   0.060098 -81.786  < 2e-16 ***
-## imageFamily                   0.149369   0.082252   1.816 0.069374 .  
-## imageVeteran                  0.545880   0.073789   7.398 1.38e-13 ***
-## textAltruism                  0.117562   0.082493   1.425 0.154123    
-## textEmpowerment               0.168161   0.085830   1.959 0.050086 .  
-## textSharing                   0.280279   0.078521   3.569 0.000358 ***
-## textSocialNorms               0.413189   0.078455   5.267 1.39e-07 ***
-## imageFamily:textAltruism      0.160983   0.111482   1.444 0.148732    
-## imageVeteran:textAltruism     0.006996   0.102563   0.068 0.945618    
-## imageFamily:textEmpowerment  -0.004782   0.115618  -0.041 0.967006    
-## imageVeteran:textEmpowerment -0.282946   0.107088  -2.642 0.008238 ** 
-## imageFamily:textSharing      -0.053679   0.108548  -0.495 0.620936    
-## imageVeteran:textSharing     -0.004710   0.097331  -0.048 0.961404    
-## imageFamily:textSocialNorms  -0.267242   0.110012  -2.429 0.015132 *  
-## imageVeteran:textSocialNorms -0.053538   0.098333  -0.544 0.586132    
+## (Intercept)                  -4.915234   0.060013 -81.903  < 2e-16 ***
+## imageFamily                   0.149384   0.082128   1.819 0.068925 .  
+## imageVeteran                  0.545986   0.073650   7.413 1.23e-13 ***
+## textAltruism                  0.117563   0.082369   1.427 0.153500    
+## textEmpowerment               0.163881   0.083338   1.966 0.049245 *  
+## textSharing                   0.280302   0.078391   3.576 0.000349 ***
+## textSocialNorms               0.413173   0.078326   5.275 1.33e-07 ***
+## imageFamily:textAltruism      0.160905   0.111301   1.446 0.148268    
+## imageVeteran:textAltruism     0.006924   0.102365   0.068 0.946075    
+## imageFamily:textEmpowerment   0.017931   0.112834   0.159 0.873738    
+## imageVeteran:textEmpowerment -0.278756   0.105004  -2.655 0.007938 ** 
+## imageFamily:textSharing      -0.053705   0.108361  -0.496 0.620166    
+## imageVeteran:textSharing     -0.004891   0.097122  -0.050 0.959835    
+## imageFamily:textSocialNorms  -0.267137   0.109827  -2.432 0.015001 *  
+## imageVeteran:textSocialNorms -0.053572   0.098128  -0.546 0.585106    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Negative Binomial(33.4501) family taken to be 1)
+## (Dispersion parameter for Negative Binomial(33.9352) family taken to be 1)
 ## 
-##     Null deviance: 1090.54  on 664  degrees of freedom
-## Residual deviance:  669.49  on 650  degrees of freedom
-## AIC: 3795.9
+##     Null deviance: 1111.83  on 675  degrees of freedom
+## Residual deviance:  686.74  on 661  degrees of freedom
+## AIC: 3850.7
 ## 
 ## Number of Fisher Scoring iterations: 1
 ## 
 ## 
-##               Theta:  33.45 
-##           Std. Err.:  6.00 
+##               Theta:  33.94 
+##           Std. Err.:  6.11 
 ## 
-##  2 x log-likelihood:  -3763.939
+##  2 x log-likelihood:  -3818.726
 ```
 
 ```
@@ -701,16 +798,16 @@ Image files saved as [PNG](../figures/uniqueClicksAll.png), [SVG](../figures/uni
 ## |:--------|:-----------|-----------:|-----:|---------:|---------:|
 ## |Veteran  |SocialNorms |        1000| 16.61|     15.38|     17.94|
 ## |Veteran  |Sharing     |        1000| 15.29|     14.24|     16.42|
-## |Veteran  |Altruism    |        1000| 13.58|     12.52|     14.74|
+## |Veteran  |Altruism    |        1000| 13.58|     12.52|     14.73|
 ## |Veteran  |Incentive   |        1000| 11.78|     10.87|     12.76|
-## |Family   |Altruism    |        1000| 10.72|      9.76|     11.79|
+## |Family   |Altruism    |        1000| 10.72|      9.76|     11.78|
 ## |Veteran  |Empowerment |        1000| 10.58|      9.66|     11.58|
 ## |Family   |Sharing     |        1000| 10.00|      9.09|     11.00|
 ## |Computer |SocialNorms |        1000| 10.00|      9.06|     11.03|
+## |Family   |Empowerment |        1000|  9.33|      8.45|     10.30|
 ## |Family   |SocialNorms |        1000|  9.31|      8.41|     10.30|
-## |Family   |Empowerment |        1000|  9.27|      8.37|     10.27|
 ## |Computer |Sharing     |        1000|  8.89|      8.06|      9.80|
-## |Computer |Empowerment |        1000|  8.10|      7.18|      9.12|
+## |Computer |Empowerment |        1000|  8.10|      7.24|      9.06|
 ## |Family   |Incentive   |        1000|  8.01|      7.19|      8.93|
 ## |Computer |Altruism    |        1000|  7.85|      7.04|      8.75|
 ## |Computer |Incentive   |        1000|  7.05|      6.28|      7.91|
@@ -724,28 +821,28 @@ Image files saved as [PNG](../figures/uniqueClicksAll.png), [SVG](../figures/uni
 ## 
 ## |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 ## |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-## |Incentive   |NA        |    0.184|       0.103|   0.003|       0.000|
-## |Altruism    |NA        |       NA|       0.711|   0.098|       0.001|
-## |Empowerment |NA        |       NA|          NA|   0.237|       0.007|
-## |Sharing     |NA        |       NA|          NA|      NA|       0.096|
+## |Incentive   |NA        |    0.183|       0.091|   0.003|       0.000|
+## |Altruism    |NA        |       NA|       0.696|   0.097|       0.001|
+## |Empowerment |NA        |       NA|          NA|   0.223|       0.006|
+## |Sharing     |NA        |       NA|          NA|      NA|       0.095|
 ## |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 ## 
 ## |        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
 ## |:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-## |Com-Inc |NA      |   0.184|   0.103|   0.003|   0.000|   0.113|   0.000|   0.001|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Com-Alt |NA      |      NA|   0.711|   0.098|   0.001|   0.794|   0.000|   0.030|   0.001|   0.025|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Com-Emp |NA      |      NA|      NA|   0.237|   0.007|   0.903|   0.000|   0.092|   0.007|   0.080|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Com-Sha |NA      |      NA|      NA|      NA|   0.096|   0.167|   0.007|   0.558|   0.090|   0.517|   0.000|   0.000|   0.010|   0.000|   0.000|
-## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.003|   0.314|   0.297|   0.997|   0.323|   0.011|   0.000|   0.408|   0.000|   0.000|
-## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.000|   0.056|   0.003|   0.048|   0.000|   0.000|   0.000|   0.000|   0.000|
-## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.041|   0.307|   0.046|   0.139|   0.000|   0.837|   0.000|   0.000|
-## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.288|   0.953|   0.000|   0.000|   0.059|   0.000|   0.000|
+## |Com-Inc |NA      |   0.183|   0.091|   0.003|   0.000|   0.113|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Com-Alt |NA      |      NA|   0.696|   0.097|   0.001|   0.794|   0.000|   0.022|   0.001|   0.025|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Com-Emp |NA      |      NA|      NA|   0.223|   0.006|   0.893|   0.000|   0.065|   0.005|   0.071|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Com-Sha |NA      |      NA|      NA|      NA|   0.095|   0.166|   0.007|   0.493|   0.089|   0.515|   0.000|   0.000|   0.010|   0.000|   0.000|
+## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.003|   0.313|   0.330|   0.997|   0.323|   0.011|   0.000|   0.408|   0.000|   0.000|
+## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.000|   0.043|   0.003|   0.048|   0.000|   0.000|   0.000|   0.000|   0.000|
+## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.046|   0.307|   0.046|   0.137|   0.000|   0.838|   0.000|   0.000|
+## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.321|   0.979|   0.000|   0.000|   0.066|   0.000|   0.000|
 ## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.839|   0.010|   0.000|   0.402|   0.000|   0.000|
 ## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.066|   0.000|   0.000|
-## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.015|   0.082|   0.000|   0.000|
-## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.032|   0.000|
+## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.014|   0.081|   0.000|   0.000|
+## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.031|   0.000|
 ## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|
-## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.123|
+## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.121|
 ## |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 ```
 
@@ -761,46 +858,46 @@ Image files saved as [PNG](../figures/uniqueClicksAll.png), [SVG](../figures/uni
 ```
 ## 
 ## Call:
-## glm.nb(formula = formula(text), data = df, init.theta = 49.27844985, 
+## glm.nb(formula = formula(text), data = df1, init.theta = 50.16660122, 
 ##     link = log)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -3.2204  -0.7087  -0.0395   0.6228   2.9611  
+## -3.2231  -0.6994  -0.0381   0.6233   2.9732  
 ## 
 ## Coefficients:
 ##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -4.954874   0.059105 -83.831  < 2e-16 ***
-## imageFamily                   0.128349   0.081032   1.584  0.11321    
-## imageVeteran                  0.513360   0.071957   7.134 9.73e-13 ***
-## textAltruism                  0.107866   0.081104   1.330  0.18352    
-## textEmpowerment               0.138425   0.084864   1.631  0.10286    
-## textSharing                   0.231538   0.077365   2.993  0.00276 ** 
-## textSocialNorms               0.349465   0.077517   4.508 6.54e-06 ***
-## imageFamily:textAltruism      0.183395   0.109456   1.676  0.09383 .  
-## imageVeteran:textAltruism     0.034792   0.099937   0.348  0.72774    
-## imageFamily:textEmpowerment   0.007088   0.114067   0.062  0.95046    
-## imageVeteran:textEmpowerment -0.245903   0.105022  -2.341  0.01921 *  
-## imageFamily:textSharing      -0.010180   0.106833  -0.095  0.92408    
-## imageVeteran:textSharing      0.029626   0.094812   0.312  0.75469    
-## imageFamily:textSocialNorms  -0.199633   0.108467  -1.840  0.06570 .  
-## imageVeteran:textSocialNorms -0.005701   0.096144  -0.059  0.95272    
+## (Intercept)                  -4.954922   0.059032 -83.937  < 2e-16 ***
+## imageFamily                   0.128345   0.080924   1.586  0.11274    
+## imageVeteran                  0.513454   0.071836   7.148 8.83e-13 ***
+## textAltruism                  0.107851   0.080997   1.332  0.18301    
+## textEmpowerment               0.139039   0.082319   1.689  0.09121 .  
+## textSharing                   0.231548   0.077253   2.997  0.00272 ** 
+## textSocialNorms               0.349450   0.077407   4.514 6.35e-06 ***
+## imageFamily:textAltruism      0.183334   0.109299   1.677  0.09347 .  
+## imageVeteran:textAltruism     0.034731   0.099764   0.348  0.72774    
+## imageFamily:textEmpowerment   0.012814   0.111321   0.115  0.90836    
+## imageVeteran:textEmpowerment -0.246631   0.102892  -2.397  0.01653 *  
+## imageFamily:textSharing      -0.010187   0.106672  -0.096  0.92392    
+## imageVeteran:textSharing      0.029412   0.094630   0.311  0.75594    
+## imageFamily:textSocialNorms  -0.199535   0.108308  -1.842  0.06543 .  
+## imageVeteran:textSocialNorms -0.005741   0.095965  -0.060  0.95229    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Negative Binomial(49.2784) family taken to be 1)
+## (Dispersion parameter for Negative Binomial(50.1666) family taken to be 1)
 ## 
-##     Null deviance: 1072.57  on 664  degrees of freedom
-## Residual deviance:  653.31  on 650  degrees of freedom
-## AIC: 3667.6
+##     Null deviance: 1090.02  on 675  degrees of freedom
+## Residual deviance:  666.55  on 661  degrees of freedom
+## AIC: 3716.1
 ## 
 ## Number of Fisher Scoring iterations: 1
 ## 
 ## 
-##               Theta:  49.3 
-##           Std. Err.:  11.8 
+##               Theta:  50.2 
+##           Std. Err.:  12.1 
 ## 
-##  2 x log-likelihood:  -3635.577
+##  2 x log-likelihood:  -3684.118
 ```
 
 ```
@@ -821,11 +918,11 @@ Image files saved as [PNG](../figures/linkClicks.png), [SVG](../figures/linkClic
 ```
 
 ```
-## Warning: Removed 8 rows containing non-finite values (stat_smooth).
+## Warning: Removed 10 rows containing non-finite values (stat_smooth).
 ```
 
 ```
-## Warning: Removed 8 rows containing missing values (geom_point).
+## Warning: Removed 10 rows containing missing values (geom_point).
 ```
 
 ```
@@ -833,9 +930,9 @@ Image files saved as [PNG](../figures/linkClicks.png), [SVG](../figures/linkClic
 ```
 
 ```
-## Warning: Removed 8 rows containing non-finite values (stat_smooth).
+## Warning: Removed 10 rows containing non-finite values (stat_smooth).
 
-## Warning: Removed 8 rows containing missing values (geom_point).
+## Warning: Removed 10 rows containing missing values (geom_point).
 ```
 
 ```
@@ -845,16 +942,16 @@ Image files saved as [PNG](../figures/linkClicks.png), [SVG](../figures/linkClic
 ## |image    |text        | impressions|  pred| predLower| predUpper|
 ## |:--------|:-----------|-----------:|-----:|---------:|---------:|
 ## |Veteran  |SocialNorms |        1000| 11.48|     10.49|     12.56|
-## |Veteran  |Incentive   |        1000|  8.58|      7.82|      9.42|
-## |Veteran  |Sharing     |        1000|  7.89|      7.20|      8.65|
+## |Veteran  |Incentive   |        1000|  8.58|      7.82|      9.41|
+## |Veteran  |Sharing     |        1000|  7.89|      7.20|      8.64|
 ## |Computer |SocialNorms |        1000|  6.31|      5.59|      7.12|
 ## |Family   |SocialNorms |        1000|  5.21|      4.57|      5.94|
 ## |Veteran  |Empowerment |        1000|  5.19|      4.59|      5.88|
 ## |Computer |Sharing     |        1000|  5.01|      4.42|      5.68|
-## |Computer |Incentive   |        1000|  5.00|      4.35|      5.74|
+## |Computer |Incentive   |        1000|  5.00|      4.35|      5.73|
 ## |Family   |Sharing     |        1000|  4.92|      4.32|      5.60|
-## |Computer |Empowerment |        1000|  4.74|      4.07|      5.52|
-## |Family   |Empowerment |        1000|  4.56|      3.97|      5.25|
+## |Computer |Empowerment |        1000|  4.77|      4.13|      5.51|
+## |Family   |Empowerment |        1000|  4.57|      4.00|      5.23|
 ## |Family   |Altruism    |        1000|  4.56|      3.98|      5.23|
 ## |Computer |Altruism    |        1000|  4.52|      3.91|      5.21|
 ## |Family   |Incentive   |        1000|  4.43|      3.84|      5.10|
@@ -863,32 +960,32 @@ Image files saved as [PNG](../figures/linkClicks.png), [SVG](../figures/linkClic
 ## 
 ## |         |Computer | Family| Veteran|
 ## |:--------|:--------|------:|-------:|
-## |Computer |NA       |  0.234|       0|
+## |Computer |NA       |  0.233|       0|
 ## |Family   |NA       |     NA|       0|
 ## |Veteran  |NA       |     NA|      NA|
 ## 
 ## |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 ## |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-## |Incentive   |NA        |     0.32|       0.616|   0.974|       0.013|
-## |Altruism    |NA        |       NA|       0.651|   0.285|       0.000|
-## |Empowerment |NA        |       NA|          NA|   0.581|       0.004|
+## |Incentive   |NA        |     0.32|       0.651|   0.974|       0.013|
+## |Altruism    |NA        |       NA|       0.594|   0.284|       0.000|
+## |Empowerment |NA        |       NA|          NA|   0.614|       0.003|
 ## |Sharing     |NA        |       NA|          NA|      NA|       0.010|
 ## |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 ## 
 ## |        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
 ## |:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-## |Com-Inc |NA      |    0.32|   0.616|   0.974|   0.013|   0.234|   0.360|   0.367|   0.870|   0.670|       0|   0.091|   0.681|   0.000|       0|
-## |Com-Alt |NA      |      NA|   0.651|   0.285|   0.000|   0.850|   0.921|   0.917|   0.390|   0.151|       0|   0.521|   0.148|   0.000|       0|
-## |Com-Emp |NA      |      NA|      NA|   0.581|   0.004|   0.523|   0.714|   0.721|   0.720|   0.360|       0|   0.276|   0.361|   0.000|       0|
-## |Com-Sha |NA      |      NA|      NA|      NA|   0.010|   0.202|   0.323|   0.330|   0.838|   0.679|       0|   0.072|   0.691|   0.000|       0|
-## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.001|   0.001|   0.006|   0.035|       0|   0.000|   0.027|   0.004|       0|
-## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.770|   0.767|   0.288|   0.101|       0|   0.654|   0.097|   0.000|       0|
-## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.995|   0.437|   0.172|       0|   0.448|   0.169|   0.000|       0|
-## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.445|   0.178|       0|   0.447|   0.174|   0.000|       0|
-## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.413|       0|   0.116|   0.550|   0.000|       0|
-## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.030|   0.978|   0.000|       0|
-## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.206|       0|
-## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.028|   0.000|       0|
+## |Com-Inc |NA      |    0.32|   0.651|   0.974|   0.013|   0.233|   0.360|   0.369|   0.870|   0.669|       0|   0.091|   0.680|   0.000|       0|
+## |Com-Alt |NA      |      NA|   0.594|   0.284|   0.000|   0.850|   0.921|   0.900|   0.388|   0.151|       0|   0.521|   0.147|   0.000|       0|
+## |Com-Emp |NA      |      NA|      NA|   0.614|   0.003|   0.469|   0.657|   0.672|   0.760|   0.377|       0|   0.232|   0.379|   0.000|       0|
+## |Com-Sha |NA      |      NA|      NA|      NA|   0.010|   0.202|   0.322|   0.330|   0.838|   0.678|       0|   0.071|   0.690|   0.000|       0|
+## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.001|   0.000|   0.006|   0.035|       0|   0.000|   0.027|   0.004|       0|
+## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.770|   0.749|   0.287|   0.101|       0|   0.654|   0.097|   0.000|       0|
+## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.980|   0.436|   0.172|       0|   0.448|   0.168|   0.000|       0|
+## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.447|   0.176|       0|   0.428|   0.172|   0.000|       0|
+## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.432|       0|   0.116|   0.550|   0.000|       0|
+## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.030|   0.977|   0.000|       0|
+## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.204|       0|
+## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.027|   0.000|       0|
 ## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|       0|
 ## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|
 ## |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
@@ -906,51 +1003,51 @@ Image files saved as [PNG](../figures/linkClicks.png), [SVG](../figures/linkClic
 ```
 ## 
 ## Call:
-## glm.nb(formula = formula(text), data = df, init.theta = 41.83400464, 
+## glm.nb(formula = formula(text), data = df1, init.theta = 42.5657724, 
 ##     link = log)
 ## 
 ## Deviance Residuals: 
 ##      Min        1Q    Median        3Q       Max  
-## -2.84823  -0.73468  -0.07223   0.53679   2.73262  
+## -2.85259  -0.73762  -0.07106   0.53888   2.73552  
 ## 
 ## Coefficients:
-##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -5.299142   0.070455 -75.214  < 2e-16 ***
-## imageFamily                  -0.120340   0.101036  -1.191 0.233631    
-## imageVeteran                  0.540994   0.084876   6.374 1.84e-10 ***
-## textAltruism                 -0.100885   0.101548  -0.993 0.320481    
-## textEmpowerment              -0.052560   0.104906  -0.501 0.616354    
-## textSharing                   0.003095   0.095328   0.032 0.974098    
-## textSocialNorms               0.233385   0.093553   2.495 0.012607 *  
-## imageFamily:textAltruism      0.130321   0.143060   0.911 0.362318    
-## imageVeteran:textAltruism    -0.604870   0.130839  -4.623 3.78e-06 ***
-## imageFamily:textEmpowerment   0.082682   0.145933   0.567 0.571001    
-## imageVeteran:textEmpowerment -0.449510   0.131283  -3.424 0.000617 ***
-## imageFamily:textSharing       0.101401   0.136941   0.740 0.459012    
-## imageVeteran:textSharing     -0.087198   0.116266  -0.750 0.453263    
-## imageFamily:textSocialNorms  -0.071571   0.135988  -0.526 0.598679    
-## imageVeteran:textSocialNorms  0.057358   0.114492   0.501 0.616385    
+##                              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)                  -5.29917    0.07038 -75.293  < 2e-16 ***
+## imageFamily                  -0.12032    0.10093  -1.192 0.233229    
+## imageVeteran                  0.54117    0.08475   6.385 1.71e-10 ***
+## textAltruism                 -0.10094    0.10144  -0.995 0.319721    
+## textEmpowerment              -0.04592    0.10145  -0.453 0.650803    
+## textSharing                   0.00311    0.09522   0.033 0.973941    
+## textSocialNorms               0.23337    0.09345   2.497 0.012508 *  
+## imageFamily:textAltruism      0.13039    0.14292   0.912 0.361578    
+## imageVeteran:textAltruism    -0.60497    0.13068  -4.629 3.67e-06 ***
+## imageFamily:textEmpowerment   0.07787    0.14229   0.547 0.584219    
+## imageVeteran:textEmpowerment -0.45629    0.12846  -3.552 0.000382 ***
+## imageFamily:textSharing       0.10143    0.13679   0.741 0.458397    
+## imageVeteran:textSharing     -0.08747    0.11609  -0.753 0.451197    
+## imageFamily:textSocialNorms  -0.07150    0.13584  -0.526 0.598655    
+## imageVeteran:textSocialNorms  0.05721    0.11432   0.500 0.616762    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Negative Binomial(41.834) family taken to be 1)
+## (Dispersion parameter for Negative Binomial(42.5658) family taken to be 1)
 ## 
-##     Null deviance: 1028.41  on 656  degrees of freedom
-## Residual deviance:  623.07  on 642  degrees of freedom
-##   (8 observations deleted due to missingness)
-## AIC: 3142.1
+##     Null deviance: 1041.03  on 665  degrees of freedom
+## Residual deviance:  633.16  on 651  degrees of freedom
+##   (10 observations deleted due to missingness)
+## AIC: 3179.4
 ## 
 ## Number of Fisher Scoring iterations: 1
 ## 
 ## 
-##               Theta:  41.8 
-##           Std. Err.:  14.0 
+##               Theta:  42.6 
+##           Std. Err.:  14.3 
 ## 
-##  2 x log-likelihood:  -3110.141
+##  2 x log-likelihood:  -3147.411
 ```
 
 ```
-## Error in mutate_impl(.data, dots): wrong result size (657), expected 665 or 1
+## Error in mutate_impl(.data, dots): wrong result size (666), expected 676 or 1
 ```
 
 
@@ -966,11 +1063,11 @@ Image files saved as [PNG](../figures/uniqueLinkClicks.png), [SVG](../figures/un
 ```
 
 ```
-## Warning: Removed 8 rows containing non-finite values (stat_smooth).
+## Warning: Removed 10 rows containing non-finite values (stat_smooth).
 ```
 
 ```
-## Warning: Removed 8 rows containing missing values (geom_point).
+## Warning: Removed 10 rows containing missing values (geom_point).
 ```
 
 ```
@@ -978,9 +1075,9 @@ Image files saved as [PNG](../figures/uniqueLinkClicks.png), [SVG](../figures/un
 ```
 
 ```
-## Warning: Removed 8 rows containing non-finite values (stat_smooth).
+## Warning: Removed 10 rows containing non-finite values (stat_smooth).
 
-## Warning: Removed 8 rows containing missing values (geom_point).
+## Warning: Removed 10 rows containing missing values (geom_point).
 ```
 
 ```
@@ -991,15 +1088,15 @@ Image files saved as [PNG](../figures/uniqueLinkClicks.png), [SVG](../figures/un
 ## |:--------|:-----------|-----------:|-----:|---------:|---------:|
 ## |Veteran  |SocialNorms |        1000| 11.32|     10.35|     12.38|
 ## |Veteran  |Incentive   |        1000|  8.55|      7.80|      9.37|
-## |Veteran  |Sharing     |        1000|  7.78|      7.10|      8.52|
+## |Veteran  |Sharing     |        1000|  7.78|      7.11|      8.52|
 ## |Computer |SocialNorms |        1000|  6.18|      5.48|      6.97|
 ## |Family   |SocialNorms |        1000|  5.17|      4.53|      5.89|
-## |Veteran  |Empowerment |        1000|  5.11|      4.51|      5.78|
+## |Veteran  |Empowerment |        1000|  5.11|      4.52|      5.78|
 ## |Computer |Sharing     |        1000|  4.96|      4.37|      5.62|
 ## |Computer |Incentive   |        1000|  4.95|      4.31|      5.68|
 ## |Family   |Sharing     |        1000|  4.88|      4.29|      5.56|
-## |Computer |Empowerment |        1000|  4.71|      4.05|      5.49|
-## |Family   |Empowerment |        1000|  4.54|      3.95|      5.22|
+## |Computer |Empowerment |        1000|  4.75|      4.12|      5.48|
+## |Family   |Empowerment |        1000|  4.55|      3.98|      5.20|
 ## |Family   |Altruism    |        1000|  4.52|      3.94|      5.19|
 ## |Computer |Altruism    |        1000|  4.49|      3.89|      5.18|
 ## |Family   |Incentive   |        1000|  4.43|      3.85|      5.10|
@@ -1008,31 +1105,31 @@ Image files saved as [PNG](../figures/uniqueLinkClicks.png), [SVG](../figures/un
 ## 
 ## |         |Computer | Family| Veteran|
 ## |:--------|:--------|------:|-------:|
-## |Computer |NA       |  0.268|       0|
+## |Computer |NA       |  0.267|       0|
 ## |Family   |NA       |     NA|       0|
 ## |Veteran  |NA       |     NA|      NA|
 ## 
 ## |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 ## |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-## |Incentive   |NA        |    0.336|       0.639|   0.993|       0.018|
-## |Altruism    |NA        |       NA|       0.650|   0.312|       0.001|
-## |Empowerment |NA        |       NA|          NA|   0.620|       0.006|
+## |Incentive   |NA        |    0.335|       0.679|   0.993|       0.018|
+## |Altruism    |NA        |       NA|       0.589|   0.311|       0.001|
+## |Empowerment |NA        |       NA|          NA|   0.660|       0.006|
 ## |Sharing     |NA        |       NA|          NA|      NA|       0.013|
 ## |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 ## 
 ## |        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
 ## |:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-## |Com-Inc |NA      |   0.336|   0.639|   0.993|   0.018|   0.268|   0.360|   0.387|   0.881|   0.659|       0|   0.092|   0.740|   0.000|       0|
-## |Com-Alt |NA      |      NA|   0.650|   0.312|   0.001|   0.890|   0.948|   0.912|   0.400|   0.156|       0|   0.503|   0.182|   0.000|       0|
-## |Com-Emp |NA      |      NA|      NA|   0.620|   0.006|   0.555|   0.689|   0.723|   0.735|   0.370|       0|   0.264|   0.421|   0.000|       0|
-## |Com-Sha |NA      |      NA|      NA|      NA|   0.013|   0.244|   0.334|   0.362|   0.868|   0.650|       0|   0.077|   0.734|   0.000|       0|
+## |Com-Inc |NA      |   0.335|   0.679|   0.993|   0.018|   0.267|   0.360|   0.389|   0.881|   0.658|       0|   0.092|   0.739|   0.000|       0|
+## |Com-Alt |NA      |      NA|   0.589|   0.311|   0.001|   0.891|   0.947|   0.896|   0.399|   0.155|       0|   0.503|   0.181|   0.000|       0|
+## |Com-Emp |NA      |      NA|      NA|   0.660|   0.006|   0.496|   0.628|   0.670|   0.781|   0.391|       0|   0.219|   0.447|   0.000|       0|
+## |Com-Sha |NA      |      NA|      NA|      NA|   0.013|   0.243|   0.334|   0.363|   0.868|   0.649|       0|   0.076|   0.734|   0.000|       0|
 ## |Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.001|   0.001|   0.009|   0.049|       0|   0.000|   0.031|   0.003|       0|
-## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.836|   0.802|   0.321|   0.116|       0|   0.596|   0.136|   0.000|       0|
-## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.963|   0.428|   0.167|       0|   0.452|   0.195|   0.000|       0|
-## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.459|   0.185|       0|   0.426|   0.215|   0.000|       0|
-## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.437|       0|   0.114|   0.616|   0.000|       0|
+## |Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.836|   0.785|   0.321|   0.116|       0|   0.595|   0.135|   0.000|       0|
+## |Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.948|   0.428|   0.167|       0|   0.451|   0.194|   0.000|       0|
+## |Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.462|   0.183|       0|   0.408|   0.213|   0.000|       0|
+## |Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.459|       0|   0.114|   0.616|   0.000|       0|
 ## |Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|   0.029|   0.901|   0.000|       0|
-## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.154|       0|
+## |Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.000|   0.152|       0|
 ## |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.034|   0.000|       0|
 ## |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|       0|
 ## |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|       0|
@@ -1051,51 +1148,51 @@ Image files saved as [PNG](../figures/uniqueLinkClicks.png), [SVG](../figures/un
 ```
 ## 
 ## Call:
-## glm.nb(formula = formula(text), data = df, init.theta = 45.95759739, 
+## glm.nb(formula = formula(text), data = df1, init.theta = 46.82279171, 
 ##     link = log)
 ## 
 ## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.8599  -0.7366  -0.0706   0.5489   2.7478  
+##      Min        1Q    Median        3Q       Max  
+## -2.86429  -0.73910  -0.06779   0.55042   2.75073  
 ## 
 ## Coefficients:
-##                               Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)                  -5.307977   0.070336 -75.466  < 2e-16 ***
-## imageFamily                  -0.111591   0.100692  -1.108 0.267759    
-## imageVeteran                  0.546057   0.084498   6.462 1.03e-10 ***
-## textAltruism                 -0.097448   0.101312  -0.962 0.336121    
-## textEmpowerment              -0.049080   0.104685  -0.469 0.639187    
-## textSharing                   0.000814   0.095171   0.009 0.993176    
-## textSocialNorms               0.221555   0.093546   2.368 0.017864 *  
-## imageFamily:textAltruism      0.118215   0.142661   0.829 0.407304    
-## imageVeteran:textAltruism    -0.612582   0.130404  -4.698 2.63e-06 ***
-## imageFamily:textEmpowerment   0.074414   0.145443   0.512 0.608906    
-## imageVeteran:textEmpowerment -0.465557   0.130936  -3.556 0.000377 ***
-## imageFamily:textSharing       0.096282   0.136551   0.705 0.480749    
-## imageVeteran:textSharing     -0.094814   0.115806  -0.819 0.412939    
-## imageFamily:textSocialNorms  -0.067154   0.135704  -0.495 0.620700    
-## imageVeteran:textSocialNorms  0.059077   0.114154   0.518 0.604796    
+##                                Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)                  -5.3080121  0.0702629 -75.545  < 2e-16 ***
+## imageFamily                  -0.1115727  0.1005923  -1.109 0.267362    
+## imageVeteran                  0.5462357  0.0843762   6.474 9.56e-11 ***
+## textAltruism                 -0.0975011  0.1012115  -0.963 0.335377    
+## textEmpowerment              -0.0418497  0.1012260  -0.413 0.679292    
+## textSharing                   0.0008362  0.0950654   0.009 0.992982    
+## textSocialNorms               0.2215610  0.0934394   2.371 0.017732 *  
+## imageFamily:textAltruism      0.1182841  0.1425204   0.830 0.406570    
+## imageVeteran:textAltruism    -0.6126853  0.1302498  -4.704 2.55e-06 ***
+## imageFamily:textEmpowerment   0.0689589  0.1417903   0.486 0.626723    
+## imageVeteran:textEmpowerment -0.4729422  0.1281082  -3.692 0.000223 ***
+## imageFamily:textSharing       0.0963049  0.1364049   0.706 0.480174    
+## imageVeteran:textSharing     -0.0950886  0.1156337  -0.822 0.410892    
+## imageFamily:textSocialNorms  -0.0670964  0.1355569  -0.495 0.620622    
+## imageVeteran:textSocialNorms  0.0589075  0.1139810   0.517 0.605282    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## (Dispersion parameter for Negative Binomial(45.9576) family taken to be 1)
+## (Dispersion parameter for Negative Binomial(46.8228) family taken to be 1)
 ## 
-##     Null deviance: 1024.33  on 656  degrees of freedom
-## Residual deviance:  620.05  on 642  degrees of freedom
-##   (8 observations deleted due to missingness)
-## AIC: 3124.9
+##     Null deviance: 1036.90  on 665  degrees of freedom
+## Residual deviance:  630.18  on 651  degrees of freedom
+##   (10 observations deleted due to missingness)
+## AIC: 3162.2
 ## 
 ## Number of Fisher Scoring iterations: 1
 ## 
 ## 
-##               Theta:  46.0 
-##           Std. Err.:  16.6 
+##               Theta:  46.8 
+##           Std. Err.:  17.1 
 ## 
-##  2 x log-likelihood:  -3092.943
+##  2 x log-likelihood:  -3130.202
 ```
 
 ```
-## Error in mutate_impl(.data, dots): wrong result size (657), expected 665 or 1
+## Error in mutate_impl(.data, dots): wrong result size (666), expected 676 or 1
 ```
 
 
