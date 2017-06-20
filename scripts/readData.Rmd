@@ -53,7 +53,7 @@ Summarize.
 ```{r}
 df1 %>% 
   group_by(image, text) %>% 
-  summarize(nDays = length(date), minDate = min(date), maxDate = max(date)) %>% 
+  summarize(nDays = n(), minDate = min(date), maxDate = max(date)) %>% 
   kable
 ```
 
@@ -69,6 +69,9 @@ Cleaning
 
 * Parse out `fba` into 2 separate variables for `image` and `text`
 * Assign indicator for survey completion, `indSurveyComplete`
+* Score the DSI-SS inventory
+  * See [Joiner 2002](http://www.sciencedirect.com/science/article/pii/S0005796701000171)
+  * *Scores on each item range from 0 to 3 and, for the inventory, from 0 to 12, with higher scores reflecting greater severity of suicidal ideation.*
 
 ```{r}
 df2 <-
@@ -83,9 +86,42 @@ df2 <-
            substr(fba, 2, 4) %>% 
            factor(levels = c("inc", "alt", "emp", "sha", "soc"),
                   labels = c("Incentive", "Altruism", "Empowerment", "Sharing", "SocialNorms"))) %>% 
-  mutate(indSurveyComplete = time_completed_questions != "")
-df2 %>% group_by(image, text) %>% summarize(n = length(record_id))
-df2 %>% group_by(consent, eligible, consent_and_eligibility_complete) %>% summarize(n = length(record_id))
-df2 %>% group_by(eligible, indSurveyComplete) %>% summarize(n = length(record_id))
-df2 %>% group_by(eligible, indSurveyComplete, va_ever_enrolled, va_use_12mo) %>% summarize(n = length(record_id))
+  mutate(indSurveyComplete = time_completed_questions != "") %>%
+  mutate(dsiss = dsiss_thoughts + dsiss_plans + dsiss_control + dsiss_impulses)
+df2 %>% 
+  group_by(image, text) %>% 
+  summarize(n = n()) %>% 
+  kable
+df2 %>% 
+  group_by(consent, eligible, consent_and_eligibility_complete, indSurveyComplete) %>% 
+  summarize(n = n()) %>% 
+  kable
+```
+
+### Use of VA health services
+
+Questions
+
+* Only makes sense for respondents who are eligible?
+* Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
+
+```{r}
+df2 %>% 
+  group_by(eligible, indSurveyComplete, va_ever_enrolled, va_use_12mo) %>% 
+  summarize(n = n()) %>% 
+  kable
+```
+
+### Presence of suicidality
+
+Questions
+
+* What DSI-SS cutoff should we use?
+
+```{r}
+df2 %>% 
+  group_by(dsiss) %>% 
+  summarize(n = n()) %>%
+  mutate(freq = n / sum(n)) %>% 
+  kable(digits = 3)
 ```
