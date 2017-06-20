@@ -82,6 +82,9 @@ df2 <-
          text = 
            substr(fba, 2, 4) %>% 
            factor(levels = c("inc", "alt", "emp", "sha", "soc"),
-                  labels = c("Incentive", "Altruism", "Empowerment", "Sharing", "SocialNorms")))
+                  labels = c("Incentive", "Altruism", "Empowerment", "Sharing", "SocialNorms"))) %>% 
+  mutate(indSurveyComplete = time_completed_questions != "")
 df2 %>% group_by(image, text) %>% summarize(n = length(record_id))
+df2 %>% group_by(eligible, indSurveyComplete) %>% summarize(n = length(record_id))
+df2 %>% group_by(eligible, indSurveyComplete, va_ever_enrolled, va_use_12mo) %>% summarize(n = length(record_id))
 ```
