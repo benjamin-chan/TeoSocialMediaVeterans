@@ -6,13 +6,13 @@ contrastTable <- function (glmObj) {
     require(magrittr)
     glhtObj %>% summary %>% .$test %>% .$pvalues %>% as.numeric
   }
-  mat1 <- matrix(nrow = nlevels(df11$image), ncol = nlevels(df11$image)) %>%data.frame 
-  row.names(mat1) <- levels(df11$image)
+  mat1 <- matrix(nrow = nlevels(df1$image), ncol = nlevels(df1$image)) %>%data.frame 
+  row.names(mat1) <- levels(df1$image)
   names(mat1) <- row.names(mat1)
   mat1[1, 2] <- glmObj %>% summary %>% .$coef %>% .["imageFamily", "Pr(>|z|)"]
   mat1[1, 3] <- glmObj %>% summary %>% .$coef %>% .["imageVeteran", "Pr(>|z|)"]
   mat1[2, 3] <- glht(glmObj, linfct = c("imageFamily - imageVeteran = 0")) %>% getp
-  mat2 <- matrix(nrow = nlevels(df11$text), ncol = nlevels(df1$text)) %>% data.frame 
+  mat2 <- matrix(nrow = nlevels(df1$text), ncol = nlevels(df1$text)) %>% data.frame 
   row.names(mat2) <- levels(df1$text)
   names(mat2) <- row.names(mat2)
   mat2[1, 2] <- glmObj %>% summary %>% .$coef %>% .["textAltruism", "Pr(>|z|)"]
