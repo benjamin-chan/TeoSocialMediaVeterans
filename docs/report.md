@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-06-20 15:39:05"
+date: "2017-06-21 08:42:35"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -229,6 +229,31 @@ Summarize.
 
 ## Survey data
 
+Notes on the REDCap identifier variables:
+
+* If `[consent] == 1`, they started the eligibility survey; 
+  * if `== 0` or missing, they didn't.
+* If `[consent_and_eligibility_complete] == 2`, they finished the screener (whether eligible or ineligible); 
+  * if `== 0`, they dropped out or never started.
+* If `[eligible] == 1`, they completed the screener and were eligible; 
+  * if `== 0`, they completed and were ineligible; if missing, they dropped out or never started.
+* If `[veterans_and_social_media_use_co] == 2`, they finished the survey; 
+  * if `== 0`, they dropped out or never started (this includes people who were ineligible or didn't consent).
+* If `[analytic_sample] == 0`, they completed the survey but were disqualified for data quality reasons; 
+  * if `== 1`, they completed the survey and weren't; if missing, they didn't complete the survey.
+
+
+| consent| consent_and_eligibility_complete| eligible| veterans_and_social_media_use_co| analytic_sample|   n|
+|-------:|--------------------------------:|--------:|--------------------------------:|---------------:|---:|
+|       0|                                0|       NA|                                0|              NA|   8|
+|       0|                                2|        0|                                0|              NA|   7|
+|       1|                                0|       NA|                                0|              NA|  84|
+|       1|                                2|        0|                                0|              NA| 534|
+|       1|                                2|        1|                                0|              NA| 106|
+|       1|                                2|        1|                                2|               0|  18|
+|       1|                                2|        1|                                2|               1| 587|
+|      NA|                                0|       NA|                                0|              NA|  96|
+
 Inclusion criteria
 
 * Respondents who consented
@@ -332,7 +357,7 @@ Questions
 
 Check correlation between `impressions` and `reach`.
 
-![plot of chunk unnamed-chunk-12](../figures/unnamed-chunk-12-1.png)
+![plot of chunk unnamed-chunk-13](../figures/unnamed-chunk-13-1.png)
 # Model counts
 
 * Use negative binomial model
