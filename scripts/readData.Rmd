@@ -143,13 +143,20 @@ df2 %>%
 
 ### Presence of suicidality
 
-Questions
-
-* What DSI-SS cutoff should we use?
+DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for population-based samples noted in [von Glischinski M Clin Psychol Psychotherapy 2015]
 
 ```{r}
+df2 <-
+  df2 %>%
+  mutate(indDSISS = dsiss >= 2) 
 df2 %>% 
-  group_by(dsiss) %>% 
+  filter(!is.na(dsiss)) %>% 
+  group_by(indDSISS, dsiss) %>% 
+  summarize(n = n()) %>% 
+  kable(digits = 3)
+df2 %>% 
+  filter(!is.na(dsiss)) %>% 
+  group_by(indDSISS) %>% 
   summarize(n = n()) %>%
   mutate(freq = n / sum(n)) %>% 
   kable(digits = 3)
