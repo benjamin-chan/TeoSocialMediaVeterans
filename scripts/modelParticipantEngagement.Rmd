@@ -8,13 +8,15 @@
 * Eligibility screener participation (i.e., completed the first part of the survey assessing eligibility)
   * `indScreenerParticipation == 1`
 * Rationale: These outcomes represents the highest level of engagement involving an "action step outside of Facebook" as described in the spectrum of Facebook engagement outcomes described by [Platt T 2016]
+* Proportion of survey participants who screen positive for suicidality 
+
+**Model**
+
 * Use logistic regression model
 * Predictor variables
   * Ad `image`
   * Ad `text`
 * Include full factorial interaction
-
-**Model**
 
 Define the linear predictor as $\eta$, where
 
@@ -62,6 +64,18 @@ M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
 ```{r indScreenerParticipation}
 y <- "indScreenerParticipation"
 title <- "Screener participation"
+M <- modelBinomial(y)
+print(M$model, showEnv = FALSE)
+M$pred %>% kable(digits = 2)
+M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+```
+
+
+### Suicidality 
+
+```{r indDSISS}
+y <- "indDSISS"
+title <- "Suicidality"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
