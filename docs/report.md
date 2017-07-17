@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-07-17 10:45:36"
+date: "2017-07-17 14:35:03"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -165,9 +165,12 @@ Source user-defined functions.
 ##         ../lib/contrastHeatmap.R ../lib/contrastTable.R
 ## value   ?                        ?                     
 ## visible FALSE                    FALSE                 
-##         ../lib/modelCounts.R ../lib/plotRates.R ../lib/plotResid.R
-## value   ?                    ?                  ?                 
-## visible FALSE                FALSE              FALSE
+##         ../lib/modelBinomial.R ../lib/modelCounts.R ../lib/plotRates.R
+## value   ?                      ?                    ?                 
+## visible FALSE                  FALSE                FALSE             
+##         ../lib/plotResid.R
+## value   ?                 
+## visible FALSE
 ```
 # Read data
 
@@ -233,15 +236,17 @@ Summarize.
 Notes on the REDCap identifier variables:
 
 * If `[consent] == 1`, they started the eligibility survey; 
-  * if `== 0` or missing, they didn't.
+  * if `== 0` or `== NA`, they didn't.
 * If `[consent_and_eligibility_complete] == 2`, they finished the screener (whether eligible or ineligible); 
   * if `== 0`, they dropped out or never started.
 * If `[eligible] == 1`, they completed the screener and were eligible; 
-  * if `== 0`, they completed and were ineligible; if missing, they dropped out or never started.
+  * if `== 0`, they completed and were ineligible;
+  * if `== NA` , they dropped out or never started.
 * If `[veterans_and_social_media_use_co] == 2`, they finished the survey; 
   * if `== 0`, they dropped out or never started (this includes people who were ineligible or didn't consent).
 * If `[analytic_sample] == 0`, they completed the survey but were disqualified for data quality reasons; 
-  * if `== 1`, they completed the survey and weren't; if missing, they didn't complete the survey.
+  * if `== 1`, they completed survey and was not disqualified for data quality reasons;
+  * if `== NA`, they didn't complete the survey.
 
 
 | consent| consent_and_eligibility_complete| eligible| veterans_and_social_media_use_co| analytic_sample|   n|
@@ -265,7 +270,10 @@ Inclusion criteria
 Cleaning
 
 * Parse out `fba` into 2 separate variables for `image` and `text`
-* Assign indicator for survey completion, `indSurveyComplete`
+* Assign indicator for survey participation, `indSurveyParticipation`
+  * `analytic_sample == 1`: Participant completed survey and was not disqualified for data quality reasons
+* Assign indicator for eligibility screener participation, `indScreenerParticipation`
+  * `eligible == 1`: Participant completed eligibility screener and was eligible to participate in full survey
 * Score the DSI-SS inventory
   * See [Joiner 2002](http://www.sciencedirect.com/science/article/pii/S0005796701000171)
   * *Scores on each item range from 0 to 3 and, for the inventory, from 0 to 12, with higher scores reflecting greater severity of suicidal ideation.*
@@ -292,12 +300,27 @@ Cleaning
 
 
 
-| consent| eligible| consent_and_eligibility_complete|indSurveyComplete |   n|
-|-------:|--------:|--------------------------------:|:-----------------|---:|
-|       1|        0|                                2|FALSE             | 534|
-|       1|        1|                                2|FALSE             |  94|
-|       1|        1|                                2|TRUE              | 617|
-|       1|       NA|                                0|FALSE             |  84|
+| analytic_sample|indSurveyParticipation |   n|
+|---------------:|:----------------------|---:|
+|               0|FALSE                  |  18|
+|               1|TRUE                   | 587|
+|              NA|FALSE                  | 724|
+
+
+
+| eligible|indScreenerParticipation |   n|
+|--------:|:------------------------|---:|
+|        0|FALSE                    | 534|
+|        1|TRUE                     | 711|
+|       NA|FALSE                    |  84|
+
+
+
+|indSurveyParticipation |indScreenerParticipation |   n|
+|:----------------------|:------------------------|---:|
+|FALSE                  |FALSE                    | 618|
+|FALSE                  |TRUE                     | 124|
+|TRUE                   |TRUE                     | 587|
 
 ### Use of VA health services
 
@@ -307,21 +330,9 @@ Cleaning
 * Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
 
 
-| eligible|indSurveyComplete | va_ever_enrolled| va_use_12mo|   n|
-|--------:|:-----------------|----------------:|-----------:|---:|
-|        0|FALSE             |               NA|          NA| 534|
-|        1|FALSE             |                1|           0|   2|
-|        1|FALSE             |                1|           1|   7|
-|        1|FALSE             |               NA|          NA|  85|
-|        1|TRUE              |                0|          NA| 163|
-|        1|TRUE              |                1|           0| 137|
-|        1|TRUE              |                1|           1| 274|
-|        1|TRUE              |                1|           9|   2|
-|        1|TRUE              |                1|          NA|   1|
-|        1|TRUE              |                9|           0|  33|
-|        1|TRUE              |                9|           1|   2|
-|        1|TRUE              |                9|           9|   5|
-|       NA|FALSE             |               NA|          NA|  84|
+```
+## Error in resolve_vars(new_groups, tbl_vars(.data)): unknown variable to group by : indSurveyComplete
+```
 
 ### Presence of suicidality
 
@@ -365,7 +376,7 @@ DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for
 Check correlation between `impressions` and `reach`.
 
 ![plot of chunk unnamed-chunk-13](../figures/unnamed-chunk-13-1.png)
-# Model counts
+# Model Facebook ad metrics
 
 * Use negative binomial model
 * Factors
@@ -1253,3 +1264,180 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 ![shares.png](../figures/shares.png)
 
 
+# Model participant engagement
+
+
+## Primary Outcomes
+  
+* Survey participation (i.e., completed the full survey and eligible for analysis)
+  * `indSurveyParticipation == 1`
+* Eligibility screener participation (i.e., completed the first part of the survey assessing eligibility)
+  * `indScreenerParticipation == 1`
+* Rationale: These outcomes represents the highest level of engagement involving an "action step outside of Facebook" as described in the spectrum of Facebook engagement outcomes described by [Platt T 2016]
+* Use logistic regression model
+* Predictor variables
+  * Ad `image`
+  * Ad `text`
+* Include full factorial interaction
+
+**Model**
+
+Define the linear predictor as $\eta$, where
+
+$$
+\begin{align*}
+\eta = & \beta_0 + \\\\
+       & \beta_1 x_\text{image: Family} + 
+         \beta_2 x_\text{image: Veteran} + \\\\
+       & \beta_3 x_\text{text: Altruism} + 
+         \beta_4 x_\text{text: Empowerment} + 
+         \beta_5 x_\text{text: Sharing} + 
+         \beta_6 x_\text{text: Social norms} + \\\\
+       & \gamma_1 x_\text{image: Family} x_\text{text: Altruism} + 
+         \gamma_2 x_\text{image: Family} x_\text{text: Empowerment} +  \\\\
+       & \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
+         \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + \\\\
+       & \gamma_5 x_\text{image: Veteran} x_\text{text: Altruism} + 
+         \gamma_6 x_\text{image: Veteran} x_\text{text: Empowerment} +  \\\\
+       & \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
+         \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms}
+\end{align*}
+$$
+
+The model for survey and screener participation is
+
+$$
+\logit(y) = \eta
+$$
+
+
+### Survey participation
+
+
+```
+## indSurveyParticipation ~ image + text + image * text
+```
+
+
+
+|image    |text        | pred| predLower| predUpper|
+|:--------|:-----------|----:|---------:|---------:|
+|Veteran  |Sharing     | 0.59|      1.12|      1.92|
+|Family   |Sharing     | 0.57|      0.73|      2.33|
+|Family   |Incentive   | 0.56|      0.65|      2.41|
+|Veteran  |Incentive   | 0.55|      0.97|      1.55|
+|Computer |Sharing     | 0.54|      0.77|      1.84|
+|Computer |Incentive   | 0.49|      0.52|      1.76|
+|Veteran  |Altruism    | 0.46|      0.50|      1.41|
+|Family   |Altruism    | 0.45|      0.34|      1.97|
+|Family   |Empowerment | 0.44|      0.41|      1.54|
+|Computer |Altruism    | 0.40|      0.37|      1.21|
+|Veteran  |Empowerment | 0.40|      0.40|      1.09|
+|Computer |Empowerment | 0.33|      0.15|      1.66|
+|Family   |SocialNorms | 0.28|      0.20|      0.72|
+|Computer |SocialNorms | 0.25|      0.21|      0.54|
+|Veteran  |SocialNorms | 0.23|      0.22|      0.39|
+
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.553|   0.447|
+|Family   |NA       |     NA|   0.961|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.413|       0.349|   0.563|       0.008|
+|Altruism    |NA        |       NA|       0.674|   0.125|       0.077|
+|Empowerment |NA        |       NA|          NA|   0.184|       0.539|
+|Sharing     |NA        |       NA|          NA|      NA|       0.000|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.413|   0.349|   0.563|   0.008|   0.553|   0.781|   0.704|   0.471|   0.043|   0.447|   0.757|   0.361|   0.207|   0.001|
+|Com-Alt |NA      |      NA|   0.674|   0.125|   0.077|   0.165|   0.706|   0.687|   0.117|   0.213|   0.062|   0.570|   0.973|   0.018|   0.016|
+|Com-Emp |NA      |      NA|      NA|   0.184|   0.539|   0.189|   0.517|   0.501|   0.160|   0.699|   0.150|   0.438|   0.680|   0.087|   0.399|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.000|   0.901|   0.456|   0.325|   0.811|   0.004|   0.898|   0.314|   0.082|   0.425|   0.000|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.001|   0.080|   0.035|   0.000|   0.737|   0.000|   0.011|   0.056|   0.000|   0.662|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.450|   0.347|   0.930|   0.011|   0.961|   0.351|   0.129|   0.661|   0.000|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.968|   0.390|   0.171|   0.382|   0.962|   0.674|   0.215|   0.031|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.279|   0.115|   0.228|   0.912|   0.644|   0.095|   0.006|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.650|   0.860|   0.272|   0.083|   0.714|   0.000|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.001|   0.062|   0.192|   0.000|   0.463|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.191|   0.028|   0.333|   0.000|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.512|   0.062|   0.001|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.006|   0.007|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+
+### Screener participation
+
+
+```
+## indScreenerParticipation ~ image + text + image * text
+```
+
+
+
+|image    |text        | pred| predLower| predUpper|
+|:--------|:-----------|----:|---------:|---------:|
+|Family   |Incentive   | 0.72|      1.25|      5.39|
+|Computer |Sharing     | 0.70|      1.47|      3.83|
+|Veteran  |Sharing     | 0.69|      1.64|      2.92|
+|Veteran  |Incentive   | 0.64|      1.37|      2.23|
+|Family   |Sharing     | 0.63|      0.94|      3.10|
+|Computer |Incentive   | 0.59|      0.76|      2.63|
+|Computer |Empowerment | 0.58|      0.44|      4.41|
+|Veteran  |Altruism    | 0.58|      0.81|      2.33|
+|Veteran  |Empowerment | 0.57|      0.81|      2.20|
+|Family   |Empowerment | 0.56|      0.65|      2.41|
+|Family   |Altruism    | 0.55|      0.51|      2.95|
+|Computer |Altruism    | 0.42|      0.40|      1.32|
+|Computer |SocialNorms | 0.33|      0.32|      0.77|
+|Family   |SocialNorms | 0.32|      0.25|      0.87|
+|Veteran  |SocialNorms | 0.29|      0.31|      0.54|
+
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.212|   0.531|
+|Family   |NA       |     NA|   0.311|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.132|       0.990|   0.193|       0.007|
+|Altruism    |NA        |       NA|       0.324|   0.002|       0.293|
+|Empowerment |NA        |       NA|          NA|   0.405|       0.096|
+|Sharing     |NA        |       NA|          NA|      NA|       0.000|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.132|   0.990|   0.193|   0.007|   0.212|   0.793|   0.792|   0.667|   0.013|   0.531|   0.949|   0.888|   0.208|   0.000|
+|Com-Alt |NA      |      NA|   0.324|   0.002|   0.293|   0.008|   0.342|   0.234|   0.048|   0.307|   0.008|   0.117|   0.128|   0.001|   0.082|
+|Com-Emp |NA      |      NA|      NA|   0.405|   0.096|   0.372|   0.854|   0.867|   0.765|   0.099|   0.711|   0.978|   0.939|   0.458|   0.041|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.000|   0.839|   0.194|   0.121|   0.397|   0.000|   0.261|   0.131|   0.101|   0.777|   0.000|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.070|   0.021|   0.001|   0.902|   0.000|   0.003|   0.003|   0.000|   0.496|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.196|   0.144|   0.381|   0.000|   0.311|   0.165|   0.139|   0.669|   0.000|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.968|   0.540|   0.080|   0.443|   0.822|   0.866|   0.217|   0.020|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.493|   0.032|   0.349|   0.824|   0.878|   0.125|   0.002|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.322|   0.942|   0.596|   0.535|   0.460|   0.000|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.009|   0.010|   0.000|   0.696|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.417|   0.339|   0.238|   0.000|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.934|   0.127|   0.000|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.091|   0.000|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+
+## Secondary Outcomes
+
+**Not sure how to analyze these; these variables do not appear in the REDCap survey data set**
+
+* Link clicks (survey only)
+* Link clicks (total)
