@@ -93,6 +93,8 @@ Inclusion criteria
 * Respondents who consented
 * Eligible, ineligible, or missing eligibility indicator
 
+**`r sprintf("Number included: n = %d", df2 %>% filter(consent == 1) %>% nrow)`**
+
 Cleaning
 
 * Parse out `fba` into 2 separate variables for `image` and `text`
