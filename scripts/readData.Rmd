@@ -64,15 +64,17 @@ df1 %>%
 Notes on the REDCap identifier variables:
 
 * If `[consent] == 1`, they started the eligibility survey; 
-  * if `== 0` or missing, they didn't.
+  * if `== 0` or `== NA`, they didn't.
 * If `[consent_and_eligibility_complete] == 2`, they finished the screener (whether eligible or ineligible); 
   * if `== 0`, they dropped out or never started.
 * If `[eligible] == 1`, they completed the screener and were eligible; 
-  * if `== 0`, they completed and were ineligible; if missing, they dropped out or never started.
+  * if `== 0`, they completed and were ineligible;
+  * if `== NA` , they dropped out or never started.
 * If `[veterans_and_social_media_use_co] == 2`, they finished the survey; 
   * if `== 0`, they dropped out or never started (this includes people who were ineligible or didn't consent).
 * If `[analytic_sample] == 0`, they completed the survey but were disqualified for data quality reasons; 
-  * if `== 1`, they completed the survey and weren't; if missing, they didn't complete the survey.
+  * if `== 1`, they completed survey and was not disqualified for data quality reasons;
+  * if `== NA`, they didn't complete the survey.
 
 ```{r}
 df2 <-
