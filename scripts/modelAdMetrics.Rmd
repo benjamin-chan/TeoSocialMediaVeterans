@@ -1,4 +1,4 @@
-# Model counts
+# Model Facebook ad metrics
 
 * Use negative binomial model
 * Factors
