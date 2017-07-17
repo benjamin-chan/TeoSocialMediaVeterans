@@ -42,7 +42,7 @@ label: unnamed-chunk-7
   |                                                                         |........................                                         |  36%
 label: unnamed-chunk-8
   |                                                                         |.........................                                        |  39%
-  ordinary text without R code
+   inline R code fragments
 
   |                                                                         |...........................                                      |  41%
 label: unnamed-chunk-9

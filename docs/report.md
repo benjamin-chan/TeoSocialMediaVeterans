@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-06-21 08:42:35"
+date: "2017-07-17 10:45:36"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -183,8 +183,9 @@ Column name mapping.
 |:--------------------------------------|:----------------------|
 |Reporting                              |date                   |
 |Ad                                     |ad                     |
+|Cost                                   |cost                   |
 |Reach                                  |reach                  |
-|Cost.per.1.000.People.Reached..USD.    |cost                   |
+|Cost.per.1.000.People.Reached..USD.    |costPerKReached        |
 |Impressions                            |impressions            |
 |CPM..Cost.per.1.000.Impressions...USD. |cpm                    |
 |Link.Clicks                            |linkClicks             |
@@ -259,6 +260,8 @@ Inclusion criteria
 * Respondents who consented
 * Eligible, ineligible, or missing eligibility indicator
 
+**Number included: n = 1329**
+
 Cleaning
 
 * Parse out `fba` into 2 separate variables for `image` and `text`
@@ -298,7 +301,7 @@ Cleaning
 
 ### Use of VA health services
 
-Questions
+**Questions**
 
 * Only makes sense for respondents who are eligible?
 * Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
@@ -322,24 +325,28 @@ Questions
 
 ### Presence of suicidality
 
-Questions
-
-* What DSI-SS cutoff should we use?
+DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for population-based samples noted in [von Glischinski M Clin Psychol Psychotherapy 2015]
 
 
-| dsiss|   n|  freq|
-|-----:|---:|-----:|
-|     0| 439| 0.330|
-|     1|  43| 0.032|
-|     2|  29| 0.022|
-|     3|  37| 0.028|
-|     4|  28| 0.021|
-|     5|  22| 0.017|
-|     6|   6| 0.005|
-|     7|   7| 0.005|
-|     8|   3| 0.002|
-|     9|   2| 0.002|
-|    NA| 713| 0.536|
+|indDSISS | dsiss|   n|
+|:--------|-----:|---:|
+|FALSE    |     0| 439|
+|FALSE    |     1|  43|
+|TRUE     |     2|  29|
+|TRUE     |     3|  37|
+|TRUE     |     4|  28|
+|TRUE     |     5|  22|
+|TRUE     |     6|   6|
+|TRUE     |     7|   7|
+|TRUE     |     8|   3|
+|TRUE     |     9|   2|
+
+
+
+|indDSISS |   n|  freq|
+|:--------|---:|-----:|
+|FALSE    | 482| 0.782|
+|TRUE     | 134| 0.218|
 # Correlate Facebook metrics data
 
 
