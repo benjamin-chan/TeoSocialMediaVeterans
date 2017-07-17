@@ -10,7 +10,8 @@ files <- c("header.yaml",
            "preamble.Rmd",
            "readData.Rmd",
            "corrData.Rmd",
-           "modelCounts.Rmd")
+           "modelAdMetrics.Rmd",
+           "modelParticipantEngagement.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])
