@@ -100,7 +100,6 @@ Inclusion criteria
 Cleaning
 
 * Parse out `fba` into 2 separate variables for `image` and `text`
-* Assign indicator for survey completion, `indSurveyComplete`
 * Assign indicator for survey participation, `indSurveyParticipation`
   * `analytic_sample == 1`: Participant completed survey and was not disqualified for data quality reasons
 * Assign indicator for eligibility screener participation, `indScreenerParticipation`
@@ -121,7 +120,6 @@ df2 <-
            substr(fba, 2, 4) %>% 
            factor(levels = c("inc", "alt", "emp", "sha", "soc"),
                   labels = c("Incentive", "Altruism", "Empowerment", "Sharing", "SocialNorms"))) %>% 
-  mutate(indSurveyComplete = time_completed_questions != "") %>%
   mutate(indSurveyParticipation = case_when(is.na(.$analytic_sample) ~ FALSE,
                                             .$analytic_sample == 1 ~ TRUE, 
                                             TRUE ~ FALSE)) %>%
@@ -134,7 +132,6 @@ df2 %>%
   summarize(n = n()) %>% 
   kable
 df2 %>% 
-  group_by(consent, eligible, consent_and_eligibility_complete, indSurveyComplete) %>% 
   group_by(analytic_sample, indSurveyParticipation) %>% 
   summarize(n = n()) %>% 
   kable
