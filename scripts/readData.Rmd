@@ -129,7 +129,7 @@ df2 %>%
 
 ### Use of VA health services
 
-Questions
+**Questions**
 
 * Only makes sense for respondents who are eligible?
 * Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
@@ -158,6 +158,6 @@ df2 %>%
   filter(!is.na(dsiss)) %>% 
   group_by(indDSISS) %>% 
   summarize(n = n()) %>%
-  mutate(freq = n / sum(n)) %>% 
+  mutate(freq = n / sum(n)) %>%
   kable(digits = 3)
 ```
