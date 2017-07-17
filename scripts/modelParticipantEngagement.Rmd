@@ -41,7 +41,7 @@ $$
 The model for survey and screener participation is
 
 $$
-\logit(y) = \eta
+\text{logit}(y) = \eta
 $$
 
 
