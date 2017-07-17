@@ -75,8 +75,10 @@ Notes on the REDCap identifier variables:
   * if `== 1`, they completed the survey and weren't; if missing, they didn't complete the survey.
 
 ```{r}
-"C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
-  read.csv(stringsAsFactors = FALSE) %>% 
+df2 <-
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
+  read.csv(stringsAsFactors = FALSE)
+df2 %>% 
   group_by(consent, 
            consent_and_eligibility_complete, 
            eligible, 
@@ -101,8 +103,7 @@ Cleaning
 
 ```{r}
 df2 <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
-  read.csv(stringsAsFactors = FALSE) %>% 
+  df2 %>% 
   filter(consent == 1) %>% 
   mutate(image = 
            substr(fba, 1, 1) %>%
