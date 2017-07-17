@@ -5,14 +5,15 @@
 
 ```{r}
 df1 <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.8.17.csv" %>% 
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.23.17.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
   filter(Ad != "All")
 oldnames <- names(df1)
 newnames <- c("date",
               "ad",
-              "reach",
               "cost",
+              "reach",
+              "costPerKReached",
               "impressions",
               "cpm",
               "linkClicks",
@@ -74,8 +75,10 @@ Notes on the REDCap identifier variables:
   * if `== 1`, they completed the survey and weren't; if missing, they didn't complete the survey.
 
 ```{r}
-"C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
-  read.csv(stringsAsFactors = FALSE) %>% 
+df2 <-
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
+  read.csv(stringsAsFactors = FALSE)
+df2 %>% 
   group_by(consent, 
            consent_and_eligibility_complete, 
            eligible, 
@@ -90,6 +93,8 @@ Inclusion criteria
 * Respondents who consented
 * Eligible, ineligible, or missing eligibility indicator
 
+**`r sprintf("Number included: n = %d", df2 %>% filter(consent == 1) %>% nrow)`**
+
 Cleaning
 
 * Parse out `fba` into 2 separate variables for `image` and `text`
@@ -100,8 +105,7 @@ Cleaning
 
 ```{r}
 df2 <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
-  read.csv(stringsAsFactors = FALSE) %>% 
+  df2 %>% 
   filter(consent == 1) %>% 
   mutate(image = 
            substr(fba, 1, 1) %>%
@@ -125,7 +129,7 @@ df2 %>%
 
 ### Use of VA health services
 
-Questions
+**Questions**
 
 * Only makes sense for respondents who are eligible?
 * Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
@@ -139,14 +143,21 @@ df2 %>%
 
 ### Presence of suicidality
 
-Questions
-
-* What DSI-SS cutoff should we use?
+DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for population-based samples noted in [von Glischinski M Clin Psychol Psychotherapy 2015]
 
 ```{r}
+df2 <-
+  df2 %>%
+  mutate(indDSISS = dsiss >= 2) 
 df2 %>% 
-  group_by(dsiss) %>% 
+  filter(!is.na(dsiss)) %>% 
+  group_by(indDSISS, dsiss) %>% 
+  summarize(n = n()) %>% 
+  kable(digits = 3)
+df2 %>% 
+  filter(!is.na(dsiss)) %>% 
+  group_by(indDSISS) %>% 
   summarize(n = n()) %>%
-  mutate(freq = n / sum(n)) %>% 
+  mutate(freq = n / sum(n)) %>%
   kable(digits = 3)
 ```
