@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-07-17 14:35:03"
+date: "2017-07-17 14:52:36"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -1307,7 +1307,7 @@ $$
 The model for survey and screener participation is
 
 $$
-\logit(y) = \eta
+\text{logit}(y) = \eta
 $$
 
 
@@ -1322,21 +1322,21 @@ $$
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Veteran  |Sharing     | 0.59|      1.12|      1.92|
-|Family   |Sharing     | 0.57|      0.73|      2.33|
-|Family   |Incentive   | 0.56|      0.65|      2.41|
-|Veteran  |Incentive   | 0.55|      0.97|      1.55|
-|Computer |Sharing     | 0.54|      0.77|      1.84|
-|Computer |Incentive   | 0.49|      0.52|      1.76|
-|Veteran  |Altruism    | 0.46|      0.50|      1.41|
-|Family   |Altruism    | 0.45|      0.34|      1.97|
-|Family   |Empowerment | 0.44|      0.41|      1.54|
-|Computer |Altruism    | 0.40|      0.37|      1.21|
-|Veteran  |Empowerment | 0.40|      0.40|      1.09|
-|Computer |Empowerment | 0.33|      0.15|      1.66|
-|Family   |SocialNorms | 0.28|      0.20|      0.72|
-|Computer |SocialNorms | 0.25|      0.21|      0.54|
-|Veteran  |SocialNorms | 0.23|      0.22|      0.39|
+|Veteran  |Sharing     | 0.59|      0.53|      0.66|
+|Family   |Sharing     | 0.57|      0.42|      0.70|
+|Family   |Incentive   | 0.56|      0.39|      0.71|
+|Veteran  |Incentive   | 0.55|      0.49|      0.61|
+|Computer |Sharing     | 0.54|      0.43|      0.65|
+|Computer |Incentive   | 0.49|      0.34|      0.64|
+|Veteran  |Altruism    | 0.46|      0.33|      0.59|
+|Family   |Altruism    | 0.45|      0.25|      0.66|
+|Family   |Empowerment | 0.44|      0.29|      0.61|
+|Computer |Altruism    | 0.40|      0.27|      0.55|
+|Veteran  |Empowerment | 0.40|      0.28|      0.52|
+|Computer |Empowerment | 0.33|      0.13|      0.62|
+|Family   |SocialNorms | 0.28|      0.17|      0.42|
+|Computer |SocialNorms | 0.25|      0.17|      0.35|
+|Veteran  |SocialNorms | 0.23|      0.18|      0.28|
 
 
 
@@ -1384,21 +1384,21 @@ $$
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Family   |Incentive   | 0.72|      1.25|      5.39|
-|Computer |Sharing     | 0.70|      1.47|      3.83|
-|Veteran  |Sharing     | 0.69|      1.64|      2.92|
-|Veteran  |Incentive   | 0.64|      1.37|      2.23|
-|Family   |Sharing     | 0.63|      0.94|      3.10|
-|Computer |Incentive   | 0.59|      0.76|      2.63|
-|Computer |Empowerment | 0.58|      0.44|      4.41|
-|Veteran  |Altruism    | 0.58|      0.81|      2.33|
-|Veteran  |Empowerment | 0.57|      0.81|      2.20|
-|Family   |Empowerment | 0.56|      0.65|      2.41|
-|Family   |Altruism    | 0.55|      0.51|      2.95|
-|Computer |Altruism    | 0.42|      0.40|      1.32|
-|Computer |SocialNorms | 0.33|      0.32|      0.77|
-|Family   |SocialNorms | 0.32|      0.25|      0.87|
-|Veteran  |SocialNorms | 0.29|      0.31|      0.54|
+|Family   |Incentive   | 0.72|      0.56|      0.84|
+|Computer |Sharing     | 0.70|      0.60|      0.79|
+|Veteran  |Sharing     | 0.69|      0.62|      0.74|
+|Veteran  |Incentive   | 0.64|      0.58|      0.69|
+|Family   |Sharing     | 0.63|      0.48|      0.76|
+|Computer |Incentive   | 0.59|      0.43|      0.72|
+|Computer |Empowerment | 0.58|      0.31|      0.82|
+|Veteran  |Altruism    | 0.58|      0.45|      0.70|
+|Veteran  |Empowerment | 0.57|      0.45|      0.69|
+|Family   |Empowerment | 0.56|      0.39|      0.71|
+|Family   |Altruism    | 0.55|      0.34|      0.75|
+|Computer |Altruism    | 0.42|      0.29|      0.57|
+|Computer |SocialNorms | 0.33|      0.24|      0.43|
+|Family   |SocialNorms | 0.32|      0.20|      0.46|
+|Veteran  |SocialNorms | 0.29|      0.24|      0.35|
 
 
 
