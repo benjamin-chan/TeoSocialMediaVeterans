@@ -5,14 +5,15 @@
 
 ```{r}
 df1 <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.8.17.csv" %>% 
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.23.17.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
   filter(Ad != "All")
 oldnames <- names(df1)
 newnames <- c("date",
               "ad",
-              "reach",
               "cost",
+              "reach",
+              "costPerKReached",
               "impressions",
               "cpm",
               "linkClicks",
