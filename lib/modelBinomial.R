@@ -11,8 +11,8 @@ modelBinomial <- function(y) {
       mutate(pred = predict(M, newdata = ., type = "response"),
              linPred = predict(M, newdata = ., type = "link", se.fit = TRUE)[["fit"]],
              seLinPred = predict(M, newdata = ., type = "link", se.fit = TRUE)[["se.fit"]]) %>% 
-      mutate(predLower = exp(linPred + qnorm(0.025) * seLinPred),
-             predUpper = exp(linPred + qnorm(0.975) * seLinPred)) %>% 
+      mutate(predLower = exp(linPred + qnorm(0.025) * seLinPred) / (1 + exp(linPred + qnorm(0.025) * seLinPred)),
+             predUpper = exp(linPred + qnorm(0.975) * seLinPred) / (1 + exp(linPred + qnorm(0.975) * seLinPred))) %>% 
       select(-c(linPred, seLinPred)) %>% 
       arrange(-pred)
     list(model = formula(text), modelObject = M, predict = pred)
