@@ -154,7 +154,7 @@ df2 %>%
 
 ```{r}
 df2 %>% 
-  group_by(eligible, indSurveyComplete, va_ever_enrolled, va_use_12mo) %>% 
+  group_by(indSurveyParticipation, indScreenerParticipation, va_ever_enrolled, va_use_12mo) %>% 
   summarize(n = n()) %>% 
   kable
 ```
