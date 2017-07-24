@@ -147,14 +147,45 @@ df2 %>%
 
 ### Use of VA health services
 
-**Questions**
-
-* Only makes sense for respondents who are eligible?
-* Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
-
 ```{r}
 df2 %>% 
-  group_by(indSurveyParticipation, indScreenerParticipation, va_ever_enrolled, va_use_12mo) %>% 
+  mutate(desc = "Before recoding") %>% 
+  group_by(desc, va_ever_enrolled, va_use_12mo) %>% 
+  summarize(n = n()) %>% 
+  kable
+```
+
+Recoding logic
+
+* Primary analysis will code `9` (not sure) as `0` (No)
+* Sensitivity analysis will exclude the `9` values from the analysis
+* If `va_ever_enrolled == FALSE` & `is.na(va_use_12mo)`, then recode `va_use_12mo` to `FALSE`
+* If `va_use_12mo == TRUE` & `va_ever_enrolled == FALSE`, then recode `va_ever_enrolled` to `TRUE`
+
+```{r}
+df2 <-
+  df2 %>%
+  mutate(va_ever_enrolled = case_when(is.na(.$va_ever_enrolled) ~ NA,
+                                      .$va_ever_enrolled == 9 ~ FALSE, 
+                                      TRUE ~ as.logical(.$va_ever_enrolled))) %>%
+  mutate(va_use_12mo = case_when(is.na(.$va_use_12mo) ~ NA,
+                                 .$va_use_12mo == 9 ~ FALSE, 
+                                 TRUE ~ as.logical(.$va_use_12mo)))
+weirdRows <- which(df2$va_ever_enrolled == FALSE & is.na(df2$va_use_12mo))
+df2 <- 
+  df2 %>% 
+  mutate(va_use_12mo = case_when(is.na(.$va_ever_enrolled) & is.na(.$va_use_12mo) ~ NA,
+                                 row_number() %in% weirdRows ~ FALSE,
+                                 TRUE ~ .$va_use_12mo))
+weirdRows <- which(df2$va_ever_enrolled == FALSE & df2$va_use_12mo == TRUE)
+df2 <- 
+  df2 %>% 
+  mutate(va_ever_enrolled = case_when(is.na(.$va_ever_enrolled) & is.na(.$va_use_12mo) ~ NA,
+                                      row_number() %in% weirdRows ~ TRUE,
+                                      TRUE ~ .$va_ever_enrolled))
+df2 %>% 
+  mutate(desc = "After recoding") %>% 
+  group_by(desc, va_ever_enrolled, va_use_12mo) %>%
   summarize(n = n()) %>% 
   kable
 ```
