@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-07-17 14:52:36"
+date: "2017-07-26 15:06:59"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -168,9 +168,9 @@ Source user-defined functions.
 ##         ../lib/modelBinomial.R ../lib/modelCounts.R ../lib/plotRates.R
 ## value   ?                      ?                    ?                 
 ## visible FALSE                  FALSE                FALSE             
-##         ../lib/plotResid.R
-## value   ?                 
-## visible FALSE
+##         ../lib/plotResid.R ../lib/predictDichotomousRiskFactor.R
+## value   ?                  ?                                    
+## visible FALSE              FALSE
 ```
 # Read data
 
@@ -324,15 +324,34 @@ Cleaning
 
 ### Use of VA health services
 
-**Questions**
 
-* Only makes sense for respondents who are eligible?
-* Still showing `va_use_12mo == NA` for eligible, survey completers; what to do with these?
+|desc            | va_ever_enrolled| va_use_12mo|   n|
+|:---------------|----------------:|-----------:|---:|
+|Before recoding |                0|          NA| 163|
+|Before recoding |                1|           0| 139|
+|Before recoding |                1|           1| 281|
+|Before recoding |                1|           9|   2|
+|Before recoding |                1|          NA|   1|
+|Before recoding |                9|           0|  33|
+|Before recoding |                9|           1|   2|
+|Before recoding |                9|           9|   5|
+|Before recoding |               NA|          NA| 703|
+
+Recoding logic
+
+* Primary analysis will code `9` (not sure) as `0` (No)
+* Sensitivity analysis will exclude the `9` values from the analysis
+* If `va_ever_enrolled == FALSE` & `is.na(va_use_12mo)`, then recode `va_use_12mo` to `FALSE`
+* If `va_use_12mo == TRUE` & `va_ever_enrolled == FALSE`, then recode `va_ever_enrolled` to `TRUE`
 
 
-```
-## Error in resolve_vars(new_groups, tbl_vars(.data)): unknown variable to group by : indSurveyComplete
-```
+|desc           |va_ever_enrolled |va_use_12mo |   n|
+|:--------------|:----------------|:-----------|---:|
+|After recoding |FALSE            |FALSE       | 201|
+|After recoding |TRUE             |FALSE       | 141|
+|After recoding |TRUE             |TRUE        | 283|
+|After recoding |TRUE             |NA          |   1|
+|After recoding |NA               |NA          | 703|
 
 ### Presence of suicidality
 
@@ -375,7 +394,7 @@ DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for
 
 Check correlation between `impressions` and `reach`.
 
-![plot of chunk unnamed-chunk-13](../figures/unnamed-chunk-13-1.png)
+![plot of chunk unnamed-chunk-14](../figures/unnamed-chunk-14-1.png)
 # Model Facebook ad metrics
 
 * Use negative binomial model
@@ -1274,13 +1293,16 @@ Image files saved as [PNG](../figures/shares.png), [SVG](../figures/shares.svg)
 * Eligibility screener participation (i.e., completed the first part of the survey assessing eligibility)
   * `indScreenerParticipation == 1`
 * Rationale: These outcomes represents the highest level of engagement involving an "action step outside of Facebook" as described in the spectrum of Facebook engagement outcomes described by [Platt T 2016]
+* Proportion of survey participants who screen positive for suicidality 
+* Proportion of survey participants who used VA health services in the prior 12 months
+
+**Model**
+
 * Use logistic regression model
 * Predictor variables
   * Ad `image`
   * Ad `text`
 * Include full factorial interaction
-
-**Model**
 
 Define the linear predictor as $\eta$, where
 
@@ -1372,6 +1394,23 @@ $$
 |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
 |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 
+Ad hoc testing
+
+**Incentive, Sharing, Altruism, or Empowerment vs Social Norms** regardless of `image`
+
+
+|term        | estimate| std.error| statistic| p.value|
+|:-----------|--------:|---------:|---------:|-------:|
+|(Intercept) |   -1.154|     0.118|    -9.753|       0|
+|xTRUE       |    1.258|     0.135|     9.309|       0|
+
+
+
+|x     | pred| predLower| predUpper|
+|:-----|----:|---------:|---------:|
+|TRUE  | 0.53|      0.49|      0.56|
+|FALSE | 0.24|      0.20|      0.28|
+
 
 ### Screener participation
 
@@ -1432,6 +1471,179 @@ $$
 |Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.934|   0.127|   0.000|
 |Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.091|   0.000|
 |Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+Ad hoc testing
+
+**Incentive or Sharing vs Empowerment, Altruism, or Social Norms** regardless of `image`
+
+
+|term        | estimate| std.error| statistic| p.value|
+|:-----------|--------:|---------:|---------:|-------:|
+|(Intercept) |   -0.432|     0.082|    -5.279|       0|
+|xTRUE       |    1.098|     0.114|     9.614|       0|
+
+
+
+|x     | pred| predLower| predUpper|
+|:-----|----:|---------:|---------:|
+|TRUE  | 0.66|      0.62|      0.69|
+|FALSE | 0.39|      0.36|      0.43|
+
+
+### Suicidality 
+
+
+```
+## indDSISS ~ image + text + image * text
+```
+
+
+
+|image    |text        | pred| predLower| predUpper|
+|:--------|:-----------|----:|---------:|---------:|
+|Family   |Empowerment | 0.47|      0.26|      0.70|
+|Computer |Incentive   | 0.43|      0.24|      0.64|
+|Computer |Sharing     | 0.29|      0.18|      0.43|
+|Computer |Altruism    | 0.28|      0.12|      0.52|
+|Veteran  |SocialNorms | 0.25|      0.15|      0.37|
+|Family   |SocialNorms | 0.23|      0.08|      0.52|
+|Family   |Altruism    | 0.22|      0.06|      0.58|
+|Veteran  |Sharing     | 0.21|      0.15|      0.29|
+|Computer |Empowerment | 0.20|      0.03|      0.69|
+|Family   |Incentive   | 0.20|      0.08|      0.43|
+|Veteran  |Altruism    | 0.19|      0.08|      0.39|
+|Computer |SocialNorms | 0.19|      0.07|      0.41|
+|Veteran  |Incentive   | 0.17|      0.12|      0.23|
+|Family   |Sharing     | 0.15|      0.06|      0.35|
+|Veteran  |Empowerment | 0.15|      0.06|      0.33|
+
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.123|   0.007|
+|Family   |NA       |     NA|   0.717|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.331|       0.361|   0.247|       0.102|
+|Altruism    |NA        |       NA|       0.727|   0.949|       0.521|
+|Empowerment |NA        |       NA|          NA|   0.686|       0.961|
+|Sharing     |NA        |       NA|          NA|      NA|       0.407|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.331|   0.361|   0.247|   0.102|   0.123|   0.292|   0.796|   0.043|   0.247|   0.007|   0.084|   0.036|   0.033|   0.117|
+|Com-Alt |NA      |      NA|   0.727|   0.949|   0.521|   0.575|   0.757|   0.242|   0.322|   0.768|   0.253|   0.508|   0.293|   0.508|   0.785|
+|Com-Emp |NA      |      NA|      NA|   0.686|   0.961|   1.000|   0.923|   0.298|   0.798|   0.888|   0.849|   0.968|   0.770|   0.961|   0.818|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.407|   0.464|   0.696|   0.168|   0.210|   0.694|   0.070|   0.379|   0.184|   0.276|   0.638|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.939|   0.842|   0.072|   0.740|   0.778|   0.793|   0.987|   0.697|   0.846|   0.605|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.891|   0.087|   0.683|   0.833|   0.717|   0.948|   0.641|   0.927|   0.675|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.226|   0.641|   0.962|   0.673|   0.847|   0.608|   0.925|   0.877|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.030|   0.184|   0.005|   0.058|   0.025|   0.022|   0.078|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.501|   0.860|   0.714|   0.954|   0.522|   0.346|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.564|   0.779|   0.522|   0.854|   0.908|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.756|   0.800|   0.361|   0.184|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.669|   0.848|   0.587|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.473|   0.309|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.564|
+|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
+
+Ad hoc testing
+
+**Family-Empowerment or Computer-Incentive vs other**
+
+
+|term        | estimate| std.error| statistic| p.value|
+|:-----------|--------:|---------:|---------:|-------:|
+|(Intercept) |   -1.367|     0.104|   -13.198|   0.000|
+|xTRUE       |    1.156|     0.342|     3.376|   0.001|
+
+
+
+|x     | pred| predLower| predUpper|
+|:-----|----:|---------:|---------:|
+|TRUE  | 0.45|      0.30|      0.61|
+|FALSE | 0.20|      0.17|      0.24|
+
+**Computer vs Family or Veteran** regardless of `text`
+
+
+|term        | estimate| std.error| statistic| p.value|
+|:-----------|--------:|---------:|---------:|-------:|
+|(Intercept) |   -1.374|     0.111|   -12.334|   0.000|
+|xTRUE       |    0.476|     0.235|     2.028|   0.043|
+
+
+
+|x     | pred| predLower| predUpper|
+|:-----|----:|---------:|---------:|
+|TRUE  | 0.29|      0.21|      0.38|
+|FALSE | 0.20|      0.17|      0.24|
+
+
+### Use of VA health services 
+
+
+```
+## va_use_12mo ~ image + text + image * text
+```
+
+
+
+|image    |text        | pred| predLower| predUpper|
+|:--------|:-----------|----:|---------:|---------:|
+|Computer |Empowerment | 0.80|      0.31|      0.97|
+|Family   |Sharing     | 0.62|      0.42|      0.78|
+|Family   |Empowerment | 0.61|      0.38|      0.80|
+|Computer |SocialNorms | 0.61|      0.40|      0.78|
+|Family   |Incentive   | 0.55|      0.34|      0.75|
+|Family   |SocialNorms | 0.54|      0.28|      0.78|
+|Veteran  |Altruism    | 0.54|      0.35|      0.72|
+|Computer |Altruism    | 0.50|      0.28|      0.72|
+|Veteran  |Empowerment | 0.50|      0.32|      0.68|
+|Veteran  |Sharing     | 0.46|      0.38|      0.54|
+|Computer |Sharing     | 0.43|      0.30|      0.57|
+|Veteran  |SocialNorms | 0.43|      0.31|      0.55|
+|Computer |Incentive   | 0.41|      0.23|      0.62|
+|Veteran  |Incentive   | 0.36|      0.29|      0.43|
+|Family   |Altruism    | 0.22|      0.06|      0.58|
+
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.363|   0.634|
+|Family   |NA       |     NA|   0.099|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.566|       0.144|   0.878|       0.184|
+|Altruism    |NA        |       NA|       0.253|   0.603|       0.487|
+|Empowerment |NA        |       NA|          NA|   0.147|       0.430|
+|Sharing     |NA        |       NA|          NA|      NA|       0.157|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
+|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
+|Com-Inc |NA      |   0.566|   0.144|   0.878|   0.184|   0.363|   0.332|   0.207|   0.157|   0.459|   0.634|   0.373|   0.523|   0.657|   0.889|
+|Com-Alt |NA      |      NA|   0.253|   0.603|   0.487|   0.758|   0.178|   0.503|   0.449|   0.833|   0.238|   0.802|   1.000|   0.748|   0.580|
+|Com-Emp |NA      |      NA|      NA|   0.147|   0.430|   0.325|   0.055|   0.443|   0.441|   0.324|   0.081|   0.299|   0.240|   0.171|   0.142|
+|Com-Sha |NA      |      NA|      NA|      NA|   0.157|   0.361|   0.257|   0.189|   0.126|   0.481|   0.364|   0.365|   0.545|   0.706|   0.980|
+|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.697|   0.062|   0.987|   0.962|   0.682|   0.024|   0.620|   0.439|   0.190|   0.139|
+|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.114|   0.703|   0.656|   0.948|   0.099|   0.938|   0.733|   0.452|   0.337|
+|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.069|   0.055|   0.149|   0.416|   0.115|   0.158|   0.183|   0.257|
+|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.977|   0.686|   0.041|   0.633|   0.461|   0.232|   0.172|
+|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.139|   0.015|   0.575|   0.395|   0.150|   0.109|
+|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.200|   1.000|   0.819|   0.588|   0.462|
+|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.081|   0.153|   0.070|   0.341|
+|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.778|   0.463|   0.338|
+|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.698|   0.516|
+|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.661|
 |Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 
 
