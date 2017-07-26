@@ -59,6 +59,19 @@ M$pred %>% kable(digits = 2)
 M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
 ```
 
+Ad hoc testing
+
+**Incentive, Sharing, Altruism, or Empowerment vs Social Norms** regardless of `image`
+
+```{r}
+M <-
+  df2 %>% 
+  mutate(x = text %in% c("Incentive", "Sharing", "Altruism", "Empowerment")) %>% 
+  glm(indSurveyParticipation ~ x, data = ., family = binomial(link = "logit"))
+M %>% tidy %>% kable(digits = 3)
+M %>% predictDichotomousRiskFactor %>% kable(digits = 2)
+```
+
 
 ### Screener participation
 
@@ -71,6 +84,19 @@ M$pred %>% kable(digits = 2)
 M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
 ```
 
+Ad hoc testing
+
+**Incentive or Sharing vs Empowerment, Altruism, or Social Norms** regardless of `image`
+
+```{r}
+M <-
+  df2 %>% 
+  mutate(x = text %in% c("Incentive", "Sharing")) %>% 
+  glm(indScreenerParticipation ~ x, data = ., family = binomial(link = "logit"))
+M %>% tidy %>% kable(digits = 3)
+M %>% predictDichotomousRiskFactor %>% kable(digits = 2)
+```
+
 
 ### Suicidality 
 
@@ -81,6 +107,31 @@ M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
 M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+```
+
+Ad hoc testing
+
+**Family-Empowerment or Computer-Incentive vs other**
+
+```{r}
+M <-
+  df2 %>% 
+  mutate(x = (image == "Family" & text == "Empowerment") | 
+             (image == "Computer" & text == "Incentive")) %>% 
+  glm(indDSISS ~ x, data = ., family = binomial(link = "logit"))
+M %>% tidy %>% kable(digits = 3)
+M %>% predictDichotomousRiskFactor %>% kable(digits = 2)
+```
+
+**Computer vs Family or Veteran** regardless of `text`
+
+```{r}
+M <-
+  df2 %>% 
+  mutate(x = image == "Computer") %>% 
+  glm(indDSISS ~ x, data = ., family = binomial(link = "logit"))
+M %>% tidy %>% kable(digits = 3)
+M %>% predictDichotomousRiskFactor %>% kable(digits = 2)
 ```
 
 
