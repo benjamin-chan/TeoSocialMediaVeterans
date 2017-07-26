@@ -56,7 +56,7 @@ title <- "Survey participation"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
 Ad hoc testing
@@ -81,7 +81,7 @@ title <- "Screener participation"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
 Ad hoc testing
@@ -106,7 +106,7 @@ title <- "Suicidality"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
 Ad hoc testing
@@ -143,7 +143,7 @@ title <- "Use of VA health services in prior 12 months"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
-M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
 
