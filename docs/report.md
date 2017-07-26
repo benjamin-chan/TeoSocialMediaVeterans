@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-07-26 15:06:59"
+date: "2017-07-26 15:34:45"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -1376,24 +1376,6 @@ $$
 |Sharing     |NA        |       NA|          NA|      NA|       0.000|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
-|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
-|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-|Com-Inc |NA      |   0.413|   0.349|   0.563|   0.008|   0.553|   0.781|   0.704|   0.471|   0.043|   0.447|   0.757|   0.361|   0.207|   0.001|
-|Com-Alt |NA      |      NA|   0.674|   0.125|   0.077|   0.165|   0.706|   0.687|   0.117|   0.213|   0.062|   0.570|   0.973|   0.018|   0.016|
-|Com-Emp |NA      |      NA|      NA|   0.184|   0.539|   0.189|   0.517|   0.501|   0.160|   0.699|   0.150|   0.438|   0.680|   0.087|   0.399|
-|Com-Sha |NA      |      NA|      NA|      NA|   0.000|   0.901|   0.456|   0.325|   0.811|   0.004|   0.898|   0.314|   0.082|   0.425|   0.000|
-|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.001|   0.080|   0.035|   0.000|   0.737|   0.000|   0.011|   0.056|   0.000|   0.662|
-|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.450|   0.347|   0.930|   0.011|   0.961|   0.351|   0.129|   0.661|   0.000|
-|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.968|   0.390|   0.171|   0.382|   0.962|   0.674|   0.215|   0.031|
-|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.279|   0.115|   0.228|   0.912|   0.644|   0.095|   0.006|
-|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.650|   0.860|   0.272|   0.083|   0.714|   0.000|
-|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.001|   0.062|   0.192|   0.000|   0.463|
-|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.191|   0.028|   0.333|   0.000|
-|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.512|   0.062|   0.001|
-|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.006|   0.007|
-|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
-|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
-
 Ad hoc testing
 
 **Incentive, Sharing, Altruism, or Empowerment vs Social Norms** regardless of `image`
@@ -1455,24 +1437,6 @@ Ad hoc testing
 |Sharing     |NA        |       NA|          NA|      NA|       0.000|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
-|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
-|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-|Com-Inc |NA      |   0.132|   0.990|   0.193|   0.007|   0.212|   0.793|   0.792|   0.667|   0.013|   0.531|   0.949|   0.888|   0.208|   0.000|
-|Com-Alt |NA      |      NA|   0.324|   0.002|   0.293|   0.008|   0.342|   0.234|   0.048|   0.307|   0.008|   0.117|   0.128|   0.001|   0.082|
-|Com-Emp |NA      |      NA|      NA|   0.405|   0.096|   0.372|   0.854|   0.867|   0.765|   0.099|   0.711|   0.978|   0.939|   0.458|   0.041|
-|Com-Sha |NA      |      NA|      NA|      NA|   0.000|   0.839|   0.194|   0.121|   0.397|   0.000|   0.261|   0.131|   0.101|   0.777|   0.000|
-|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.000|   0.070|   0.021|   0.001|   0.902|   0.000|   0.003|   0.003|   0.000|   0.496|
-|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.196|   0.144|   0.381|   0.000|   0.311|   0.165|   0.139|   0.669|   0.000|
-|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.968|   0.540|   0.080|   0.443|   0.822|   0.866|   0.217|   0.020|
-|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.493|   0.032|   0.349|   0.824|   0.878|   0.125|   0.002|
-|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.322|   0.942|   0.596|   0.535|   0.460|   0.000|
-|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|   0.009|   0.010|   0.000|   0.696|
-|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.417|   0.339|   0.238|   0.000|
-|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.934|   0.127|   0.000|
-|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.091|   0.000|
-|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.000|
-|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
-
 Ad hoc testing
 
 **Incentive or Sharing vs Empowerment, Altruism, or Social Norms** regardless of `image`
@@ -1533,24 +1497,6 @@ Ad hoc testing
 |Empowerment |NA        |       NA|          NA|   0.686|       0.961|
 |Sharing     |NA        |       NA|          NA|      NA|       0.407|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
-
-|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
-|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-|Com-Inc |NA      |   0.331|   0.361|   0.247|   0.102|   0.123|   0.292|   0.796|   0.043|   0.247|   0.007|   0.084|   0.036|   0.033|   0.117|
-|Com-Alt |NA      |      NA|   0.727|   0.949|   0.521|   0.575|   0.757|   0.242|   0.322|   0.768|   0.253|   0.508|   0.293|   0.508|   0.785|
-|Com-Emp |NA      |      NA|      NA|   0.686|   0.961|   1.000|   0.923|   0.298|   0.798|   0.888|   0.849|   0.968|   0.770|   0.961|   0.818|
-|Com-Sha |NA      |      NA|      NA|      NA|   0.407|   0.464|   0.696|   0.168|   0.210|   0.694|   0.070|   0.379|   0.184|   0.276|   0.638|
-|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.939|   0.842|   0.072|   0.740|   0.778|   0.793|   0.987|   0.697|   0.846|   0.605|
-|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.891|   0.087|   0.683|   0.833|   0.717|   0.948|   0.641|   0.927|   0.675|
-|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.226|   0.641|   0.962|   0.673|   0.847|   0.608|   0.925|   0.877|
-|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.030|   0.184|   0.005|   0.058|   0.025|   0.022|   0.078|
-|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.501|   0.860|   0.714|   0.954|   0.522|   0.346|
-|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.564|   0.779|   0.522|   0.854|   0.908|
-|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.756|   0.800|   0.361|   0.184|
-|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.669|   0.848|   0.587|
-|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.473|   0.309|
-|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.564|
-|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 
 Ad hoc testing
 
@@ -1627,24 +1573,6 @@ Ad hoc testing
 |Empowerment |NA        |       NA|          NA|   0.147|       0.430|
 |Sharing     |NA        |       NA|          NA|      NA|       0.157|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
-
-|        |Com-Inc | Com-Alt| Com-Emp| Com-Sha| Com-Soc| Fam-Inc| Fam-Alt| Fam-Emp| Fam-Sha| Fam-Soc| Vet-Inc| Vet-Alt| Vet-Emp| Vet-Sha| Vet-Soc|
-|:-------|:-------|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|-------:|
-|Com-Inc |NA      |   0.566|   0.144|   0.878|   0.184|   0.363|   0.332|   0.207|   0.157|   0.459|   0.634|   0.373|   0.523|   0.657|   0.889|
-|Com-Alt |NA      |      NA|   0.253|   0.603|   0.487|   0.758|   0.178|   0.503|   0.449|   0.833|   0.238|   0.802|   1.000|   0.748|   0.580|
-|Com-Emp |NA      |      NA|      NA|   0.147|   0.430|   0.325|   0.055|   0.443|   0.441|   0.324|   0.081|   0.299|   0.240|   0.171|   0.142|
-|Com-Sha |NA      |      NA|      NA|      NA|   0.157|   0.361|   0.257|   0.189|   0.126|   0.481|   0.364|   0.365|   0.545|   0.706|   0.980|
-|Com-Soc |NA      |      NA|      NA|      NA|      NA|   0.697|   0.062|   0.987|   0.962|   0.682|   0.024|   0.620|   0.439|   0.190|   0.139|
-|Fam-Inc |NA      |      NA|      NA|      NA|      NA|      NA|   0.114|   0.703|   0.656|   0.948|   0.099|   0.938|   0.733|   0.452|   0.337|
-|Fam-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|   0.069|   0.055|   0.149|   0.416|   0.115|   0.158|   0.183|   0.257|
-|Fam-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.977|   0.686|   0.041|   0.633|   0.461|   0.232|   0.172|
-|Fam-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.139|   0.015|   0.575|   0.395|   0.150|   0.109|
-|Fam-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.200|   1.000|   0.819|   0.588|   0.462|
-|Vet-Inc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.081|   0.153|   0.070|   0.341|
-|Vet-Alt |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.778|   0.463|   0.338|
-|Vet-Emp |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.698|   0.516|
-|Vet-Sha |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|   0.661|
-|Vet-Soc |NA      |      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|      NA|
 
 
 ## Secondary Outcomes
