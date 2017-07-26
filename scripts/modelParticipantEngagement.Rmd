@@ -9,6 +9,7 @@
   * `indScreenerParticipation == 1`
 * Rationale: These outcomes represents the highest level of engagement involving an "action step outside of Facebook" as described in the spectrum of Facebook engagement outcomes described by [Platt T 2016]
 * Proportion of survey participants who screen positive for suicidality 
+* Proportion of survey participants who used VA health services in the prior 12 months
 
 **Model**
 
@@ -76,6 +77,18 @@ M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
 ```{r indDSISS}
 y <- "indDSISS"
 title <- "Suicidality"
+M <- modelBinomial(y)
+print(M$model, showEnv = FALSE)
+M$pred %>% kable(digits = 2)
+M[["modelObject"]] %>% contrastTable %>% kable(digits = 3)
+```
+
+
+### Use of VA health services 
+
+```{r va_use_12mo}
+y <- "va_use_12mo"
+title <- "Use of VA health services in prior 12 months"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)
