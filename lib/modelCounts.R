@@ -1,4 +1,4 @@
-modelCounts <- function(y, offset = NULL) {
+modelCounts <- function(y, offset = NULL, offsetConstant = 1000) {
     require(MASS)
     require(broom)
     text <- paste(eval(y),
@@ -7,7 +7,7 @@ modelCounts <- function(y, offset = NULL) {
                         text = levels(df1$text))
     if (!is.null(offset)) {
       text <- paste(text, sprintf("+ offset(log(%s))", eval(offset)))
-      grid <- cbind(grid, offset = 1000)
+      grid <- cbind(grid, offset = offsetConstant)
     }
     M <- glm.nb(formula(text), data = df1)
     names(grid) <- c("image", "text", offset)

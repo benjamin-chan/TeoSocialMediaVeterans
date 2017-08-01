@@ -135,11 +135,23 @@ M %>% predictDichotomousRiskFactor %>% kable(digits = 2)
 ```
 
 
+### VA enrollment
+
+```{r indVANeverEnrolled}
+y <- "indVANeverEnrolled"
+title <- "Never enrolled in VA"
+M <- modelBinomial(y)
+print(M$model, showEnv = FALSE)
+M$pred %>% kable(digits = 2)
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+
 ### Use of VA health services 
 
-```{r va_use_12mo}
-y <- "va_use_12mo"
-title <- "Use of VA health services in prior 12 months"
+```{r indVANotUse12mo}
+y <- "indVANotUse12mo"
+title <- "Did not use VA health services in prior 12 months"
 M <- modelBinomial(y)
 print(M$model, showEnv = FALSE)
 M$pred %>% kable(digits = 2)

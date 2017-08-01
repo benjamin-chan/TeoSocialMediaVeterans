@@ -161,6 +161,7 @@ Recoding logic
 * Sensitivity analysis will exclude the `9` values from the analysis
 * If `va_ever_enrolled == FALSE` & `is.na(va_use_12mo)`, then recode `va_use_12mo` to `FALSE`
 * If `va_use_12mo == TRUE` & `va_ever_enrolled == FALSE`, then recode `va_ever_enrolled` to `TRUE`
+* Code indicators `indVANeverEnrolled` and `indVANotUse12mo` as the logical opposites of `va_ever_enrolled` and `va_use_12mo`
 
 ```{r}
 df2 <-
@@ -183,9 +184,13 @@ df2 <-
   mutate(va_ever_enrolled = case_when(is.na(.$va_ever_enrolled) & is.na(.$va_use_12mo) ~ NA,
                                       row_number() %in% weirdRows ~ TRUE,
                                       TRUE ~ .$va_ever_enrolled))
+df2 <-
+  df2 %>%
+  mutate(indVANeverEnrolled = !va_ever_enrolled,
+         indVANotUse12mo = !va_use_12mo)
 df2 %>% 
   mutate(desc = "After recoding") %>% 
-  group_by(desc, va_ever_enrolled, va_use_12mo) %>%
+  group_by(desc, va_ever_enrolled, va_use_12mo, indVANeverEnrolled, indVANotUse12mo) %>%
   summarize(n = n()) %>% 
   kable
 ```

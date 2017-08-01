@@ -11,7 +11,8 @@ files <- c("header.yaml",
            "readData.Rmd",
            "corrData.Rmd",
            "modelAdMetrics.Rmd",
-           "modelParticipantEngagement.Rmd")
+           "modelParticipantEngagement.Rmd",
+           "summarizeAnalysis.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
     x <- readLines(files[i])
@@ -22,7 +23,8 @@ library(knitr)
 library(rmarkdown)
 opts_chunk$set(echo = FALSE, fig.path = "../figures/", dpi = 300)
 knit("master.Rmd", output = "../docs/report.md")
-# pandoc("../docs/report.md", format = "html")
+knit("summarizeAnalysis.Rmd", output = "../docs/analysis_summary.md")
+pandoc("../docs/analysis_summary.md", format = "docx")
 file.remove("master.Rmd")
 sink()
 
