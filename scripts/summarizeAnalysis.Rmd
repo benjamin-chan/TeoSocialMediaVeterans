@@ -1,0 +1,294 @@
+# Using Social Media to Engage Veterans in Health Care: Summary of Analysis
+
+Attribute | Value
+:---|:---
+Principal investigator | Alan Teo, teoa@ohsu.edu, 503-220-8262 x52461
+Main contact | Samuel Liebow, liebow@ohsu.edu
+Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
+eIRB # | IRB15797
+BDP project # | BDP-25
+
+
+## Objectives
+
+The overall objective of this study is to determine the feasibility of using
+Facebook for identifying military veterans at risk for psychiatric problems,
+then determine the appropriateness of multiple social media platforms for
+engaging, supporting, and assisting these at-risk veterans. In this contract,
+we will explore the following aim:
+
+**Aim 1a:** Determine the feasibility of reaching recently deployed military
+veterans through Facebook advertising. We will use Facebook ads to recruit
+1000 self-reported veterans who have been deployed to Iraq or Afghanistan to
+participate in a national online survey. Ad recruitment metrics and level of
+social media use will determine feasibility of identifying and engaging
+veterans.
+
+
+## Summary of Facebook Ad Metrics Analysis
+
+* Use negative binomial model
+* Factors: ad `image`, ad `text`
+* Include full factorial interaction
+
+**Model**
+
+Define the linear predictor as $\eta$, where
+
+$$
+\eta = \beta_0 + 
+       \beta_1 x_\text{image: Family} + 
+       \beta_2 x_\text{image: Veteran} + 
+       \beta_3 x_\text{text: Altruism} + 
+       \beta_4 x_\text{text: Empowerment} + 
+       \beta_5 x_\text{text: Sharing} + 
+       \beta_6 x_\text{text: Social norms} + 
+       \gamma_1 x_\text{image: Family} x_\text{text: Altruism} + 
+       \gamma_2 x_\text{image: Family} x_\text{text: Empowerment} + 
+       \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
+       \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + 
+       \gamma_5 x_\text{image: Veteran} x_\text{text: Altruism} + 
+       \gamma_6 x_\text{image: Veteran} x_\text{text: Empowerment} + 
+       \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
+       \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms}
+$$
+
+The model for impressions and reach is
+
+$$
+\log(y) = \eta
+$$
+
+Clicks, unique clicks, total link clicks, unique link clicks are bounded by and related to the number of impressions.
+The model for these dependent variables uses impressions as an offset and is specified as
+
+$$
+\log(y) = \eta + \log(x_\text{impressions})
+$$
+
+Reactions, comments, and shares are bounded by and related to the number of clicks.
+The model for these dependent variables uses all clicks as an offset and is specified as
+
+$$
+\log(y) = \eta + \log(x_\text{clicksAll})
+$$
+
+
+### Impressions
+
+```{r}
+M <- modelCounts("impressions", offset = NULL)
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+### Clicks, all
+
+```{r}
+M <- modelCounts("clicksAll", offset = "impressions")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+### Total link clicks
+
+```{r}
+M <- modelCounts("linkClicks", offset = "impressions")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+### Reactions
+
+```{r}
+M <- modelCounts("reactions", offset = "clicksAll", offsetConstant = 10)
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+
+## Summary of REDCap Survey Analysis
+
+Inclusion criteria
+
+* Respondents who consented
+* Eligible, ineligible, or missing eligibility indicator
+
+**`r sprintf("Number included: n = %d", df2 %>% filter(consent == 1) %>% nrow)`**
+
+
+**Model**
+
+* Use logistic regression model
+* Factors: ad `image`, ad `text`
+* Include full factorial interaction
+
+Define the linear predictor as $\eta$, where
+
+$$
+\eta = \beta_0 + 
+       \beta_1 x_\text{image: Family} + 
+       \beta_2 x_\text{image: Veteran} + 
+       \beta_3 x_\text{text: Altruism} + 
+       \beta_4 x_\text{text: Empowerment} + 
+       \beta_5 x_\text{text: Sharing} + 
+       \beta_6 x_\text{text: Social norms} + 
+       \gamma_1 x_\text{image: Family} x_\text{text: Altruism} + 
+       \gamma_2 x_\text{image: Family} x_\text{text: Empowerment} + 
+       \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
+       \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + 
+       \gamma_5 x_\text{image: Veteran} x_\text{text: Altruism} + 
+       \gamma_6 x_\text{image: Veteran} x_\text{text: Empowerment} + 
+       \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
+       \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms}
+$$
+
+The model for survey and screener participation is
+
+$$
+\text{logit}(y) = \eta
+$$
+
+
+### Survey participation
+
+```{r}
+M <- modelBinomial("indSurveyParticipation")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+
+### Screener participation
+
+```{r}
+M <- modelBinomial("indScreenerParticipation")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+
+### Suicidality 
+
+```{r}
+M <- modelBinomial("indDSISS")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+
+### VA enrollment
+
+```{r}
+M <- modelBinomial("indVANeverEnrolled")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+
+### Use of VA health services 
+
+```{r}
+M <- modelBinomial("indVANotUse12mo")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
