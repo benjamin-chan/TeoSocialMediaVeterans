@@ -12,6 +12,7 @@ files <- c("header.yaml",
            "corrData.Rmd",
            "modelAdMetrics.Rmd",
            "modelParticipantEngagement.Rmd",
+           "modelAdCosts.Rmd",
            "summarizeAnalysis.Rmd")
 f <- file("master.Rmd", open = "w")
 for (i in 1:length(files)) {
