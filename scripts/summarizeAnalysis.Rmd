@@ -292,3 +292,76 @@ P-values comparing main effects.
 ```{r}
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
+
+
+## Summary of Facebook Ad Cost Analysis
+
+* Use linear regression model
+* Factors: ad `image`, ad `text`
+* Include full factorial interaction
+
+**Model**
+
+Define the linear predictor as $\eta$, where
+
+$$
+\eta = \beta_0 + 
+       \beta_1 x_\text{image: Family} + 
+       \beta_2 x_\text{image: Veteran} + 
+       \beta_3 x_\text{text: Altruism} + 
+       \beta_4 x_\text{text: Empowerment} + 
+       \beta_5 x_\text{text: Sharing} + 
+       \beta_6 x_\text{text: Social norms} + 
+       \gamma_1 x_\text{image: Family} x_\text{text: Altruism} + 
+       \gamma_2 x_\text{image: Family} x_\text{text: Empowerment} + 
+       \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
+       \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + 
+       \gamma_5 x_\text{image: Veteran} x_\text{text: Altruism} + 
+       \gamma_6 x_\text{image: Veteran} x_\text{text: Empowerment} + 
+       \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
+       \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms}
+$$
+
+The model for ad costs per unit is
+
+$$
+y = \eta
+$$
+
+### Cost per 1,000 impressions
+
+```{r}
+M <- modelCost("costPerImpression")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+### Cost per 1,000 link click
+
+```{r}
+M <- modelCost("costPerLinkClick")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
