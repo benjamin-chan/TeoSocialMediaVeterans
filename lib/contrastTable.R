@@ -9,16 +9,16 @@ contrastTable <- function (glmObj) {
   mat1 <- matrix(nrow = nlevels(df1$image), ncol = nlevels(df1$image)) %>%data.frame 
   row.names(mat1) <- levels(df1$image)
   names(mat1) <- row.names(mat1)
-  mat1[1, 2] <- glmObj %>% summary %>% .$coef %>% .["imageFamily", "Pr(>|z|)"]
-  mat1[1, 3] <- glmObj %>% summary %>% .$coef %>% .["imageVeteran", "Pr(>|z|)"]
+  mat1[1, 2] <- glmObj %>% summary %>% .$coef %>% .["imageFamily", grep("Pr(>|[zt]|)", colnames(.))]
+  mat1[1, 3] <- glmObj %>% summary %>% .$coef %>% .["imageVeteran", grep("Pr(>|[zt]|)", colnames(.))]
   mat1[2, 3] <- glht(glmObj, linfct = c("imageFamily - imageVeteran = 0")) %>% getp
   mat2 <- matrix(nrow = nlevels(df1$text), ncol = nlevels(df1$text)) %>% data.frame 
   row.names(mat2) <- levels(df1$text)
   names(mat2) <- row.names(mat2)
-  mat2[1, 2] <- glmObj %>% summary %>% .$coef %>% .["textAltruism", "Pr(>|z|)"]
-  mat2[1, 3] <- glmObj %>% summary %>% .$coef %>% .["textEmpowerment", "Pr(>|z|)"]
-  mat2[1, 4] <- glmObj %>% summary %>% .$coef %>% .["textSharing", "Pr(>|z|)"]
-  mat2[1, 5] <- glmObj %>% summary %>% .$coef %>% .["textSocialNorms", "Pr(>|z|)"]
+  mat2[1, 2] <- glmObj %>% summary %>% .$coef %>% .["textAltruism", grep("Pr(>|[zt]|)", colnames(.))]
+  mat2[1, 3] <- glmObj %>% summary %>% .$coef %>% .["textEmpowerment", grep("Pr(>|[zt]|)", colnames(.))]
+  mat2[1, 4] <- glmObj %>% summary %>% .$coef %>% .["textSharing", grep("Pr(>|[zt]|)", colnames(.))]
+  mat2[1, 5] <- glmObj %>% summary %>% .$coef %>% .["textSocialNorms", grep("Pr(>|[zt]|)", colnames(.))]
   mat2[2, 3] <- glht(glmObj, linfct = c("textAltruism - textEmpowerment = 0")) %>% getp
   mat2[2, 4] <- glht(glmObj, linfct = c("textAltruism - textSharing = 0")) %>% getp
   mat2[2, 5] <- glht(glmObj, linfct = c("textAltruism - textSocialNorms = 0")) %>% getp
