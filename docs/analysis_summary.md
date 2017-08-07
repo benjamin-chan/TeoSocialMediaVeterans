@@ -534,3 +534,128 @@ P-values comparing main effects.
 |Empowerment |NA        |       NA|          NA|   0.147|       0.430|
 |Sharing     |NA        |       NA|          NA|      NA|       0.157|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+
+## Summary of Facebook Ad Cost Analysis
+
+* Use linear regression model
+* Factors: ad `image`, ad `text`
+* Include full factorial interaction
+
+**Model**
+
+Define the linear predictor as $\eta$, where
+
+$$
+\eta = \beta_0 + 
+       \beta_1 x_\text{image: Family} + 
+       \beta_2 x_\text{image: Veteran} + 
+       \beta_3 x_\text{text: Altruism} + 
+       \beta_4 x_\text{text: Empowerment} + 
+       \beta_5 x_\text{text: Sharing} + 
+       \beta_6 x_\text{text: Social norms} + 
+       \gamma_1 x_\text{image: Family} x_\text{text: Altruism} + 
+       \gamma_2 x_\text{image: Family} x_\text{text: Empowerment} + 
+       \gamma_3 x_\text{image: Family} x_\text{text: Sharing} + 
+       \gamma_4 x_\text{image: Family} x_\text{text: Social norms} + 
+       \gamma_5 x_\text{image: Veteran} x_\text{text: Altruism} + 
+       \gamma_6 x_\text{image: Veteran} x_\text{text: Empowerment} + 
+       \gamma_7 x_\text{image: Veteran} x_\text{text: Sharing} + 
+       \gamma_8 x_\text{image: Veteran} x_\text{text: Social norms}
+$$
+
+The model for ad costs per unit is
+
+$$
+y = \eta
+$$
+
+### Cost per 1,000 impressions
+
+
+```
+## costPerImpression ~ image + text + image * text
+```
+
+Predicted values.
+
+
+|image    |text        |  pred| predLower| predUpper|
+|:--------|:-----------|-----:|---------:|---------:|
+|Computer |Empowerment | 17.79|     17.00|     18.58|
+|Computer |Incentive   | 16.73|     15.94|     17.52|
+|Family   |Incentive   | 16.54|     15.75|     17.33|
+|Family   |SocialNorms | 16.21|     15.42|     17.00|
+|Computer |Altruism    | 16.11|     15.32|     16.90|
+|Computer |SocialNorms | 15.79|     15.00|     16.57|
+|Family   |Altruism    | 15.44|     14.65|     16.23|
+|Family   |Empowerment | 15.09|     14.31|     15.87|
+|Family   |Sharing     | 14.77|     13.98|     15.56|
+|Computer |Sharing     | 14.15|     13.36|     14.94|
+|Veteran  |Empowerment | 13.87|     13.08|     14.66|
+|Veteran  |SocialNorms | 13.67|     12.88|     14.46|
+|Veteran  |Altruism    | 13.05|     12.26|     13.84|
+|Veteran  |Incentive   | 11.50|     10.71|     12.29|
+|Veteran  |Sharing     | 10.10|      9.31|     10.89|
+
+P-values comparing main effects.
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |   0.74|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.278|       0.063|   0.000|       0.099|
+|Altruism    |NA        |       NA|       0.003|   0.001|       0.570|
+|Empowerment |NA        |       NA|          NA|   0.000|       0.000|
+|Sharing     |NA        |       NA|          NA|      NA|       0.004|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+### Cost per 1,000 link click
+
+
+```
+## costPerLinkClick ~ image + text + image * text
+```
+
+Predicted values.
+
+
+|image    |text        | pred| predLower| predUpper|
+|:--------|:-----------|----:|---------:|---------:|
+|Family   |Incentive   | 5.44|      4.71|      6.16|
+|Computer |Empowerment | 4.62|      3.89|      5.35|
+|Computer |Incentive   | 4.49|      3.75|      5.23|
+|Family   |Altruism    | 4.32|      3.60|      5.05|
+|Family   |SocialNorms | 4.26|      3.54|      4.99|
+|Computer |Altruism    | 4.03|      3.28|      4.78|
+|Veteran  |Altruism    | 4.01|      3.29|      4.74|
+|Family   |Sharing     | 3.91|      3.18|      4.65|
+|Family   |Empowerment | 3.38|      2.64|      4.11|
+|Computer |Sharing     | 3.29|      2.57|      4.02|
+|Veteran  |Empowerment | 3.14|      2.40|      3.87|
+|Computer |SocialNorms | 2.88|      2.16|      3.61|
+|Veteran  |Incentive   | 1.67|      0.93|      2.40|
+|Veteran  |Sharing     | 1.42|      0.70|      2.15|
+|Veteran  |SocialNorms | 1.31|      0.59|      2.04|
+
+P-values comparing main effects.
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.075|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.393|       0.808|   0.024|       0.002|
+|Altruism    |NA        |       NA|       0.269|   0.167|       0.031|
+|Empowerment |NA        |       NA|          NA|   0.011|       0.001|
+|Sharing     |NA        |       NA|          NA|      NA|       0.432|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
