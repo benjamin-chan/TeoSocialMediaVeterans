@@ -76,6 +76,8 @@ $$
 
 ### Impressions
 
+Total number of impressions: `r sprintf("%d", sum(df1$impressions))`
+
 ```{r}
 M <- modelCounts("impressions", offset = NULL)
 print(M$model, showEnv = FALSE)
@@ -94,6 +96,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 ### Clicks, all
+
+Total number of clicks, all: `r sprintf("%d", sum(df1$clicksAll))`
 
 ```{r}
 M <- modelCounts("clicksAll", offset = "impressions")
@@ -114,6 +118,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 ### Total link clicks
 
+Total number of link clicks: `r sprintf("%d", sum(df1$linkClicks, na.rm = TRUE))`
+
 ```{r}
 M <- modelCounts("linkClicks", offset = "impressions")
 print(M$model, showEnv = FALSE)
@@ -132,6 +138,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 ### Reactions
+
+Total number of reactions: `r sprintf("%d", sum(df1$reactions, na.rm = TRUE))`
 
 ```{r}
 M <- modelCounts("reactions", offset = "clicksAll", offsetConstant = 10)
@@ -196,6 +204,8 @@ $$
 
 ### Survey participation
 
+Total number of survey completers: `r sprintf("%d", sum(df2$indSurveyParticipation))`
+
 ```{r}
 M <- modelBinomial("indSurveyParticipation")
 print(M$model, showEnv = FALSE)
@@ -215,6 +225,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 
 ### Screener participation
+
+Total number of screening completers: `r sprintf("%d", sum(df2$indScreenerParticipation))`
 
 ```{r}
 M <- modelBinomial("indScreenerParticipation")
@@ -236,6 +248,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 ### Suicidality 
 
+Total number with DSI-SS >= 2: `r sprintf("%d", sum(df2$indDSISS, na.rm = TRUE))`
+
 ```{r}
 M <- modelBinomial("indDSISS")
 print(M$model, showEnv = FALSE)
@@ -256,6 +270,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 ### VA enrollment
 
+Total number never enrolled in VA: `r sprintf("%d", sum(df2$indVANeverEnrolled, na.rm = TRUE))`
+
 ```{r}
 M <- modelBinomial("indVANeverEnrolled")
 print(M$model, showEnv = FALSE)
@@ -275,6 +291,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 
 ### Use of VA health services 
+
+Total number who did not use VA health services in prior 12 months: `r sprintf("%d", sum(df2$indVANotUse12mo, na.rm = TRUE))`
 
 ```{r}
 M <- modelBinomial("indVANotUse12mo")
