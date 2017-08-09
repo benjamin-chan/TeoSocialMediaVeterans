@@ -365,3 +365,22 @@ P-values comparing main effects.
 ```{r}
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
+
+### Cost per 1,000 link clicks, all
+
+```{r}
+M <- modelCost("costPerLinkClickAll")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
