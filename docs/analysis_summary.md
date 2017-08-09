@@ -7,6 +7,7 @@ Main contact | Samuel Liebow, liebow@ohsu.edu
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | IRB15797
 BDP project # | BDP-25
+Date | 2017-08-09 14:55:01
 
 
 ## Objectives
@@ -76,6 +77,8 @@ $$
 
 ### Impressions
 
+Total number of impressions: 827918
+
 
 ```
 ## impressions ~ image + text + image * text
@@ -120,6 +123,8 @@ P-values comparing main effects.
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 ### Clicks, all
+
+Total number of clicks, all: 9527
 
 
 ```
@@ -166,6 +171,8 @@ P-values comparing main effects.
 
 ### Total link clicks
 
+Total number of link clicks: 4885
+
 
 ```
 ## linkClicks ~ image + text + image * text + offset(log(impressions))
@@ -210,6 +217,8 @@ P-values comparing main effects.
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 ### Reactions
+
+Total number of reactions: 1787
 
 
 ```
@@ -308,6 +317,8 @@ $$
 
 ### Survey participation
 
+Total number of survey completers: 587
+
 
 ```
 ## indSurveyParticipation ~ image + text + image * text
@@ -353,6 +364,8 @@ P-values comparing main effects.
 
 
 ### Screener participation
+
+Total number of screening completers: 711
 
 
 ```
@@ -400,6 +413,8 @@ P-values comparing main effects.
 
 ### Suicidality 
 
+Total number with DSI-SS >= 2: 134
+
 
 ```
 ## indDSISS ~ image + text + image * text
@@ -444,7 +459,9 @@ P-values comparing main effects.
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
-### VA enrollment
+### Never enrolled in VA
+
+Total number never enrolled in VA: 201
 
 
 ```
@@ -490,7 +507,9 @@ P-values comparing main effects.
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
-### Use of VA health services 
+### Did not use VA health services in prior 12 months
+
+Total number who did not use VA health services in prior 12 months: 342
 
 
 ```
@@ -615,7 +634,7 @@ P-values comparing main effects.
 |Sharing     |NA        |       NA|          NA|      NA|       0.004|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
-### Cost per 1,000 link click
+### Cost per 1,000 link clicks
 
 
 ```
@@ -658,4 +677,49 @@ P-values comparing main effects.
 |Altruism    |NA        |       NA|       0.269|   0.167|       0.031|
 |Empowerment |NA        |       NA|          NA|   0.011|       0.001|
 |Sharing     |NA        |       NA|          NA|      NA|       0.432|
+|SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+### Cost per 1,000 link clicks, all
+
+
+```
+## costPerLinkClickAll ~ image + text + image * text
+```
+
+Predicted values.
+
+
+|image    |text        | pred| predLower| predUpper|
+|:--------|:-----------|----:|---------:|---------:|
+|Computer |Incentive   | 3.28|      2.82|      3.73|
+|Family   |Incentive   | 2.75|      2.29|      3.20|
+|Computer |Empowerment | 2.66|      2.20|      3.11|
+|Computer |Altruism    | 2.30|      1.84|      2.75|
+|Family   |SocialNorms | 1.99|      1.53|      2.44|
+|Computer |SocialNorms | 1.64|      1.19|      2.10|
+|Computer |Sharing     | 1.58|      1.13|      2.04|
+|Family   |Sharing     | 1.51|      1.06|      1.97|
+|Family   |Altruism    | 1.49|      1.03|      1.94|
+|Family   |Empowerment | 1.45|      1.00|      1.90|
+|Veteran  |Empowerment | 1.37|      0.92|      1.83|
+|Veteran  |Incentive   | 1.05|      0.59|      1.50|
+|Veteran  |Altruism    | 0.98|      0.53|      1.44|
+|Veteran  |SocialNorms | 0.81|      0.35|      1.26|
+|Veteran  |Sharing     | 0.65|      0.20|      1.11|
+
+P-values comparing main effects.
+
+
+|         |Computer | Family| Veteran|
+|:--------|:--------|------:|-------:|
+|Computer |NA       |  0.107|       0|
+|Family   |NA       |     NA|       0|
+|Veteran  |NA       |     NA|      NA|
+
+|            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
+|:-----------|:---------|--------:|-----------:|-------:|-----------:|
+|Incentive   |NA        |    0.003|       0.059|   0.000|       0.000|
+|Altruism    |NA        |       NA|       0.272|   0.029|       0.046|
+|Empowerment |NA        |       NA|          NA|   0.001|       0.002|
+|Sharing     |NA        |       NA|          NA|      NA|       0.852|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
