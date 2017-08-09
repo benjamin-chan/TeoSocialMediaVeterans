@@ -7,6 +7,7 @@ Main contact | Samuel Liebow, liebow@ohsu.edu
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | IRB15797
 BDP project # | BDP-25
+Date | `r sprintf("%s", Sys.time())`
 
 
 ## Objectives
@@ -76,6 +77,8 @@ $$
 
 ### Impressions
 
+Total number of impressions: `r sprintf("%d", sum(df1$impressions))`
+
 ```{r}
 M <- modelCounts("impressions", offset = NULL)
 print(M$model, showEnv = FALSE)
@@ -94,6 +97,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 ### Clicks, all
+
+Total number of clicks, all: `r sprintf("%d", sum(df1$clicksAll))`
 
 ```{r}
 M <- modelCounts("clicksAll", offset = "impressions")
@@ -114,6 +119,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 ### Total link clicks
 
+Total number of link clicks: `r sprintf("%d", sum(df1$linkClicks, na.rm = TRUE))`
+
 ```{r}
 M <- modelCounts("linkClicks", offset = "impressions")
 print(M$model, showEnv = FALSE)
@@ -132,6 +139,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 ### Reactions
+
+Total number of reactions: `r sprintf("%d", sum(df1$reactions, na.rm = TRUE))`
 
 ```{r}
 M <- modelCounts("reactions", offset = "clicksAll", offsetConstant = 10)
@@ -196,6 +205,8 @@ $$
 
 ### Survey participation
 
+Total number of survey completers: `r sprintf("%d", sum(df2$indSurveyParticipation))`
+
 ```{r}
 M <- modelBinomial("indSurveyParticipation")
 print(M$model, showEnv = FALSE)
@@ -215,6 +226,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 
 ### Screener participation
+
+Total number of screening completers: `r sprintf("%d", sum(df2$indScreenerParticipation))`
 
 ```{r}
 M <- modelBinomial("indScreenerParticipation")
@@ -236,6 +249,8 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 ### Suicidality 
 
+Total number with DSI-SS >= 2: `r sprintf("%d", sum(df2$indDSISS, na.rm = TRUE))`
+
 ```{r}
 M <- modelBinomial("indDSISS")
 print(M$model, showEnv = FALSE)
@@ -254,7 +269,9 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 
-### VA enrollment
+### Never enrolled in VA
+
+Total number never enrolled in VA: `r sprintf("%d", sum(df2$indVANeverEnrolled, na.rm = TRUE))`
 
 ```{r}
 M <- modelBinomial("indVANeverEnrolled")
@@ -274,7 +291,9 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 
-### Use of VA health services 
+### Did not use VA health services in prior 12 months
+
+Total number who did not use VA health services in prior 12 months: `r sprintf("%d", sum(df2$indVANotUse12mo, na.rm = TRUE))`
 
 ```{r}
 M <- modelBinomial("indVANotUse12mo")
@@ -347,10 +366,29 @@ P-values comparing main effects.
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
-### Cost per 1,000 link click
+### Cost per 1,000 link clicks
 
 ```{r}
 M <- modelCost("costPerLinkClick")
+print(M$model, showEnv = FALSE)
+```
+
+Predicted values.
+
+```{r}
+M$pred %>% kable(digits = 2)
+```
+
+P-values comparing main effects.
+
+```{r}
+M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+### Cost per 1,000 link clicks, all
+
+```{r}
+M <- modelCost("costPerLinkClickAll")
 print(M$model, showEnv = FALSE)
 ```
 
