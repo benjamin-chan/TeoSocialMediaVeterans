@@ -7,6 +7,7 @@ Main contact | Samuel Liebow, liebow@ohsu.edu
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | IRB15797
 BDP project # | BDP-25
+Date | `r sprintf("%s", Sys.time())`
 
 
 ## Objectives
@@ -268,7 +269,7 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 
-### VA enrollment
+### Never enrolled in VA
 
 Total number never enrolled in VA: `r sprintf("%d", sum(df2$indVANeverEnrolled, na.rm = TRUE))`
 
@@ -290,7 +291,7 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 ```
 
 
-### Use of VA health services 
+### Did not use VA health services in prior 12 months
 
 Total number who did not use VA health services in prior 12 months: `r sprintf("%d", sum(df2$indVANotUse12mo, na.rm = TRUE))`
 
@@ -365,7 +366,7 @@ P-values comparing main effects.
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
-### Cost per 1,000 link click
+### Cost per 1,000 link clicks
 
 ```{r}
 M <- modelCost("costPerLinkClick")
