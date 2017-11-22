@@ -111,7 +111,7 @@ Cleaning
 ```{r}
 df2 <-
   df2 %>% 
-  filter(consent == 1) %>% 
+  filter(analytic_sample == 1) %>% 
   mutate(image = 
            substr(fba, 1, 1) %>%
            factor(levels = c("c", "f", "v"),
