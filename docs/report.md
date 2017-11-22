@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2017-08-09 14:53:10"
+date: "2017-11-22 12:33:10"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -283,45 +283,39 @@ Cleaning
 
 |image    |text        |   n|
 |:--------|:-----------|---:|
-|Computer |Incentive   |  41|
-|Computer |Altruism    |  45|
-|Computer |Empowerment |  12|
-|Computer |Sharing     |  81|
-|Computer |SocialNorms |  88|
-|Family   |Incentive   |  36|
-|Family   |Altruism    |  20|
-|Family   |Empowerment |  36|
-|Family   |Sharing     |  46|
-|Family   |SocialNorms |  47|
-|Veteran  |Incentive   | 283|
-|Veteran  |Altruism    |  57|
-|Veteran  |Empowerment |  63|
-|Veteran  |Sharing     | 217|
-|Veteran  |SocialNorms | 251|
-|NA       |NA          |   6|
+|Computer |Incentive   |  20|
+|Computer |Altruism    |  18|
+|Computer |Empowerment |   4|
+|Computer |Sharing     |  44|
+|Computer |SocialNorms |  22|
+|Family   |Incentive   |  20|
+|Family   |Altruism    |   9|
+|Family   |Empowerment |  16|
+|Family   |Sharing     |  26|
+|Family   |SocialNorms |  13|
+|Veteran  |Incentive   | 156|
+|Veteran  |Altruism    |  26|
+|Veteran  |Empowerment |  25|
+|Veteran  |Sharing     | 129|
+|Veteran  |SocialNorms |  57|
+|NA       |NA          |   2|
 
 
 
 | analytic_sample|indSurveyParticipation |   n|
 |---------------:|:----------------------|---:|
-|               0|FALSE                  |  18|
 |               1|TRUE                   | 587|
-|              NA|FALSE                  | 724|
 
 
 
 | eligible|indScreenerParticipation |   n|
 |--------:|:------------------------|---:|
-|        0|FALSE                    | 534|
-|        1|TRUE                     | 711|
-|       NA|FALSE                    |  84|
+|        1|TRUE                     | 587|
 
 
 
 |indSurveyParticipation |indScreenerParticipation |   n|
 |:----------------------|:------------------------|---:|
-|FALSE                  |FALSE                    | 618|
-|FALSE                  |TRUE                     | 124|
 |TRUE                   |TRUE                     | 587|
 
 ### Use of VA health services
@@ -329,15 +323,14 @@ Cleaning
 
 |desc            | va_ever_enrolled| va_use_12mo|   n|
 |:---------------|----------------:|-----------:|---:|
-|Before recoding |                0|          NA| 163|
-|Before recoding |                1|           0| 139|
-|Before recoding |                1|           1| 281|
+|Before recoding |                0|          NA| 155|
+|Before recoding |                1|           0| 127|
+|Before recoding |                1|           1| 262|
 |Before recoding |                1|           9|   2|
 |Before recoding |                1|          NA|   1|
 |Before recoding |                9|           0|  33|
 |Before recoding |                9|           1|   2|
 |Before recoding |                9|           9|   5|
-|Before recoding |               NA|          NA| 703|
 
 Recoding logic
 
@@ -350,11 +343,10 @@ Recoding logic
 
 |desc           |va_ever_enrolled |va_use_12mo |indVANeverEnrolled |indVANotUse12mo |   n|
 |:--------------|:----------------|:-----------|:------------------|:---------------|---:|
-|After recoding |FALSE            |FALSE       |TRUE               |TRUE            | 201|
-|After recoding |TRUE             |FALSE       |FALSE              |TRUE            | 141|
-|After recoding |TRUE             |TRUE        |FALSE              |FALSE           | 283|
+|After recoding |FALSE            |FALSE       |TRUE               |TRUE            | 193|
+|After recoding |TRUE             |FALSE       |FALSE              |TRUE            | 129|
+|After recoding |TRUE             |TRUE        |FALSE              |FALSE           | 264|
 |After recoding |TRUE             |NA          |FALSE              |NA              |   1|
-|After recoding |NA               |NA          |NA                 |NA              | 703|
 
 ### Presence of suicidality
 
@@ -363,12 +355,12 @@ DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for
 
 |indDSISS | dsiss|   n|
 |:--------|-----:|---:|
-|FALSE    |     0| 439|
-|FALSE    |     1|  43|
+|FALSE    |     0| 411|
+|FALSE    |     1|  42|
 |TRUE     |     2|  29|
-|TRUE     |     3|  37|
+|TRUE     |     3|  36|
 |TRUE     |     4|  28|
-|TRUE     |     5|  22|
+|TRUE     |     5|  21|
 |TRUE     |     6|   6|
 |TRUE     |     7|   7|
 |TRUE     |     8|   3|
@@ -378,8 +370,8 @@ DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for
 
 |indDSISS |   n|  freq|
 |:--------|---:|-----:|
-|FALSE    | 482| 0.782|
-|TRUE     | 134| 0.218|
+|FALSE    | 453| 0.774|
+|TRUE     | 132| 0.226|
 # Correlate Facebook metrics data
 
 
@@ -1351,6 +1343,10 @@ $$
 
 
 ```
+## Warning: glm.fit: algorithm did not converge
+```
+
+```
 ## indSurveyParticipation ~ image + text + image * text
 ```
 
@@ -1358,36 +1354,36 @@ $$
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Veteran  |Sharing     | 0.59|      0.53|      0.66|
-|Family   |Sharing     | 0.57|      0.42|      0.70|
-|Family   |Incentive   | 0.56|      0.39|      0.71|
-|Veteran  |Incentive   | 0.55|      0.49|      0.61|
-|Computer |Sharing     | 0.54|      0.43|      0.65|
-|Computer |Incentive   | 0.49|      0.34|      0.64|
-|Veteran  |Altruism    | 0.46|      0.33|      0.59|
-|Family   |Altruism    | 0.45|      0.25|      0.66|
-|Family   |Empowerment | 0.44|      0.29|      0.61|
-|Computer |Altruism    | 0.40|      0.27|      0.55|
-|Veteran  |Empowerment | 0.40|      0.28|      0.52|
-|Computer |Empowerment | 0.33|      0.13|      0.62|
-|Family   |SocialNorms | 0.28|      0.17|      0.42|
-|Computer |SocialNorms | 0.25|      0.17|      0.35|
-|Veteran  |SocialNorms | 0.23|      0.18|      0.28|
+|Computer |Incentive   |    1|         0|       NaN|
+|Family   |Incentive   |    1|         0|       NaN|
+|Veteran  |Incentive   |    1|         0|       NaN|
+|Computer |Altruism    |    1|         0|       NaN|
+|Family   |Altruism    |    1|         0|       NaN|
+|Veteran  |Altruism    |    1|         0|       NaN|
+|Computer |Empowerment |    1|         0|       NaN|
+|Family   |Empowerment |    1|         0|       NaN|
+|Veteran  |Empowerment |    1|         0|       NaN|
+|Computer |Sharing     |    1|         0|       NaN|
+|Family   |Sharing     |    1|         0|       NaN|
+|Veteran  |Sharing     |    1|         0|       NaN|
+|Computer |SocialNorms |    1|         0|       NaN|
+|Family   |SocialNorms |    1|         0|       NaN|
+|Veteran  |SocialNorms |    1|         0|       NaN|
 
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.553|   0.447|
-|Family   |NA       |     NA|   0.961|
+|Computer |NA       |      1|       1|
+|Family   |NA       |     NA|       1|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.413|       0.349|   0.563|       0.008|
-|Altruism    |NA        |       NA|       0.674|   0.125|       0.077|
-|Empowerment |NA        |       NA|          NA|   0.184|       0.539|
-|Sharing     |NA        |       NA|          NA|      NA|       0.000|
+|Incentive   |NA        |        1|           1|       1|           1|
+|Altruism    |NA        |       NA|           1|       1|           1|
+|Empowerment |NA        |       NA|          NA|       1|           1|
+|Sharing     |NA        |       NA|          NA|      NA|           1|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 Ad hoc testing
@@ -1395,21 +1391,31 @@ Ad hoc testing
 **Incentive, Sharing, Altruism, or Empowerment vs Social Norms** regardless of `image`
 
 
+```
+## Warning: glm.fit: algorithm did not converge
+```
+
+
+
 |term        | estimate| std.error| statistic| p.value|
 |:-----------|--------:|---------:|---------:|-------:|
-|(Intercept) |   -1.154|     0.118|    -9.753|       0|
-|xTRUE       |    1.258|     0.135|     9.309|       0|
+|(Intercept) |   26.566|  36731.31|     0.001|   0.999|
+|xTRUE       |    0.000|  40080.41|     0.000|   1.000|
 
 
 
 |x     | pred| predLower| predUpper|
 |:-----|----:|---------:|---------:|
-|TRUE  | 0.53|      0.49|      0.56|
-|FALSE | 0.24|      0.20|      0.28|
+|TRUE  |    1|         0|       NaN|
+|FALSE |    1|         0|       NaN|
 
 
 ### Screener participation
 
+
+```
+## Warning: glm.fit: algorithm did not converge
+```
 
 ```
 ## indScreenerParticipation ~ image + text + image * text
@@ -1419,36 +1425,36 @@ Ad hoc testing
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Family   |Incentive   | 0.72|      0.56|      0.84|
-|Computer |Sharing     | 0.70|      0.60|      0.79|
-|Veteran  |Sharing     | 0.69|      0.62|      0.74|
-|Veteran  |Incentive   | 0.64|      0.58|      0.69|
-|Family   |Sharing     | 0.63|      0.48|      0.76|
-|Computer |Incentive   | 0.59|      0.43|      0.72|
-|Computer |Empowerment | 0.58|      0.31|      0.82|
-|Veteran  |Altruism    | 0.58|      0.45|      0.70|
-|Veteran  |Empowerment | 0.57|      0.45|      0.69|
-|Family   |Empowerment | 0.56|      0.39|      0.71|
-|Family   |Altruism    | 0.55|      0.34|      0.75|
-|Computer |Altruism    | 0.42|      0.29|      0.57|
-|Computer |SocialNorms | 0.33|      0.24|      0.43|
-|Family   |SocialNorms | 0.32|      0.20|      0.46|
-|Veteran  |SocialNorms | 0.29|      0.24|      0.35|
+|Computer |Incentive   |    1|         0|       NaN|
+|Family   |Incentive   |    1|         0|       NaN|
+|Veteran  |Incentive   |    1|         0|       NaN|
+|Computer |Altruism    |    1|         0|       NaN|
+|Family   |Altruism    |    1|         0|       NaN|
+|Veteran  |Altruism    |    1|         0|       NaN|
+|Computer |Empowerment |    1|         0|       NaN|
+|Family   |Empowerment |    1|         0|       NaN|
+|Veteran  |Empowerment |    1|         0|       NaN|
+|Computer |Sharing     |    1|         0|       NaN|
+|Family   |Sharing     |    1|         0|       NaN|
+|Veteran  |Sharing     |    1|         0|       NaN|
+|Computer |SocialNorms |    1|         0|       NaN|
+|Family   |SocialNorms |    1|         0|       NaN|
+|Veteran  |SocialNorms |    1|         0|       NaN|
 
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.212|   0.531|
-|Family   |NA       |     NA|   0.311|
+|Computer |NA       |      1|       1|
+|Family   |NA       |     NA|       1|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.132|       0.990|   0.193|       0.007|
-|Altruism    |NA        |       NA|       0.324|   0.002|       0.293|
-|Empowerment |NA        |       NA|          NA|   0.405|       0.096|
-|Sharing     |NA        |       NA|          NA|      NA|       0.000|
+|Incentive   |NA        |        1|           1|       1|           1|
+|Altruism    |NA        |       NA|           1|       1|           1|
+|Empowerment |NA        |       NA|          NA|       1|           1|
+|Sharing     |NA        |       NA|          NA|      NA|           1|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 Ad hoc testing
@@ -1456,17 +1462,23 @@ Ad hoc testing
 **Incentive or Sharing vs Empowerment, Altruism, or Social Norms** regardless of `image`
 
 
+```
+## Warning: glm.fit: algorithm did not converge
+```
+
+
+
 |term        | estimate| std.error| statistic| p.value|
 |:-----------|--------:|---------:|---------:|-------:|
-|(Intercept) |   -0.432|     0.082|    -5.279|       0|
-|xTRUE       |    1.098|     0.114|     9.614|       0|
+|(Intercept) |   26.566|  25700.98|     0.001|   0.999|
+|xTRUE       |    0.000|  31330.71|     0.000|   1.000|
 
 
 
 |x     | pred| predLower| predUpper|
 |:-----|----:|---------:|---------:|
-|TRUE  | 0.66|      0.62|      0.69|
-|FALSE | 0.39|      0.36|      0.43|
+|TRUE  |    1|         0|       NaN|
+|FALSE |    1|         0|       NaN|
 
 
 ### Suicidality 
@@ -1480,36 +1492,36 @@ Ad hoc testing
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Family   |Empowerment | 0.47|      0.26|      0.70|
-|Computer |Incentive   | 0.43|      0.24|      0.64|
-|Computer |Sharing     | 0.29|      0.18|      0.43|
+|Family   |Empowerment | 0.50|      0.27|      0.73|
+|Computer |Incentive   | 0.45|      0.25|      0.66|
+|Computer |Sharing     | 0.32|      0.20|      0.47|
 |Computer |Altruism    | 0.28|      0.12|      0.52|
+|Computer |Empowerment | 0.25|      0.03|      0.76|
 |Veteran  |SocialNorms | 0.25|      0.15|      0.37|
 |Family   |SocialNorms | 0.23|      0.08|      0.52|
 |Family   |Altruism    | 0.22|      0.06|      0.58|
-|Veteran  |Sharing     | 0.21|      0.15|      0.29|
-|Computer |Empowerment | 0.20|      0.03|      0.69|
+|Veteran  |Sharing     | 0.22|      0.15|      0.30|
 |Family   |Incentive   | 0.20|      0.08|      0.43|
 |Veteran  |Altruism    | 0.19|      0.08|      0.39|
 |Computer |SocialNorms | 0.19|      0.07|      0.41|
-|Veteran  |Incentive   | 0.17|      0.12|      0.23|
+|Veteran  |Incentive   | 0.17|      0.12|      0.24|
+|Veteran  |Empowerment | 0.16|      0.06|      0.36|
 |Family   |Sharing     | 0.15|      0.06|      0.35|
-|Veteran  |Empowerment | 0.15|      0.06|      0.33|
 
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.123|   0.007|
-|Family   |NA       |     NA|   0.717|
+|Computer |NA       |  0.098|   0.006|
+|Family   |NA       |     NA|   0.776|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.331|       0.361|   0.247|       0.102|
-|Altruism    |NA        |       NA|       0.727|   0.949|       0.521|
-|Empowerment |NA        |       NA|          NA|   0.686|       0.961|
-|Sharing     |NA        |       NA|          NA|      NA|       0.407|
+|Incentive   |NA        |    0.275|       0.469|   0.311|       0.081|
+|Altruism    |NA        |       NA|       0.910|   0.754|       0.521|
+|Empowerment |NA        |       NA|          NA|   0.779|       0.786|
+|Sharing     |NA        |       NA|          NA|      NA|       0.287|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 Ad hoc testing
@@ -1519,30 +1531,30 @@ Ad hoc testing
 
 |term        | estimate| std.error| statistic| p.value|
 |:-----------|--------:|---------:|---------:|-------:|
-|(Intercept) |   -1.367|     0.104|   -13.198|   0.000|
-|xTRUE       |    1.156|     0.342|     3.376|   0.001|
+|(Intercept) |   -1.323|     0.105|   -12.613|   0.000|
+|xTRUE       |    1.212|     0.350|     3.464|   0.001|
 
 
 
 |x     | pred| predLower| predUpper|
 |:-----|----:|---------:|---------:|
-|TRUE  | 0.45|      0.30|      0.61|
-|FALSE | 0.20|      0.17|      0.24|
+|TRUE  | 0.47|      0.32|      0.63|
+|FALSE | 0.21|      0.18|      0.25|
 
 **Computer vs Family or Veteran** regardless of `text`
 
 
 |term        | estimate| std.error| statistic| p.value|
 |:-----------|--------:|---------:|---------:|-------:|
-|(Intercept) |   -1.374|     0.111|   -12.334|   0.000|
-|xTRUE       |    0.476|     0.235|     2.028|   0.043|
+|(Intercept) |   -1.337|     0.113|   -11.840|   0.000|
+|xTRUE       |    0.530|     0.238|     2.227|   0.026|
 
 
 
 |x     | pred| predLower| predUpper|
 |:-----|----:|---------:|---------:|
-|TRUE  | 0.29|      0.21|      0.38|
-|FALSE | 0.20|      0.17|      0.24|
+|TRUE  | 0.31|      0.23|      0.40|
+|FALSE | 0.21|      0.17|      0.25|
 
 
 ### VA enrollment
@@ -1556,36 +1568,36 @@ Ad hoc testing
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Computer |Incentive   | 0.45|      0.26|      0.66|
-|Family   |SocialNorms | 0.38|      0.17|      0.66|
+|Computer |Incentive   | 0.50|      0.29|      0.71|
 |Family   |Sharing     | 0.38|      0.22|      0.58|
-|Veteran  |Incentive   | 0.37|      0.30|      0.44|
+|Family   |SocialNorms | 0.38|      0.17|      0.66|
+|Veteran  |Incentive   | 0.37|      0.30|      0.45|
 |Family   |Altruism    | 0.33|      0.11|      0.67|
-|Veteran  |SocialNorms | 0.33|      0.22|      0.45|
-|Veteran  |Sharing     | 0.31|      0.24|      0.40|
+|Veteran  |SocialNorms | 0.33|      0.22|      0.46|
+|Veteran  |Sharing     | 0.33|      0.25|      0.41|
 |Family   |Incentive   | 0.30|      0.14|      0.53|
-|Veteran  |Empowerment | 0.29|      0.15|      0.48|
-|Computer |Sharing     | 0.29|      0.18|      0.43|
+|Computer |Sharing     | 0.30|      0.18|      0.44|
+|Veteran  |Empowerment | 0.28|      0.14|      0.48|
 |Computer |Altruism    | 0.28|      0.12|      0.52|
+|Computer |Empowerment | 0.25|      0.03|      0.76|
+|Family   |Empowerment | 0.25|      0.10|      0.51|
 |Veteran  |Altruism    | 0.23|      0.11|      0.43|
-|Family   |Empowerment | 0.22|      0.09|      0.46|
-|Computer |Empowerment | 0.20|      0.03|      0.69|
-|Computer |SocialNorms | 0.17|      0.07|      0.38|
+|Computer |SocialNorms | 0.18|      0.07|      0.40|
 
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.306|   0.426|
-|Family   |NA       |     NA|   0.557|
+|Computer |NA       |  0.201|   0.271|
+|Family   |NA       |     NA|   0.531|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.254|       0.315|   0.168|       0.048|
-|Altruism    |NA        |       NA|       0.727|   0.949|       0.429|
-|Empowerment |NA        |       NA|          NA|   0.686|       0.890|
-|Sharing     |NA        |       NA|          NA|      NA|       0.312|
+|Incentive   |NA        |    0.166|       0.375|   0.118|       0.034|
+|Altruism    |NA        |       NA|       0.910|   0.889|       0.472|
+|Empowerment |NA        |       NA|          NA|   0.848|       0.751|
+|Sharing     |NA        |       NA|          NA|      NA|       0.324|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
@@ -1601,35 +1613,35 @@ Ad hoc testing
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
 |Family   |Altruism    | 0.78|      0.42|      0.94|
-|Veteran  |Incentive   | 0.64|      0.57|      0.71|
-|Computer |Incentive   | 0.59|      0.38|      0.77|
-|Veteran  |SocialNorms | 0.57|      0.45|      0.69|
-|Computer |Sharing     | 0.57|      0.43|      0.70|
-|Veteran  |Sharing     | 0.54|      0.46|      0.62|
-|Veteran  |Empowerment | 0.50|      0.32|      0.68|
+|Veteran  |Incentive   | 0.65|      0.57|      0.72|
+|Computer |Incentive   | 0.65|      0.43|      0.82|
+|Computer |Sharing     | 0.57|      0.42|      0.70|
+|Veteran  |Sharing     | 0.55|      0.46|      0.63|
+|Veteran  |SocialNorms | 0.54|      0.41|      0.67|
 |Computer |Altruism    | 0.50|      0.28|      0.72|
+|Veteran  |Empowerment | 0.48|      0.30|      0.67|
 |Family   |SocialNorms | 0.46|      0.22|      0.72|
 |Veteran  |Altruism    | 0.46|      0.28|      0.65|
 |Family   |Incentive   | 0.45|      0.25|      0.66|
-|Computer |SocialNorms | 0.39|      0.22|      0.60|
-|Family   |Empowerment | 0.39|      0.20|      0.62|
+|Computer |SocialNorms | 0.41|      0.23|      0.62|
 |Family   |Sharing     | 0.38|      0.22|      0.58|
-|Computer |Empowerment | 0.20|      0.03|      0.69|
+|Family   |Empowerment | 0.38|      0.18|      0.62|
+|Computer |Empowerment | 0.25|      0.03|      0.76|
 
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.363|   0.634|
-|Family   |NA       |     NA|   0.099|
+|Computer |NA       |  0.207|   0.989|
+|Family   |NA       |     NA|   0.085|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.566|       0.144|   0.878|       0.184|
-|Altruism    |NA        |       NA|       0.253|   0.603|       0.487|
-|Empowerment |NA        |       NA|          NA|   0.147|       0.430|
-|Sharing     |NA        |       NA|          NA|      NA|       0.157|
+|Incentive   |NA        |    0.352|       0.168|   0.538|       0.122|
+|Altruism    |NA        |       NA|       0.378|   0.625|       0.566|
+|Empowerment |NA        |       NA|          NA|   0.250|       0.553|
+|Sharing     |NA        |       NA|          NA|      NA|       0.225|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
@@ -2317,7 +2329,7 @@ Main contact | Samuel Liebow, liebow@ohsu.edu
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | IRB15797
 BDP project # | BDP-25
-Date | 2017-08-09 14:54:52
+Date | 2017-11-22 12:36:12
 
 
 ## Objectives
@@ -2589,7 +2601,7 @@ Inclusion criteria
 * Respondents who consented
 * Eligible, ineligible, or missing eligibility indicator
 
-**Number included: n = 1329**
+**Number included: n = 587**
 
 
 **Model**
@@ -2631,6 +2643,10 @@ Total number of survey completers: 587
 
 
 ```
+## Warning: glm.fit: algorithm did not converge
+```
+
+```
 ## indSurveyParticipation ~ image + text + image * text
 ```
 
@@ -2639,44 +2655,48 @@ Predicted values.
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Veteran  |Sharing     | 0.59|      0.53|      0.66|
-|Family   |Sharing     | 0.57|      0.42|      0.70|
-|Family   |Incentive   | 0.56|      0.39|      0.71|
-|Veteran  |Incentive   | 0.55|      0.49|      0.61|
-|Computer |Sharing     | 0.54|      0.43|      0.65|
-|Computer |Incentive   | 0.49|      0.34|      0.64|
-|Veteran  |Altruism    | 0.46|      0.33|      0.59|
-|Family   |Altruism    | 0.45|      0.25|      0.66|
-|Family   |Empowerment | 0.44|      0.29|      0.61|
-|Computer |Altruism    | 0.40|      0.27|      0.55|
-|Veteran  |Empowerment | 0.40|      0.28|      0.52|
-|Computer |Empowerment | 0.33|      0.13|      0.62|
-|Family   |SocialNorms | 0.28|      0.17|      0.42|
-|Computer |SocialNorms | 0.25|      0.17|      0.35|
-|Veteran  |SocialNorms | 0.23|      0.18|      0.28|
+|Computer |Incentive   |    1|         0|       NaN|
+|Family   |Incentive   |    1|         0|       NaN|
+|Veteran  |Incentive   |    1|         0|       NaN|
+|Computer |Altruism    |    1|         0|       NaN|
+|Family   |Altruism    |    1|         0|       NaN|
+|Veteran  |Altruism    |    1|         0|       NaN|
+|Computer |Empowerment |    1|         0|       NaN|
+|Family   |Empowerment |    1|         0|       NaN|
+|Veteran  |Empowerment |    1|         0|       NaN|
+|Computer |Sharing     |    1|         0|       NaN|
+|Family   |Sharing     |    1|         0|       NaN|
+|Veteran  |Sharing     |    1|         0|       NaN|
+|Computer |SocialNorms |    1|         0|       NaN|
+|Family   |SocialNorms |    1|         0|       NaN|
+|Veteran  |SocialNorms |    1|         0|       NaN|
 
 P-values comparing main effects.
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.553|   0.447|
-|Family   |NA       |     NA|   0.961|
+|Computer |NA       |      1|       1|
+|Family   |NA       |     NA|       1|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.413|       0.349|   0.563|       0.008|
-|Altruism    |NA        |       NA|       0.674|   0.125|       0.077|
-|Empowerment |NA        |       NA|          NA|   0.184|       0.539|
-|Sharing     |NA        |       NA|          NA|      NA|       0.000|
+|Incentive   |NA        |        1|           1|       1|           1|
+|Altruism    |NA        |       NA|           1|       1|           1|
+|Empowerment |NA        |       NA|          NA|       1|           1|
+|Sharing     |NA        |       NA|          NA|      NA|           1|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
 ### Screener participation
 
-Total number of screening completers: 711
+Total number of screening completers: 587
 
+
+```
+## Warning: glm.fit: algorithm did not converge
+```
 
 ```
 ## indScreenerParticipation ~ image + text + image * text
@@ -2687,43 +2707,43 @@ Predicted values.
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Family   |Incentive   | 0.72|      0.56|      0.84|
-|Computer |Sharing     | 0.70|      0.60|      0.79|
-|Veteran  |Sharing     | 0.69|      0.62|      0.74|
-|Veteran  |Incentive   | 0.64|      0.58|      0.69|
-|Family   |Sharing     | 0.63|      0.48|      0.76|
-|Computer |Incentive   | 0.59|      0.43|      0.72|
-|Computer |Empowerment | 0.58|      0.31|      0.82|
-|Veteran  |Altruism    | 0.58|      0.45|      0.70|
-|Veteran  |Empowerment | 0.57|      0.45|      0.69|
-|Family   |Empowerment | 0.56|      0.39|      0.71|
-|Family   |Altruism    | 0.55|      0.34|      0.75|
-|Computer |Altruism    | 0.42|      0.29|      0.57|
-|Computer |SocialNorms | 0.33|      0.24|      0.43|
-|Family   |SocialNorms | 0.32|      0.20|      0.46|
-|Veteran  |SocialNorms | 0.29|      0.24|      0.35|
+|Computer |Incentive   |    1|         0|       NaN|
+|Family   |Incentive   |    1|         0|       NaN|
+|Veteran  |Incentive   |    1|         0|       NaN|
+|Computer |Altruism    |    1|         0|       NaN|
+|Family   |Altruism    |    1|         0|       NaN|
+|Veteran  |Altruism    |    1|         0|       NaN|
+|Computer |Empowerment |    1|         0|       NaN|
+|Family   |Empowerment |    1|         0|       NaN|
+|Veteran  |Empowerment |    1|         0|       NaN|
+|Computer |Sharing     |    1|         0|       NaN|
+|Family   |Sharing     |    1|         0|       NaN|
+|Veteran  |Sharing     |    1|         0|       NaN|
+|Computer |SocialNorms |    1|         0|       NaN|
+|Family   |SocialNorms |    1|         0|       NaN|
+|Veteran  |SocialNorms |    1|         0|       NaN|
 
 P-values comparing main effects.
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.212|   0.531|
-|Family   |NA       |     NA|   0.311|
+|Computer |NA       |      1|       1|
+|Family   |NA       |     NA|       1|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.132|       0.990|   0.193|       0.007|
-|Altruism    |NA        |       NA|       0.324|   0.002|       0.293|
-|Empowerment |NA        |       NA|          NA|   0.405|       0.096|
-|Sharing     |NA        |       NA|          NA|      NA|       0.000|
+|Incentive   |NA        |        1|           1|       1|           1|
+|Altruism    |NA        |       NA|           1|       1|           1|
+|Empowerment |NA        |       NA|          NA|       1|           1|
+|Sharing     |NA        |       NA|          NA|      NA|           1|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
 ### Suicidality 
 
-Total number with DSI-SS >= 2: 134
+Total number with DSI-SS >= 2: 132
 
 
 ```
@@ -2735,43 +2755,43 @@ Predicted values.
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Family   |Empowerment | 0.47|      0.26|      0.70|
-|Computer |Incentive   | 0.43|      0.24|      0.64|
-|Computer |Sharing     | 0.29|      0.18|      0.43|
+|Family   |Empowerment | 0.50|      0.27|      0.73|
+|Computer |Incentive   | 0.45|      0.25|      0.66|
+|Computer |Sharing     | 0.32|      0.20|      0.47|
 |Computer |Altruism    | 0.28|      0.12|      0.52|
+|Computer |Empowerment | 0.25|      0.03|      0.76|
 |Veteran  |SocialNorms | 0.25|      0.15|      0.37|
 |Family   |SocialNorms | 0.23|      0.08|      0.52|
 |Family   |Altruism    | 0.22|      0.06|      0.58|
-|Veteran  |Sharing     | 0.21|      0.15|      0.29|
-|Computer |Empowerment | 0.20|      0.03|      0.69|
+|Veteran  |Sharing     | 0.22|      0.15|      0.30|
 |Family   |Incentive   | 0.20|      0.08|      0.43|
 |Veteran  |Altruism    | 0.19|      0.08|      0.39|
 |Computer |SocialNorms | 0.19|      0.07|      0.41|
-|Veteran  |Incentive   | 0.17|      0.12|      0.23|
+|Veteran  |Incentive   | 0.17|      0.12|      0.24|
+|Veteran  |Empowerment | 0.16|      0.06|      0.36|
 |Family   |Sharing     | 0.15|      0.06|      0.35|
-|Veteran  |Empowerment | 0.15|      0.06|      0.33|
 
 P-values comparing main effects.
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.123|   0.007|
-|Family   |NA       |     NA|   0.717|
+|Computer |NA       |  0.098|   0.006|
+|Family   |NA       |     NA|   0.776|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.331|       0.361|   0.247|       0.102|
-|Altruism    |NA        |       NA|       0.727|   0.949|       0.521|
-|Empowerment |NA        |       NA|          NA|   0.686|       0.961|
-|Sharing     |NA        |       NA|          NA|      NA|       0.407|
+|Incentive   |NA        |    0.275|       0.469|   0.311|       0.081|
+|Altruism    |NA        |       NA|       0.910|   0.754|       0.521|
+|Empowerment |NA        |       NA|          NA|   0.779|       0.786|
+|Sharing     |NA        |       NA|          NA|      NA|       0.287|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
 ### Never enrolled in VA
 
-Total number never enrolled in VA: 201
+Total number never enrolled in VA: 193
 
 
 ```
@@ -2783,43 +2803,43 @@ Predicted values.
 
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
-|Computer |Incentive   | 0.45|      0.26|      0.66|
-|Family   |SocialNorms | 0.38|      0.17|      0.66|
+|Computer |Incentive   | 0.50|      0.29|      0.71|
 |Family   |Sharing     | 0.38|      0.22|      0.58|
-|Veteran  |Incentive   | 0.37|      0.30|      0.44|
+|Family   |SocialNorms | 0.38|      0.17|      0.66|
+|Veteran  |Incentive   | 0.37|      0.30|      0.45|
 |Family   |Altruism    | 0.33|      0.11|      0.67|
-|Veteran  |SocialNorms | 0.33|      0.22|      0.45|
-|Veteran  |Sharing     | 0.31|      0.24|      0.40|
+|Veteran  |SocialNorms | 0.33|      0.22|      0.46|
+|Veteran  |Sharing     | 0.33|      0.25|      0.41|
 |Family   |Incentive   | 0.30|      0.14|      0.53|
-|Veteran  |Empowerment | 0.29|      0.15|      0.48|
-|Computer |Sharing     | 0.29|      0.18|      0.43|
+|Computer |Sharing     | 0.30|      0.18|      0.44|
+|Veteran  |Empowerment | 0.28|      0.14|      0.48|
 |Computer |Altruism    | 0.28|      0.12|      0.52|
+|Computer |Empowerment | 0.25|      0.03|      0.76|
+|Family   |Empowerment | 0.25|      0.10|      0.51|
 |Veteran  |Altruism    | 0.23|      0.11|      0.43|
-|Family   |Empowerment | 0.22|      0.09|      0.46|
-|Computer |Empowerment | 0.20|      0.03|      0.69|
-|Computer |SocialNorms | 0.17|      0.07|      0.38|
+|Computer |SocialNorms | 0.18|      0.07|      0.40|
 
 P-values comparing main effects.
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.306|   0.426|
-|Family   |NA       |     NA|   0.557|
+|Computer |NA       |  0.201|   0.271|
+|Family   |NA       |     NA|   0.531|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.254|       0.315|   0.168|       0.048|
-|Altruism    |NA        |       NA|       0.727|   0.949|       0.429|
-|Empowerment |NA        |       NA|          NA|   0.686|       0.890|
-|Sharing     |NA        |       NA|          NA|      NA|       0.312|
+|Incentive   |NA        |    0.166|       0.375|   0.118|       0.034|
+|Altruism    |NA        |       NA|       0.910|   0.889|       0.472|
+|Empowerment |NA        |       NA|          NA|   0.848|       0.751|
+|Sharing     |NA        |       NA|          NA|      NA|       0.324|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
 ### Did not use VA health services in prior 12 months
 
-Total number who did not use VA health services in prior 12 months: 342
+Total number who did not use VA health services in prior 12 months: 322
 
 
 ```
@@ -2832,36 +2852,36 @@ Predicted values.
 |image    |text        | pred| predLower| predUpper|
 |:--------|:-----------|----:|---------:|---------:|
 |Family   |Altruism    | 0.78|      0.42|      0.94|
-|Veteran  |Incentive   | 0.64|      0.57|      0.71|
-|Computer |Incentive   | 0.59|      0.38|      0.77|
-|Veteran  |SocialNorms | 0.57|      0.45|      0.69|
-|Computer |Sharing     | 0.57|      0.43|      0.70|
-|Veteran  |Sharing     | 0.54|      0.46|      0.62|
-|Veteran  |Empowerment | 0.50|      0.32|      0.68|
+|Veteran  |Incentive   | 0.65|      0.57|      0.72|
+|Computer |Incentive   | 0.65|      0.43|      0.82|
+|Computer |Sharing     | 0.57|      0.42|      0.70|
+|Veteran  |Sharing     | 0.55|      0.46|      0.63|
+|Veteran  |SocialNorms | 0.54|      0.41|      0.67|
 |Computer |Altruism    | 0.50|      0.28|      0.72|
+|Veteran  |Empowerment | 0.48|      0.30|      0.67|
 |Family   |SocialNorms | 0.46|      0.22|      0.72|
 |Veteran  |Altruism    | 0.46|      0.28|      0.65|
 |Family   |Incentive   | 0.45|      0.25|      0.66|
-|Computer |SocialNorms | 0.39|      0.22|      0.60|
-|Family   |Empowerment | 0.39|      0.20|      0.62|
+|Computer |SocialNorms | 0.41|      0.23|      0.62|
 |Family   |Sharing     | 0.38|      0.22|      0.58|
-|Computer |Empowerment | 0.20|      0.03|      0.69|
+|Family   |Empowerment | 0.38|      0.18|      0.62|
+|Computer |Empowerment | 0.25|      0.03|      0.76|
 
 P-values comparing main effects.
 
 
 |         |Computer | Family| Veteran|
 |:--------|:--------|------:|-------:|
-|Computer |NA       |  0.363|   0.634|
-|Family   |NA       |     NA|   0.099|
+|Computer |NA       |  0.207|   0.989|
+|Family   |NA       |     NA|   0.085|
 |Veteran  |NA       |     NA|      NA|
 
 |            |Incentive | Altruism| Empowerment| Sharing| SocialNorms|
 |:-----------|:---------|--------:|-----------:|-------:|-----------:|
-|Incentive   |NA        |    0.566|       0.144|   0.878|       0.184|
-|Altruism    |NA        |       NA|       0.253|   0.603|       0.487|
-|Empowerment |NA        |       NA|          NA|   0.147|       0.430|
-|Sharing     |NA        |       NA|          NA|      NA|       0.157|
+|Incentive   |NA        |    0.352|       0.168|   0.538|       0.122|
+|Altruism    |NA        |       NA|       0.378|   0.625|       0.566|
+|Empowerment |NA        |       NA|          NA|   0.250|       0.553|
+|Sharing     |NA        |       NA|          NA|      NA|       0.225|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
 
