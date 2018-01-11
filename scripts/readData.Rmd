@@ -5,7 +5,7 @@
 
 ```{r}
 df1 <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Lifetime ad performance by ad-day 6.23.17.csv" %>% 
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Data sets/Lifetime ad performance by ad-day 6.23.17.csv" %>% 
   read.csv(stringsAsFactors = FALSE) %>% 
   filter(Ad != "All")
 oldnames <- names(df1)
@@ -78,7 +78,7 @@ Notes on the REDCap identifier variables:
 
 ```{r}
 df2 <-
-  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/REDCap dataset.csv" %>% 
+  "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Data sets/REDCap dataset.csv" %>% 
   read.csv(stringsAsFactors = FALSE)
 df2 %>% 
   group_by(consent, 
