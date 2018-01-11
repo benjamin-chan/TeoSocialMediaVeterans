@@ -330,6 +330,14 @@ M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %
 
 Total number never enrolled in VA: `r sprintf("%d", sum(df2$indVANeverEnrolled, na.rm = TRUE))`
 
+```{r, echo = FALSE}
+y <- sum(df2$indDSISS[df2$indVANeverEnrolled == TRUE], na.rm = TRUE)
+n <- sum(df2$indVANeverEnrolled, na.rm = TRUE)
+p <- y / n
+```
+
+Of the participants who not enrolled in VA health services, `r sprintf("%.01f%% (%d/%d)", p * 100, y, n)` reported current suicidality.
+
 ```{r}
 M <- modelBinomial("indVANeverEnrolled")
 print(M$model, showEnv = FALSE)
