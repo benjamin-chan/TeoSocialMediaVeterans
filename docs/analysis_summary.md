@@ -7,7 +7,7 @@ Main contact | Samuel Liebow, liebow@ohsu.edu
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | IRB15797
 BDP project # | BDP-25
-Date | 2017-11-22 12:36:38
+Date | 2018-01-11 12:07:08
 
 
 ## Objectives
@@ -122,6 +122,32 @@ P-values comparing main effects.
 |Sharing     |NA        |       NA|          NA|      NA|       0.122|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
+P-value comparing *Veteran* image + *Incentive* or *Sharing* text versus all others.
+
+
+```
+## $test
+## 
+## 	 Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glm.nb(formula = formula(text), data = df1, init.theta = 5.96351648, 
+##     link = log)
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.46331    0.07495   6.182 6.34e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+## 
+## 
+## $linpred
+## [1] 7.425616
+## 
+## $pred
+## [1] 1678.433
+```
+
 ### Clicks, all
 
 Total number of clicks, all: 9527
@@ -169,6 +195,32 @@ P-values comparing main effects.
 |Sharing     |NA        |       NA|          NA|      NA|       0.062|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
 
+P-value comparing *Veteran* image + *Incentive* or *Sharing* text versus all others.
+
+
+```
+## $test
+## 
+## 	 Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glm.nb(formula = formula(text), data = df1, init.theta = 33.93522219, 
+##     link = log)
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.68369    0.06651   10.28   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+## 
+## 
+## $linpred
+## [1] 2.676212
+## 
+## $pred
+## [1] 14.52995
+```
+
 ### Total link clicks
 
 Total number of link clicks: 4885
@@ -215,6 +267,32 @@ P-values comparing main effects.
 |Empowerment |NA        |       NA|          NA|   0.614|       0.003|
 |Sharing     |NA        |       NA|          NA|      NA|       0.010|
 |SocialNorms |NA        |       NA|          NA|      NA|          NA|
+
+P-value comparing *Veteran* image + *Incentive* or *Sharing* text versus all others.
+
+
+```
+## $test
+## 
+## 	 Simultaneous Tests for General Linear Hypotheses
+## 
+## Fit: glm.nb(formula = formula(text), data = df1, init.theta = 42.5657724, 
+##     link = log)
+## 
+## Linear Hypotheses:
+##        Estimate Std. Error z value Pr(>|z|)    
+## 1 == 0  0.49900    0.07782   6.412 1.43e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## (Adjusted p values reported -- single-step method)
+## 
+## 
+## $linpred
+## [1] 2.107576
+## 
+## $pred
+## [1] 8.228271
+```
 
 ### Reactions
 
@@ -470,6 +548,10 @@ P-values comparing main effects.
 ### Never enrolled in VA
 
 Total number never enrolled in VA: 193
+
+
+
+Of the participants who not enrolled in VA health services, 20.7% (40/193) reported current suicidality.
 
 
 ```
