@@ -96,6 +96,25 @@ P-values comparing main effects.
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
+P-value comparing *Veteran* image + *Incentive* or *Sharing* text versus all others.
+
+```{r}
+K <- diag(length(coef(M[["modelObject"]])))[-1,]
+rownames(K) <- names(coef(M[["modelObject"]]))[-1]
+colnames(K) <- names(coef(M[["modelObject"]]))
+L <- matrix(K[rownames(K) == "imageVeteran", ] / 2 + 
+              (K[rownames(K) == "imageVeteran", ] + 
+                 K[rownames(K) == "textSharing", ] + 
+                 K[rownames(K) == "imageVeteran:textSharing", ]) / 2,
+            nrow = 1)
+colnames(L) <- colnames(K)
+test <- M[["modelObject"]] %>% glht(linfct = L) %>% summary()
+linpred <- M[["modelObject"]][["coefficients"]]["(Intercept)"] + test[["test"]][["coefficients"]]
+names(linpred) <- NULL
+pred <- exp(linpred)
+list(test = test, linpred = linpred, pred = pred)
+```
+
 ### Clicks, all
 
 Total number of clicks, all: `r sprintf("%d", sum(df1$clicksAll))`
@@ -117,6 +136,25 @@ P-values comparing main effects.
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
 ```
 
+P-value comparing *Veteran* image + *Incentive* or *Sharing* text versus all others.
+
+```{r}
+K <- diag(length(coef(M[["modelObject"]])))[-1,]
+rownames(K) <- names(coef(M[["modelObject"]]))[-1]
+colnames(K) <- names(coef(M[["modelObject"]]))
+L <- matrix(K[rownames(K) == "imageVeteran", ] / 2 + 
+              (K[rownames(K) == "imageVeteran", ] + 
+                 K[rownames(K) == "textSharing", ] + 
+                 K[rownames(K) == "imageVeteran:textSharing", ]) / 2,
+            nrow = 1)
+colnames(L) <- colnames(K)
+test <- M[["modelObject"]] %>% glht(linfct = L) %>% summary()
+linpred <- M[["modelObject"]][["coefficients"]]["(Intercept)"] + test[["test"]][["coefficients"]] + log(1000)
+names(linpred) <- NULL
+pred <- exp(linpred)
+list(test = test, linpred = linpred, pred = pred)
+```
+
 ### Total link clicks
 
 Total number of link clicks: `r sprintf("%d", sum(df1$linkClicks, na.rm = TRUE))`
@@ -136,6 +174,25 @@ P-values comparing main effects.
 
 ```{r}
 M[["modelObject"]] %>% contrastTable %>% .[c("contrastImage", "contrastText")] %>% kable(digits = 3)
+```
+
+P-value comparing *Veteran* image + *Incentive* or *Sharing* text versus all others.
+
+```{r}
+K <- diag(length(coef(M[["modelObject"]])))[-1,]
+rownames(K) <- names(coef(M[["modelObject"]]))[-1]
+colnames(K) <- names(coef(M[["modelObject"]]))
+L <- matrix(K[rownames(K) == "imageVeteran", ] / 2 + 
+              (K[rownames(K) == "imageVeteran", ] + 
+                 K[rownames(K) == "textSharing", ] + 
+                 K[rownames(K) == "imageVeteran:textSharing", ]) / 2,
+            nrow = 1)
+colnames(L) <- colnames(K)
+test <- M[["modelObject"]] %>% glht(linfct = L) %>% summary()
+linpred <- M[["modelObject"]][["coefficients"]]["(Intercept)"] + test[["test"]][["coefficients"]] + log(1000)
+names(linpred) <- NULL
+pred <- exp(linpred)
+list(test = test, linpred = linpred, pred = pred)
 ```
 
 ### Reactions
