@@ -1,0 +1,79 @@
+# Ad image and text by actuve duty branch
+
+Repsond to manuscript reviewer comment
+
+> 1. Consider the impact of military culture. This may be best included in the Limitations and future directions. There was a significant Army bias in the two images with uniformed service members and the manuscript. It may be useful to report the service branch as a variable (if there was a difference) for the different ads. If there is not difference then state there was no difference by service rather than just reporting the 49% Army respondents. Military service is not binary: Army/Non Army. The seven characteristics of Military Ethos where core values of helping a peer and living by a moral code may be related to the higher sharing and better engagement. Consider, of the three images, only the picture of the tablet had an image that was consistent with the goal of participating in a survey. Being with family and marching are not related to taking a survey or sharing private and personal information.
+
+```{r}
+df2 %>%
+  group_by(branchArmy, branchNavy, branchAirForce, branchMarineCorp, branchCoastGuard, branchOther) %>% 
+  summarize(n = n()) %>% 
+  arrange(-n) %>% 
+  kable()
+```
+
+
+```{r}
+xtabs( ~ image + branchArmy, data = df2)
+chisq.test(df2$image, df2$branchArmy)
+xtabs( ~ text + branchArmy, data = df2)
+chisq.test(df2$text, df2$branchArmy)
+```
+
+
+```{r}
+xtabs( ~ image + branchNavy, data = df2)
+chisq.test(df2$image, df2$branchNavy)
+xtabs( ~ text + branchNavy, data = df2)
+chisq.test(df2$text, df2$branchNavy)
+```
+
+
+```{r}
+xtabs( ~ image + branchAirForce, data = df2)
+chisq.test(df2$image, df2$branchAirForce)
+xtabs( ~ text + branchAirForce, data = df2)
+chisq.test(df2$text, df2$branchAirForce)
+```
+
+
+```{r}
+xtabs( ~ image + branchMarineCorp, data = df2)
+chisq.test(df2$image, df2$branchMarineCorp)
+xtabs( ~ text + branchMarineCorp, data = df2)
+chisq.test(df2$text, df2$branchMarineCorp)
+```
+
+
+```{r}
+xtabs( ~ image + branchCoastGuard, data = df2)
+chisq.test(df2$image, df2$branchCoastGuard)
+xtabs( ~ text + branchCoastGuard, data = df2)
+chisq.test(df2$text, df2$branchCoastGuard)
+```
+
+
+```{r}
+xtabs( ~ image + branchOther, data = df2)
+chisq.test(df2$image, df2$branchOther)
+xtabs( ~ text + branchOther, data = df2)
+chisq.test(df2$text, df2$branchOther)
+```
+
+Include only respondents who served in **one** branch.
+
+```{r}
+df3 <- 
+  df2 %>% 
+  filter(branchCoastGuard == 0 & branchOther == 0) %>% 
+  filter(branchArmy + branchNavy + branchAirForce + branchMarineCorp + branchCoastGuard + branchOther == 1) %>% 
+  select(image, text, branchArmy, branchNavy, branchAirForce, branchMarineCorp, branchCoastGuard, branchOther ) %>% 
+  mutate(branch = case_when(.$branchArmy == 1 ~ "Army",
+                            .$branchNavy == 1 ~ "Navy",
+                            .$branchAirForce == 1 ~ "Air Force",
+                            .$branchMarineCorp == 1 ~ "Marine Corp"))
+xtabs( ~ image + branch, data = df3)
+chisq.test(df3$image, df3$branch)
+xtabs( ~ text + branch, data = df3)
+chisq.test(df3$text, df3$branch)
+```

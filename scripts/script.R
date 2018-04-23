@@ -9,6 +9,7 @@ sink("script.log")
 files <- c("header.yaml",
            "preamble.Rmd",
            "readData.Rmd",
+           "chisqActiveDutyBranch.Rmd",
            "corrData.Rmd",
            "modelAdMetrics.Rmd",
            "modelParticipantEngagement.Rmd",
