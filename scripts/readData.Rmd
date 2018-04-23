@@ -79,7 +79,13 @@ Notes on the REDCap identifier variables:
 ```{r}
 df2 <-
   "C:/Users/chanb/Box Sync/Facebook pilot - Statisticians/Data sets/REDCap dataset.csv" %>% 
-  read.csv(stringsAsFactors = FALSE)
+  read.csv(stringsAsFactors = FALSE) %>% 
+  rename(branchArmy = active_duty_branch___1,
+         branchNavy = active_duty_branch___2,
+         branchAirForce = active_duty_branch___3,
+         branchMarineCorp = active_duty_branch___4,
+         branchCoastGuard = active_duty_branch___5,
+         branchOther = active_duty_branch___6)
 df2 %>% 
   group_by(consent, 
            consent_and_eligibility_complete, 
