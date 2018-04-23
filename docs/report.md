@@ -1,6 +1,6 @@
 ---
 title: "Using Social Media to Engage Veterans in Health Care"
-date: "2018-01-11 12:03:10"
+date: "2018-04-23 09:08:22"
 author: Benjamin Chan (chanb@ohsu.edu)
 output:
   html_document:
@@ -372,6 +372,308 @@ DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for
 |:--------|---:|-----:|
 |FALSE    | 453| 0.774|
 |TRUE     | 132| 0.226|
+# Ad image and text by actuve duty branch
+
+Repsond to manuscript reviewer comment
+
+> 1. Consider the impact of military culture. This may be best included in the Limitations and future directions. There was a significant Army bias in the two images with uniformed service members and the manuscript. It may be useful to report the service branch as a variable (if there was a difference) for the different ads. If there is not difference then state there was no difference by service rather than just reporting the 49% Army respondents. Military service is not binary: Army/Non Army. The seven characteristics of Military Ethos where core values of helping a peer and living by a moral code may be related to the higher sharing and better engagement. Consider, of the three images, only the picture of the tablet had an image that was consistent with the goal of participating in a survey. Being with family and marching are not related to taking a survey or sharing private and personal information.
+
+
+| branchArmy| branchNavy| branchAirForce| branchMarineCorp| branchCoastGuard| branchOther|   n|
+|----------:|----------:|--------------:|----------------:|----------------:|-----------:|---:|
+|          1|          0|              0|                0|                0|           0| 290|
+|          0|          1|              0|                0|                0|           0|  92|
+|          0|          0|              1|                0|                0|           0|  91|
+|          0|          0|              0|                1|                0|           0|  61|
+|          1|          0|              1|                0|                0|           0|  12|
+|          1|          1|              0|                0|                0|           0|  12|
+|          1|          0|              0|                1|                0|           0|  11|
+|          0|          0|              0|                0|                1|           0|   8|
+|          0|          0|              1|                1|                0|           0|   2|
+|          0|          1|              0|                0|                0|           1|   2|
+|          0|          1|              1|                0|                0|           0|   2|
+|          0|          0|              1|                0|                1|           0|   1|
+|          0|          1|              0|                0|                1|           0|   1|
+|          0|          1|              0|                1|                0|           0|   1|
+|          1|          0|              1|                0|                1|           0|   1|
+
+
+
+```
+##           branchArmy
+## image        0   1
+##   Computer  54  54
+##   Family    38  46
+##   Veteran  168 225
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$image and df2$branchArmy
+## X-squared = 1.8294, df = 2, p-value = 0.4006
+```
+
+```
+##              branchArmy
+## text            0   1
+##   Incentive    80 116
+##   Altruism     26  27
+##   Empowerment  20  25
+##   Sharing      93 106
+##   SocialNorms  41  51
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$text and df2$branchArmy
+## X-squared = 1.9244, df = 4, p-value = 0.7497
+```
+
+
+
+```
+##           branchNavy
+## image        0   1
+##   Computer  85  23
+##   Family    74  10
+##   Veteran  316  77
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$image and df2$branchNavy
+## X-squared = 3.2184, df = 2, p-value = 0.2
+```
+
+```
+##              branchNavy
+## text            0   1
+##   Incentive   159  37
+##   Altruism     42  11
+##   Empowerment  37   8
+##   Sharing     168  31
+##   SocialNorms  69  23
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$text and df2$branchNavy
+## X-squared = 3.8337, df = 4, p-value = 0.429
+```
+
+
+
+```
+##           branchAirForce
+## image        0   1
+##   Computer  85  23
+##   Family    62  22
+##   Veteran  330  63
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$image and df2$branchAirForce
+## X-squared = 5.4528, df = 2, p-value = 0.06545
+```
+
+```
+##              branchAirForce
+## text            0   1
+##   Incentive   167  29
+##   Altruism     42  11
+##   Empowerment  35  10
+##   Sharing     160  39
+##   SocialNorms  73  19
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$text and df2$branchAirForce
+## X-squared = 2.8215, df = 4, p-value = 0.5881
+```
+
+
+
+```
+##           branchMarineCorp
+## image        0   1
+##   Computer  95  13
+##   Family    72  12
+##   Veteran  343  50
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$image and df2$branchMarineCorp
+## X-squared = 0.22403, df = 2, p-value = 0.894
+```
+
+```
+##              branchMarineCorp
+## text            0   1
+##   Incentive   173  23
+##   Altruism     49   4
+##   Empowerment  39   6
+##   Sharing     170  29
+##   SocialNorms  79  13
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$text and df2$branchMarineCorp
+## X-squared = 2.224, df = 4, p-value = 0.6946
+```
+
+
+
+```
+##           branchCoastGuard
+## image        0   1
+##   Computer 105   3
+##   Family    83   1
+##   Veteran  386   7
+```
+
+```
+## Warning in chisq.test(df2$image, df2$branchCoastGuard): Chi-squared
+## approximation may be incorrect
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$image and df2$branchCoastGuard
+## X-squared = 0.70908, df = 2, p-value = 0.7015
+```
+
+```
+##              branchCoastGuard
+## text            0   1
+##   Incentive   193   3
+##   Altruism     51   2
+##   Empowerment  43   2
+##   Sharing     195   4
+##   SocialNorms  92   0
+```
+
+```
+## Warning in chisq.test(df2$text, df2$branchCoastGuard): Chi-squared
+## approximation may be incorrect
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$text and df2$branchCoastGuard
+## X-squared = 4.5444, df = 4, p-value = 0.3373
+```
+
+
+
+```
+##           branchOther
+## image        0   1
+##   Computer 107   1
+##   Family    84   0
+##   Veteran  392   1
+```
+
+```
+## Warning in chisq.test(df2$image, df2$branchOther): Chi-squared
+## approximation may be incorrect
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$image and df2$branchOther
+## X-squared = 1.4576, df = 2, p-value = 0.4825
+```
+
+```
+##              branchOther
+## text            0   1
+##   Incentive   195   1
+##   Altruism     53   0
+##   Empowerment  45   0
+##   Sharing     198   1
+##   SocialNorms  92   0
+```
+
+```
+## Warning in chisq.test(df2$text, df2$branchOther): Chi-squared approximation
+## may be incorrect
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df2$text and df2$branchOther
+## X-squared = 0.9655, df = 4, p-value = 0.915
+```
+
+Include only respondents who served in **one** branch.
+
+
+```
+##           branch
+## image      Air Force Army Marine Corp Navy
+##   Computer        23   47          10   17
+##   Family          19   39          10    8
+##   Veteran         48  203          41   67
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df3$image and df3$branch
+## X-squared = 12.028, df = 6, p-value = 0.06135
+```
+
+```
+##              branch
+## text          Air Force Army Marine Corp Navy
+##   Incentive          24  109          18   31
+##   Altruism           10   25           4   10
+##   Empowerment         7   20           5    7
+##   Sharing            36   97          25   26
+##   SocialNorms        13   38           9   18
+```
+
+```
+## Warning in chisq.test(df3$text, df3$branch): Chi-squared approximation may
+## be incorrect
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  df3$text and df3$branch
+## X-squared = 8.8916, df = 12, p-value = 0.7122
+```
 # Correlate Facebook metrics data
 
 
@@ -389,7 +691,7 @@ DSI-SS score $\ge$ 2 (this cut-off score was chosen based on recommendations for
 
 Check correlation between `impressions` and `reach`.
 
-![plot of chunk unnamed-chunk-14](../figures/unnamed-chunk-14-1.png)
+![plot of chunk unnamed-chunk-22](../figures/unnamed-chunk-22-1.png)
 # Model Facebook ad metrics
 
 * Use negative binomial model
@@ -2329,7 +2631,7 @@ Main contact | Samuel Liebow, liebow@ohsu.edu
 Statistician | Benjamin Chan, chanb@ohsu.edu, 503-494-5491
 eIRB # | IRB15797
 BDP project # | BDP-25
-Date | 2018-01-11 12:06:38
+Date | 2018-04-23 09:12:33
 
 
 ## Objectives
