@@ -10,6 +10,16 @@ df2 %>%
   summarize(n = n()) %>% 
   arrange(-n) %>% 
   kable()
+df2 %>% group_by(branchArmy) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(branchNavy) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(branchAirForce) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(branchMarineCorp) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(branchCoastGuard) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(branchOther) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% 
+  filter(branchArmy + branchNavy + branchAirForce + branchMarineCorp + branchCoastGuard + branchOther > 1) %>% 
+  select(branchArmy, branchNavy, branchAirForce, branchMarineCorp, branchCoastGuard, branchOther) %>% 
+  arrange(branchArmy, branchNavy, branchAirForce, branchMarineCorp, branchCoastGuard, branchOther)
 ```
 
 
@@ -76,4 +86,28 @@ xtabs( ~ image + branch, data = df3)
 chisq.test(df3$image, df3$branch)
 xtabs( ~ text + branch, data = df3)
 chisq.test(df3$text, df3$branch)
+```
+
+
+## Service era
+
+```{r}
+df2 %>% group_by(deployed) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>%
+  group_by(era1Current,
+           era2GulfWar,
+           era3PreGulfWar,
+           era4Vietnam,
+           era5PreVietnam,
+           era6Korea,
+           era7PreKorea,
+           era8WWII,
+           era9PreWWII) %>% 
+  summarize(n = n()) %>% 
+  arrange(-n) %>% 
+  kable()
+df2 %>% group_by(era1Current) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(era2GulfWar) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(era3PreGulfWar) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
+df2 %>% group_by(era4Vietnam) %>% summarize(n = n()) %>% mutate(p = n / sum(n))
 ```
